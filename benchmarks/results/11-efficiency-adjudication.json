@@ -1,0 +1,17 @@
+{
+  "contaminated_docs": 203,
+  "contaminated_tokens": 230086,
+  "gate_margin": 0.02,
+  "protocol": "non-overlapping 1024, stride 1024, fp32",
+  "control": {
+    "raw_val": 3.8398,
+    "clean_val": 3.829
+  },
+  "edu-score4": {
+    "raw_val": 3.8646,
+    "clean_val": 3.8741
+  },
+  "gate_threshold_clean": 3.809,
+  "verdict": "FAIL",
+  "lane_raw_minus_clean": -0.0095
+}

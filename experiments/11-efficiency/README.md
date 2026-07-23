@@ -73,5 +73,31 @@ checkpoint by `adjudicate.py`:
   control), train loss 3.2334 → **0.90-nat train/val gap**: clear
   4-epoch overfit of the 25M-token sub-pool. The gap, not just the miss,
   is the finding: small-pool reuse at 1:4 is far from free.
-- **edu-score4**: training; adjudicated by the pinned protocol above on
-  completion.
+- **edu-score4**: FAIL — adjudicated by the pinned protocol
+  (`adjudicate.py`, results in
+  `benchmarks/results/11-efficiency-adjudication.json`): clean-val
+  **3.8741** vs control clean-val 3.8290 (threshold 3.8090) — the elite
+  filter (top 13.3\% of FineWeb-Edu by score) *underperforms* the broader
+  score≥3 corpus by 0.045 nats at this budget. Diversity loss beats
+  quality gain at 100M tokens. The contamination the design review caught
+  was real and directional: removing the 203 leaked docs improved the
+  control (3.8398→3.8290, they're harder-than-average) while worsening
+  the lane (3.8646→3.8741, it had memorized them) — a differential of
+  ~0.02 nats, exactly the gate margin. In-run eval noise across the last
+  three evals (3.867→3.927→3.844) independently confirmed F2: the
+  stochastic estimator swings 3x the margin.
+
+## Milestone verdict
+
+**Four pre-registered challenges, four negatives.** The 05/09 recipe
+(AdamW fp32, fresh sub-epoch data, score≥3 corpus) survived every
+efficiency lever tested against it: precision (bf16: no speed), optimizer
+(Muon@default: −0.22 nats), data reuse (4x small pool: −0.32 nats), and
+harder filtering (top-13\%: −0.045 nats even after decontamination). The
+pre-registered flagship-3 target ("09 quality at half the wall-clock via
+adopted levers") therefore has no adopted levers and is **cancelled as
+specified** — the honest conclusion is that at this scale the incumbent
+recipe is locally optimal among cheap training-cycle levers, and further
+efficiency must come from a different class of lever (distillation,
+post-training, architecture). Each negative is scoped in its bullet;
+each cost ~7h and is worth more than a lucky positive.

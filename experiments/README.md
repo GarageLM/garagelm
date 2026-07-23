@@ -72,13 +72,16 @@ capability-per-FLOP frontier against published same-size models, stated in
   of full, 4-bit costs ~0.01 nats for +35-60% speed. Results table in
   `benchmarks/README.md`, JSONs in `benchmarks/results/mlx-*.json`.
 
-- **`11-efficiency/`** *(in progress)* — the training-cycle program: with
-  the token axis saturating, the target is intelligence per training hour.
-  A/B lanes vs the `05` hybrid control under pre-registered gates: Muon
-  optimizer, bf16 autocast (**cut by its own gate — 1.01x on MPS, a
-  documented negative result**), 4-epoch data reuse, and an
-  int_score≥4-filtered pool (13.3% survival). Flagship-3 target: match
-  `09` quality at ≤ half its 127h wall-clock.
+- **`11-efficiency/`** — the training-cycle program: A/B lanes vs the
+  `05` hybrid control under pre-registered gates. **Result: four
+  challenges, four negatives** — bf16 autocast (1.01x on MPS, first
+  formal measurement of the null), Muon@default (−0.22 nats), 4-epoch
+  small-pool reuse (−0.32 nats, 0.90-nat train/val gap), and elite
+  score≥4 filtering (−0.045 nats on a decontaminated val, after the
+  design-reviewer agent caught 11.5% val contamination in the lane's
+  pool — see `design-review-20260723.md` and `adjudicate.py`). The
+  incumbent recipe survived everything; flagship-3-via-adopted-levers is
+  cancelled as specified. Next lever class: distillation/post-training.
 
 - **`10-sft/`** — SmolTalk SFT of the `09` flagship (assistant-only loss
   masking, one epoch, 7.6h): masked val 2.54→1.70, **zero benchmark
