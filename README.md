@@ -69,8 +69,11 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
    measurement that the token axis is saturating.
 9. **10: SFT + release** — SmolTalk chat tuning (no benchmark regression)
    and the published weights above.
-10. **11: efficiency** *(in progress)* — Muon / multi-epoch / elite-filter
-    lanes vs the 05 control; target: `09` quality at half the wall-clock.
+10. **11: efficiency** — four levers vs the 05 control, **four gated
+    negatives** (bf16: no MPS speedup; Muon@default: −0.22; 4x small-pool
+    reuse: −0.32; elite filter: −0.045 on decontaminated val, after the
+    design-reviewer agent caught 11.5% val contamination). The recipe
+    stands; next lever class is distillation + post-training.
 
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.
