@@ -1,0 +1,50 @@
+{
+  "model": "05-data-frontier-sliding-window",
+  "tag": "float16",
+  "dtype": "float16",
+  "quant_bits": null,
+  "params": 114114048,
+  "block_size": 1024,
+  "window": 64,
+  "global_every": null,
+  "peak_memory_gb": 0.68,
+  "lengths": [
+    {
+      "prompt_len": 64,
+      "decode_tokens": 128,
+      "ttft_s": 0.0046,
+      "prefill_tok_per_s": 13953.1,
+      "decode_tok_per_s": 530.4,
+      "kv_mb_after_prefill": 0.77,
+      "kv_mb_after_decode": 0.77
+    },
+    {
+      "prompt_len": 256,
+      "decode_tokens": 128,
+      "ttft_s": 0.0113,
+      "prefill_tok_per_s": 22706.0,
+      "decode_tok_per_s": 530.7,
+      "kv_mb_after_prefill": 0.77,
+      "kv_mb_after_decode": 0.77
+    },
+    {
+      "prompt_len": 512,
+      "decode_tokens": 128,
+      "ttft_s": 0.0211,
+      "prefill_tok_per_s": 24232.3,
+      "decode_tok_per_s": 528.5,
+      "kv_mb_after_prefill": 0.77,
+      "kv_mb_after_decode": 0.77
+    },
+    {
+      "prompt_len": 896,
+      "decode_tokens": 128,
+      "ttft_s": 0.0369,
+      "prefill_tok_per_s": 24260.0,
+      "decode_tok_per_s": 529.5,
+      "kv_mb_after_prefill": 0.77,
+      "kv_mb_after_decode": 0.77
+    }
+  ],
+  "val_loss": 4.0413
+}

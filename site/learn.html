@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  [data-theme="light"], :root {
+    --bg:#fffff8; --grid:#fffff8; --panel:#fdfdf3; --panel2:#f4f4ea; --panel3:#f4f4ea;
+    --ink:#1a1a1a; --ink2:#3d3d38; --mute:#6f6f66; --mute2:#9a9a8e;
+    --line:#c9c9bd; --line2:#e0e0d4; --accent:#0000cc; --accent-soft:#eaeaff; --accent-line:#c4c4ee;
+    --chip:#f4f4ea; --head-bg:#1a1a1a; --accent-glow:rgba(0,0,204,.15); --flow:#9898c8; --bracket:#b4b4a8;
+    --warm:#1e3a8a; --warm-soft:#e8edfa; --warm-line:#c6d2f0; --visited:#551a8b; --hover:#cc4400; --ok:#0a7a2f;
+  }
+  [data-theme="dark"] {
+    --bg:#111110; --grid:#111110; --panel:#181816; --panel2:#1c1c18; --panel3:#1c1c18;
+    --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --mute2:#5e5e54;
+    --line:#3c3c34; --line2:#2a2a24; --accent:#8fb0ff; --accent-soft:#1a2338; --accent-line:#3a4a70;
+    --chip:#1c1c18; --head-bg:#000000; --accent-glow:rgba(143,176,255,.25); --flow:#5a5a80; --bracket:#4a4a40;
+    --warm:#8fa8ee; --warm-soft:#161f38; --warm-line:#33456f; --visited:#c39bf0; --hover:#ffab70; --ok:#7fbf7a;
+  }
+  ::selection { background: #3355bb; color:#fff; }
+  a:link { color: var(--accent); }
+  a:visited { color: var(--visited); }
+  a:hover { color: var(--hover); }
+  [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
+  @keyframes blink { 0%,55% { opacity:1; } 56%,100% { opacity:0; } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7;color:var(--ink);background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;transition:background .25s,color .25s">
+
+  <!-- APP BAR -->
+  <div style="background:var(--bg);border-bottom:1px dashed var(--line);padding:36px 20px 20px;max-width:756px;margin:0 auto">
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <div style="flex:1"></div>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+    </div>
+    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <b>learn</b> &nbsp;·&nbsp; <a href="team.html">team</a></span><span style="flex:1"></span><span style="font-size:10px;letter-spacing:1px;color:var(--mute)">visitor no.&nbsp;</span><span style="background:#000;color:#6fef6f;border:1px solid var(--line);font-size:11px;padding:1px 7px;letter-spacing:2px">{{ visits }}</span></div>
+    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+      <div style="position:relative">
+        <button onClick="{{ onLessons }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 9px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:var(--ink)"><span style="color:var(--warm)">$</span> learn/01 · forward-pass explorer <span style="font-size:9px;opacity:.6">▾</span></button>
+        <sc-if value="{{ lessonsOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:calc(100% + 3px);left:0;z-index:60;background:var(--bg);border:1px solid var(--line);min-width:320px;font-family:'Courier New',monospace;font-size:12.5px;line-height:2;padding:8px 12px;box-shadow:3px 3px 0 var(--line)">
+            <div style="font-weight:700"><span style="color:var(--warm)">01</span> forward-pass explorer <span style="color:var(--ok);font-size:10.5px">● live</span></div>
+            <div style="color:var(--mute)"><span>02</span> tokenizer workbench <span style="font-size:10.5px">(tbd)</span></div>
+            <div style="color:var(--mute)"><span>03</span> kv-cache visualizer <span style="font-size:10.5px">(tbd)</span></div>
+            <div style="color:var(--mute)"><span>04</span> attention-head zoo <span style="font-size:10.5px">(tbd)</span></div>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:baseline">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.onClick }}" style="{{ t.tabStyle }}">{{ t.label }}</button></sc-for>
+      </div>
+      <div style="flex:1"></div>
+      <button onClick="{{ onTour }}" style="{{ tourLaunchStyle }}">✦ tour</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute)">INPUT</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="5">
+          <div style="position:relative">
+            <button onClick="{{ chip.onClick }}" style="{{ chip.chipStyle }}"><span>{{ chip.word }}</span><span style="font-family:'Courier New',monospace;font-size:9px;opacity:.55;margin-left:2px">▾</span></button>
+            <sc-if value="{{ chip.editing }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:calc(100% + 6px);left:0;background:var(--panel);border:1px solid var(--line);border-radius:0;box-shadow:0 10px 30px rgba(0,0,0,.22);padding:5px;display:grid;grid-template-columns:1fr 1fr;gap:3px;z-index:60;width:150px">
+                <sc-for list="{{ chip.vocab }}" as="v" hint-placeholder-count="8"><button onClick="{{ v.onClick }}" style="{{ v.optStyle }}">{{ v.w }}</button></sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2)">causal · predict next</span>
+      <div style="flex:1"></div>
+      <span style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--accent);font-weight:600">d=4 · heads=2 · d_ff=8</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px">
+      <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute)">OUTPUT</div>
+      <span style="font-family:'Courier New',monospace;font-size:14px;color:var(--mute)">→</span>
+      <div style="background:var(--head-bg);color:#fff;border-radius:0;padding:6px 12px;font-weight:600;display:flex;align-items:baseline;gap:8px"><span style="font-size:14px">{{ predWord }}</span><span style="font-family:'Courier New',monospace;font-size:11px;color:#7fa8f0">{{ predPct }}</span></div>
+      <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2)">most likely next token</span>
+    </div>
+  </div>
+
+  <sc-if value="{{ showCrumbs }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:14px 20px 0;max-width:756px;margin:0 auto">
+    <span style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--mute2);margin-right:3px">YOU ARE HERE</span>
+    <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="6"><div style="display:flex;align-items:center;gap:7px"><button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button><sc-if value="{{ c.arrow }}" hint-placeholder-val="{{ true }}"><span style="color:var(--mute2);font-size:10px">→</span></sc-if></div></sc-for>
+  </div>
+  </sc-if>
+
+  <div style="padding:20px 20px 70px;max-width:756px;margin:0 auto">
+
+  <!-- ============ ARCHITECTURE ============ -->
+  <sc-if value="{{ isArch }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+      <div style="{{ areaStyle }}">
+        <svg width="370" height="{{ totalH }}" viewBox="0 0 370 {{ totalH }}" style="position:absolute;left:0;top:0;overflow:visible">
+          <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8" fill="none" stroke="context-stroke" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></marker></defs>
+          <sc-for list="{{ flow }}" as="s" hint-placeholder-count="9"><line x1="{{ s.x1 }}" y1="{{ s.y1 }}" x2="{{ s.x2 }}" y2="{{ s.y2 }}" stroke-width="1.6" marker-end="url(#ah)" style="stroke:var(--flow)"></line></sc-for>
+          <sc-for list="{{ skips }}" as="sk" hint-placeholder-count="2"><path d="{{ sk.d }}" fill="none" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah)" style="stroke:var(--accent)"></path></sc-for>
+        </svg>
+        <div style="{{ bracketStyle }}"></div>
+        <div style="{{ bracketLabelStyle }}">× N</div>
+        <div style="{{ skipLabel1 }}">skip</div>
+        <div style="{{ skipLabel2 }}">skip</div>
+        <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="10">
+          <div onMouseEnter="{{ n.onEnter }}" onClick="{{ n.onEnter }}" style="{{ n.boxStyle }}">
+            <div style="{{ n.mainStyle }}">{{ n.main }}</div>
+            <sc-if value="{{ n.hasSub }}" hint-placeholder-val="{{ false }}"><div style="{{ n.subStyle }}">{{ n.sub }}</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:1;min-width:270px;position:sticky;top:16px">
+        <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;overflow:hidden">
+          <div style="background:var(--head-bg);color:#fff;padding:13px 16px;display:flex;align-items:center;gap:10px">
+            <span style="display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:22px;padding:0 6px;border-radius:0;font-family:'Courier New',monospace;font-size:11px;font-weight:600;background:var(--accent);color:#fff">{{ sel.tag }}</span>
+            <span style="font-size:15px;font-weight:600">{{ sel.name }}</span>
+          </div>
+          <div style="padding:16px">
+            <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--accent);background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:9px 11px;margin-bottom:14px;word-break:break-word">{{ sel.formula }}</div>
+            <div style="font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:16px">{{ sel.desc }}</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div style="flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 12px">
+                <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:4px">OUTPUT SHAPE</div>
+                <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600">{{ sel.shape }}</div>
+              </div>
+              <div style="flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 12px">
+                <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:4px">PARAMETERS</div>
+                <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600">{{ sel.params }}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button onClick="{{ selGoPipeline }}" style="{{ linkBtn }}">Open in Pipeline →</button>
+              <sc-if value="{{ selHasMath }}" hint-placeholder-val="{{ false }}"><button onClick="{{ selGoMath }}" style="{{ linkBtn }}">See the math →</button></sc-if>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:14px 16px;margin-top:16px">
+          <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--mute);margin-bottom:11px">LEGEND</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:12px;color:var(--ink2)">
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:22px;height:14px;border-radius:0;background:var(--accent-soft);border:1.5px solid var(--accent);flex:none"></span>learned sublayer (attention / FFN)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:22px;height:14px;border-radius:0;background:var(--panel3);border:1px solid var(--accent-line);flex:none"></span>add &amp; norm (residual + LayerNorm)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:22px;height:14px;border-radius:0;background:var(--panel);border:1px solid var(--line);flex:none"></span>fixed / lookup op</div>
+            <div style="display:flex;align-items:center;gap:9px"><svg width="22" height="14" style="flex:none"><line x1="1" y1="7" x2="21" y2="7" stroke-width="1.6" stroke-dasharray="4 3" style="stroke:var(--accent)"></line></svg>residual skip connection</div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2);margin-top:13px;line-height:1.6;border-top:1px solid var(--line2);padding-top:11px">≈ 188 params in this toy · a real 7B model repeats the block ×32 with d_model≈4096.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ PIPELINE ============ -->
+  <sc-if value="{{ isPipeline }}" hint-placeholder-val="{{ false }}">
+    <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:8px">PIPELINE — CLICK A STAGE</div>
+    <div style="display:flex;align-items:stretch;flex-wrap:wrap;margin-bottom:6px">
+      <sc-for list="{{ stages }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex;align-items:center">
+          <button onClick="{{ s.onSelect }}" style="{{ s.cardStyle }}">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><span style="{{ s.numStyle }}">{{ s.index }}</span><span style="font-weight:600;font-size:12.5px">{{ s.name }}</span></div>
+            <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--ink2);margin-bottom:6px;min-height:14px">{{ s.formula }}</div>
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute)">out {{ s.shape }}</div>
+          </button>
+          <sc-if value="{{ s.arrow }}" hint-placeholder-val="{{ false }}"><span style="color:var(--mute2);font-size:15px;padding:0 6px">→</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);margin-bottom:22px">└ stages 2–5 form one transformer block — real models stack N identical blocks ┘</div>
+
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;overflow:hidden">
+      <div style="background:var(--head-bg);color:#fff;padding:13px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <span style="background:var(--accent);color:#fff;font-family:'Courier New',monospace;font-size:11px;font-weight:600;border-radius:0;padding:3px 8px">STAGE {{ curIndex }}</span>
+        <span style="font-size:16px;font-weight:600">{{ curName }}</span>
+        <span style="font-family:'Courier New',monospace;font-size:12px;color:#8fb0ee">{{ curFormula }}</span>
+      </div>
+      <div style="padding:22px 20px">
+        <sc-if value="{{ isEmbed }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:760px;line-height:1.6">Each token id indexes a row of the embedding table <b>E</b>. We add a sinusoidal <b>positional encoding</b> so positions are distinguishable. The sum <b>x⁰</b> is the first state of the <b>residual stream</b>.</div>
+          <div style="display:flex;gap:26px;align-items:center;flex-wrap:wrap">
+            <div><div style="{{ capStyle }}">E[token]</div><dc-import name="Matrix" values="{{ f.emb }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" dark="{{ dark }}" hint-size="260px,180px"></dc-import></div>
+            <span style="font-size:22px;color:var(--mute)">+</span>
+            <div><div style="{{ capStyle }}">PE(pos)</div><dc-import name="Matrix" values="{{ f.pos }}" rowlabels="{{ posLabels }}" collabels="{{ dims }}" heat="signed" dark="{{ dark }}" hint-size="260px,180px"></dc-import></div>
+            <span style="font-size:22px;color:var(--mute)">=</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">x⁰ residual in [{{ seqDim }}]</span></div><dc-import name="Matrix" values="{{ f.x0 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" dark="{{ dark }}" hint-size="260px,180px"></dc-import></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);margin-top:18px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:10px 13px">PE(pos,2i)=sin(pos / 10000^(2i/d)) · PE(pos,2i+1)=cos(pos / 10000^(2i/d))</div>
+        </sc-if>
+
+        <sc-if value="{{ isAttn }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:16px;max-width:820px;line-height:1.6">Project x⁰ into <b>queries, keys, values</b>; each head scores every query against every key, softmaxes (future masked), and mixes values. Heads concat then mix by <b>W_O</b>.</div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mute);margin-bottom:8px">1 · PROJECTIONS &nbsp;<span style="color:var(--mute2)">Q=x⁰W_Q · K=x⁰W_K · V=x⁰W_V</span></div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+            <div><div style="{{ capStyle }}">Q</div><dc-import name="Matrix" values="{{ f.Q }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" highlightrow="{{ qHl }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <div><div style="{{ capStyle }}">K</div><dc-import name="Matrix" values="{{ f.K }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" highlightrow="{{ kHl }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <div><div style="{{ capStyle }}">V</div><dc-import name="Matrix" values="{{ f.V }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" highlightrow="{{ vHl }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+            <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mute)">2 · PER-HEAD</div>
+            <div style="display:flex;gap:5px"><sc-for list="{{ headBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+            <span style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2)">dims {{ headDimText }} · √dₖ = {{ sqrtdk }}</span>
+            <div style="display:flex;gap:5px"><sc-for list="{{ viewBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+            <sc-if value="{{ showHeat }}" hint-placeholder-val="{{ true }}"><button onClick="{{ onMaskCmp }}" style="{{ maskBtnStyle }}">{{ maskBtnLabel }}</button></sc-if>
+          </div>
+          <sc-if value="{{ showHeat }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:16px">
+            <div><div style="{{ capStyle }}">scores = QKᵀ/√dₖ <span style="color:var(--mute2)">(▨ mask)</span></div><dc-import name="Matrix" values="{{ hd.masked }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="signed" highlightrow="{{ wHlRow }}" highlightcol="{{ wHlCol }}" oncellhover="{{ onWCell }}" oncellclick="{{ onWClick }}" dark="{{ dark }}" hint-size="300px,180px"></dc-import></div>
+            <span style="font-size:19px;color:var(--mute)">→</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">softmax weights</span></div><dc-import name="Matrix" values="{{ hd.weights }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" highlightrow="{{ wHlRow }}" highlightcol="{{ wHlCol }}" oncellhover="{{ onWCell }}" oncellclick="{{ onWClick }}" dark="{{ dark }}" hint-size="300px,180px"></dc-import></div>
+            <span style="font-size:19px;color:var(--mute)">·V=</span>
+            <div><div style="{{ capStyle }}">head output</div><dc-import name="Matrix" values="{{ hd.out }}" rowlabels="{{ words }}" collabels="{{ headColLabels }}" heat="signed" compact="{{ true }}" highlightrow="{{ qHl }}" dark="{{ dark }}" hint-size="150px,180px"></dc-import></div>
+            <sc-if value="{{ maskCmp }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:19px;color:var(--mute)">vs</span>
+              <div><div style="{{ capStyle }}"><span style="color:#c2673f">without causal mask — hypothetical</span></div><dc-import name="Matrix" values="{{ noMaskW }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" highlightrow="{{ wHlRow }}" dark="{{ dark }}" hint-size="300px,180px"></dc-import></div>
+            </sc-if>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);margin-top:8px">hover a score to trace its Q · K rows above · click a visible cell to open that exact derivation in Math · keys: ←/→ query row · H head</div>
+          <sc-if value="{{ maskCmp }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Courier New',monospace;font-size:10px;color:#c2673f;margin-top:4px">without the mask, every token would also average over FUTURE positions — the model could cheat by reading the answer it is meant to predict</div></sc-if>
+          </sc-if>
+          <sc-if value="{{ showArcs }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:16px 16px 6px;overflow-x:auto">
+            <div style="{{ capStyle }}">where "{{ qWord }}" (q{{ qpos }}) looks — head {{ headNo }} <span style="color:var(--mute2)">· arc width ∝ weight · click a token to move the query · ▨ = masked</span></div>
+            <div style="width:{{ arcW }}px">
+              <svg width="{{ arcW }}" height="110" style="overflow:visible;display:block">
+                <sc-for list="{{ arcs }}" as="a" hint-placeholder-count="3"><path d="{{ a.d }}" style="{{ a.style }}"></path></sc-for>
+              </svg>
+              <div style="display:flex;margin-top:2px">
+                <sc-for list="{{ arcToks }}" as="tk" hint-placeholder-count="5">
+                  <div style="width:108px;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px">
+                    <button onClick="{{ tk.onClick }}" style="{{ tk.chipStyle }}">{{ tk.label }}</button>
+                    <span style="{{ tk.pctStyle }}">{{ tk.pct }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+          <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute)">query row:</span>
+            <div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ qBtns }}" as="b" hint-placeholder-count="5"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+          </div>
+          <div style="margin-top:10px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink2);background:var(--panel);border:1px solid var(--line2);border-radius:0;padding:11px 13px;line-height:1.7">{{ qExplain }}</div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mute);margin:22px 0 8px">3 · CONCAT → W_O</div>
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+            <div><div style="{{ capStyle }}">concat [{{ seqDim }}]</div><dc-import name="Matrix" values="{{ f.concat }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <span style="font-size:19px;color:var(--mute)">·W_O=</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">attention output</span></div><dc-import name="Matrix" values="{{ f.attnOut }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAdd1 }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:780px;line-height:1.6">Attention output is <b>added back</b> to the residual stream (skip connection), then <b>LayerNorm</b> re-centers &amp; re-scales each row to zero mean / unit variance.</div>
+          <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+            <div><div style="{{ capStyle }}">x⁰</div><dc-import name="Matrix" values="{{ f.x0 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <span style="font-size:20px;color:var(--mute)">+</span>
+            <div><div style="{{ capStyle }}">attn out</div><dc-import name="Matrix" values="{{ f.attnOut }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <span style="font-size:15px;color:var(--mute);font-family:'Courier New',monospace">→ LN →</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">normalized</span></div><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);margin-top:18px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:10px 13px">LayerNorm(x) = γ·(x − μ)/√(σ² + ε) + β · per-row μ,σ · γ=1, β=0, ε=1e-5</div>
+        </sc-if>
+
+        <sc-if value="{{ isFfn }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:800px;line-height:1.6">Position-wise MLP: project each row up to <b>d_ff=8</b>, apply <b>GELU</b>, project back to 4. Same weights at every position — where most parameters live.</div>
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <div><div style="{{ capStyle }}">ln1 [{{ seqDim }}]</div><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,160px"></dc-import></div>
+            <span style="font-size:14px;color:var(--mute);font-family:'Courier New',monospace">W₁+b₁→</span>
+            <div><div style="{{ capStyle }}">up-project [{{ seq }}×8]</div><dc-import name="Matrix" values="{{ f.preAct }}" rowlabels="{{ words }}" collabels="{{ ffLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="360px,160px"></dc-import></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:16px">
+            <div><div style="{{ capStyle }}">GELU(·)</div><dc-import name="Matrix" values="{{ f.act }}" rowlabels="{{ words }}" collabels="{{ ffLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="360px,160px"></dc-import></div>
+            <span style="font-size:14px;color:var(--mute);font-family:'Courier New',monospace">W₂+b₂→</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">down-project [{{ seqDim }}]</span></div><dc-import name="Matrix" values="{{ f.ff2 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,160px"></dc-import></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);margin-top:18px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:10px 13px">FFN(x) = GELU(x·W₁ + b₁)·W₂ + b₂ · GELU(x) ≈ 0.5x(1 + tanh[√(2/π)(x + 0.044715x³)])</div>
+        </sc-if>
+
+        <sc-if value="{{ isAdd2 }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:780px;line-height:1.6">Second residual add + LayerNorm gives the block output. In a real model this feeds the next of <b>N</b> identical blocks — the residual stream flows straight through.</div>
+          <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+            <div><div style="{{ capStyle }}">ln1</div><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <span style="font-size:20px;color:var(--mute)">+</span>
+            <div><div style="{{ capStyle }}">ffn out</div><dc-import name="Matrix" values="{{ f.ff2 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+            <span style="font-size:15px;color:var(--mute);font-family:'Courier New',monospace">→ LN →</span>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">block output</span></div><dc-import name="Matrix" values="{{ f.ln2 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isOut }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:820px;line-height:1.6">Take the block output at the <b>final position</b> ("{{ lastWord }}"), project against the vocabulary (tied to Eᵀ) for one <b>logit</b> per token, and softmax into a distribution. The argmax is the prediction.</div>
+          <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px">
+            <div><div style="{{ capStyle }}">h = final position</div><dc-import name="Matrix" values="{{ lastRow }}" collabels="{{ dims }}" heat="signed" dark="{{ dark }}" hint-size="230px,70px"></dc-import></div>
+            <span style="font-size:14px;color:var(--mute);font-family:'Courier New',monospace;padding-top:26px">·Eᵀ→</span>
+            <div><div style="{{ capStyle }}">logits [vocab=8]</div><dc-import name="Matrix" values="{{ logitsRow }}" collabels="{{ vocab }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="360px,70px"></dc-import></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mute);margin-bottom:10px">softmax(logits) — NEXT-TOKEN DISTRIBUTION</div>
+          <div style="display:flex;flex-direction:column;gap:6px;max-width:560px">
+            <sc-for list="{{ bars }}" as="bar" hint-placeholder-count="8">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="{{ bar.wordStyle }}">{{ bar.word }}</span>
+                <div style="flex:1;height:20px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;overflow:hidden"><div style="{{ bar.barStyle }}"></div></div>
+                <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);width:32px;text-align:right">{{ bar.logit }}</span>
+                <span style="{{ bar.pctStyle }}">{{ bar.valText }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2);margin-top:16px;max-width:620px;line-height:1.6">Hand-set toy weights — the distribution shows the <i>mechanism</i>, not linguistic accuracy. Greedy decoding takes the argmax, appends it, and runs the whole pass again.</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ MATH ============ -->
+  <sc-if value="{{ isMath }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:940px">
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:20px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">THE MATH, BY HAND</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.4px;line-height:1.3;margin-bottom:14px;max-width:660px">The same numbers as the Pipeline — expanded to every scalar operation.</div>
+        <div style="font-size:14px;color:var(--ink2);line-height:1.7;max-width:700px">Pick a query, key, token and activation below; every derivation recomputes live from your input. These are the exact values the matrices in the other tabs are built from — here nothing is collapsed into a matmul.</div>
+      </div>
+
+      <!-- selectors -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:16px 20px;margin-bottom:20px;display:flex;gap:26px;flex-wrap:wrap">
+        <div><div style="{{ mSelCap }}">HEAD</div><div style="display:flex;gap:5px"><sc-for list="{{ mHeadBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div></div>
+        <div><div style="{{ mSelCap }}">QUERY&nbsp;i</div><div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ mQBtns }}" as="b" hint-placeholder-count="5"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div></div>
+        <div><div style="{{ mSelCap }}">KEY&nbsp;j&nbsp;<span style="color:var(--mute2)">(≤ i)</span></div><div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ mKBtns }}" as="b" hint-placeholder-count="5"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div></div>
+      </div>
+
+      <!-- 1. attention score -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">1</span> One attention score — scalar by scalar</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Query <b>"{{ mathQword }}"</b> (q{{ mQi }}) scored against key <b>"{{ mathKword }}"</b> (k{{ mKj }}) in head {{ mHeadi }} — a dot product over the head's 2 dimensions, scaled by √dₖ.</div>
+        <div style="{{ mBox }}"><sc-for list="{{ scoreLines }}" as="l" hint-placeholder-count="6"><div style="{{ l.hi }}">{{ l.t }}</div></sc-for></div>
+      </div>
+
+      <!-- 2. softmax -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">2</span> Softmax over query {{ mQi }}'s scores</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Exponentiate each visible score (max subtracted for numerical stability) and normalize so the row sums to 1. The result is the attention-weight row.</div>
+        <div style="display:grid;grid-template-columns:70px 74px 90px 60px;gap:8px;padding:0 10px 7px;font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:.5px;color:var(--mute2)">
+          <div>KEY</div><div>score s</div><div>exp(s−max)</div><div>weight</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <sc-for list="{{ softRows }}" as="r" hint-placeholder-count="4">
+            <div style="{{ r.rowStyle }}">
+              <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink2)">k{{ r.j }}·{{ r.word }}</span>
+              <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">{{ r.s }}</span>
+              <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">{{ r.ez }}</span>
+              <span style="font-family:'Courier New',monospace;font-size:11.5px;font-weight:600;color:var(--accent)">{{ r.w }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute);margin-top:12px;line-height:1.6">{{ softInfo }}</div>
+      </div>
+
+      <!-- 3. weighted value sum -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">3</span> Head output = weighted sum of values</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Each output dimension is the attention-weighted average of that dimension across all visible value vectors: out[i] = Σⱼ wᵢⱼ · vⱼ.</div>
+        <div style="{{ mBox }}"><sc-for list="{{ valLines }}" as="l" hint-placeholder-count="2"><div style="display:flex;gap:10px;align-items:baseline"><span style="color:var(--mute2);font-size:10px;width:22px">{{ l.dim }}</span><span>{{ l.t }}</span></div></sc-for></div>
+      </div>
+
+      <!-- token selector for LN/GELU -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:16px 20px;margin-bottom:20px;display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start">
+        <div><div style="{{ mSelCap }}">TOKEN (for 4 &amp; 5)</div><div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ mTokBtns }}" as="b" hint-placeholder-count="5"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div></div>
+        <div><div style="{{ mSelCap }}">FFN UNIT (for 5)</div><div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ mFFBtns }}" as="b" hint-placeholder-count="8"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div></div>
+      </div>
+
+      <!-- 4. layernorm -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">4</span> LayerNorm on token "{{ mathTokWord }}"</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Standardize the residual vector: subtract the row mean, divide by the row standard deviation. (γ=1, β=0 here, so no rescale.)</div>
+        <div style="{{ mBox }}"><sc-for list="{{ lnHead }}" as="l" hint-placeholder-count="4"><div>{{ l.t }}</div></sc-for></div>
+        <div style="{{ mBox }};margin-top:10px"><sc-for list="{{ lnRows }}" as="l" hint-placeholder-count="4"><div style="display:flex;gap:10px;align-items:baseline"><span style="color:var(--mute2);font-size:10px;width:22px">{{ l.dim }}</span><span>{{ l.t }}</span></div></sc-for></div>
+      </div>
+
+      <!-- 5. gelu -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">5</span> GELU on FFN unit {{ mFFi }} of "{{ mathTokWord }}"</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The feed-forward non-linearity — a smooth gate that lets small negatives leak through and passes positives almost unchanged.</div>
+        <div style="{{ mBox }}"><sc-for list="{{ geluLines }}" as="l" hint-placeholder-count="4"><div style="{{ l.hi }}">{{ l.t }}</div></sc-for></div>
+      </div>
+
+      <!-- 6. temperature -->
+      <div style="{{ mCard }}">
+        <div style="{{ mHead }}"><span style="{{ mNum }}">6</span> Temperature reshapes the final softmax</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The same eight next-token logits <b>z</b>, divided by <b>T</b> before the exponent: pⱼ = e^(zⱼ/T) / Σₖ e^(zₖ/T). Small T stretches the gaps between logits apart (sharper), large T shrinks them (flatter) — the ranking never changes, only the confidence. This is the knob on the Generate tab.</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px"><sc-for list="{{ tempBtns }}" as="b" hint-placeholder-count="6"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+        <div style="font-family:'Courier New',monospace;font-size:11.5px">
+          <div style="{{ tempHeadRow }}"><span>token</span><span>z</span><span>z / {{ mTLabel }}</span><span>e^(z−max)/T</span><span>p at T</span><span>p at 1</span><span></span></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <sc-for list="{{ tempRows }}" as="r" hint-placeholder-count="8">
+              <div style="{{ r.rowStyle }}"><span style="font-weight:600;color:var(--ink)">{{ r.word }}</span><span>{{ r.z }}</span><span>{{ r.zt }}</span><span>{{ r.e }}</span><span style="font-weight:600;color:var(--accent)">{{ r.p }}</span><span style="color:var(--mute)">{{ r.p1 }}</span><div style="height:12px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;overflow:hidden"><div style="{{ r.barStyle }}"></div></div></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);margin-top:10px;line-height:1.7">{{ tempInfo }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ RESIDUAL STREAM ============ -->
+  <sc-if value="{{ isResidual }}" hint-placeholder-val="{{ false }}">
+    <div style="position:relative;max-width:1080px">
+      <div style="position:absolute;left:26px;top:26px;bottom:150px;width:3px;background:var(--accent);border-radius:2px;opacity:.85"></div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:8px">
+        <div style="{{ nodeStyle }}">x⁰</div>
+        <div style="{{ bandStyle }}">
+          <div style="{{ bandHead }}"><span style="{{ bandNum }}">1</span> Embed + Positional Encoding<span style="{{ bandForm }}">x⁰ = E[token] + PE(pos)</span></div>
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+            <dc-import name="Matrix" values="{{ f.emb }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import>
+            <span style="color:var(--mute);font-size:16px">+</span>
+            <dc-import name="Matrix" values="{{ f.pos }}" rowlabels="{{ posLabels }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import>
+            <span style="color:var(--mute);font-size:16px">=</span>
+            <dc-import name="Matrix" values="{{ f.x0 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:8px">
+        <div style="{{ readNode }}">read</div>
+        <div style="{{ bandStyle }}">
+          <div style="{{ bandHead }}"><span style="{{ bandNum }}">2</span> Multi-Head Self-Attention<span style="{{ bandForm }}">softmax(QKᵀ/√dₖ)·V · causal</span></div>
+          <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start">
+            <div><div style="{{ capStyle }}">head 0 — attention weights</div><dc-import name="Matrix" values="{{ w0 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
+            <div><div style="{{ capStyle }}">head 1 — attention weights</div><dc-import name="Matrix" values="{{ w1 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
+            <div><div style="{{ capStyle }}"><span style="color:var(--accent)">→ writes to stream</span></div><dc-import name="Matrix" values="{{ f.attnOut }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);margin-top:9px">each row (a query) is a probability distribution over ≤ its own position · lower-triangular by the causal mask</div>
+        </div>
+      </div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:8px">
+        <div style="{{ addNode }}">⊕</div>
+        <div style="{{ normBand }}"><span style="font-family:'Courier New',monospace;font-size:12px;color:var(--ink2)"><b style="color:var(--accent)">⊕ add</b> attn output back → <b>LayerNorm</b></span><span style="color:var(--mute);font-size:14px">=</span><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import></div>
+      </div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:8px">
+        <div style="{{ readNode }}">read</div>
+        <div style="{{ bandStyle }}">
+          <div style="{{ bandHead }}"><span style="{{ bandNum }}">3</span> Feed-Forward (position-wise MLP)<span style="{{ bandForm }}">GELU(x·W₁+b₁)·W₂+b₂ · 4→8→4</span></div>
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <dc-import name="Matrix" values="{{ f.preAct }}" rowlabels="{{ words }}" collabels="{{ ffLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="330px,150px"></dc-import>
+            <span style="color:var(--mute);font-size:13px;font-family:'Courier New',monospace">GELU→</span>
+            <dc-import name="Matrix" values="{{ f.act }}" rowlabels="{{ words }}" collabels="{{ ffLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="330px,150px"></dc-import>
+            <span style="color:var(--mute);font-size:13px;font-family:'Courier New',monospace">W₂→</span>
+            <dc-import name="Matrix" values="{{ f.ff2 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:8px">
+        <div style="{{ addNode }}">⊕</div>
+        <div style="{{ normBand }}"><span style="font-family:'Courier New',monospace;font-size:12px;color:var(--ink2)"><b style="color:var(--accent)">⊕ add</b> ffn output back → <b>LayerNorm</b> = <b>block output</b></span><span style="color:var(--mute);font-size:14px">=</span><dc-import name="Matrix" values="{{ f.ln2 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import></div>
+      </div>
+
+      <div style="position:relative;padding-left:66px;margin-bottom:20px">
+        <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);border:1px dashed var(--bracket);border-radius:0;padding:8px 13px;display:inline-block">↻ real models stack N identical blocks — the stream flows straight through, each block reading &amp; writing it</div>
+      </div>
+
+      <div style="position:relative;padding-left:66px">
+        <div style="{{ outNode }}">out</div>
+        <div style="{{ bandStyle }}">
+          <div style="{{ bandHead }}"><span style="{{ bandNum }}">4</span> Unembed + Softmax<span style="{{ bandForm }}">final position "{{ lastWord }}" → softmax(h·Eᵀ)</span></div>
+          <div style="display:flex;flex-direction:column;gap:5px;max-width:520px">
+            <sc-for list="{{ bars }}" as="bar" hint-placeholder-count="8">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="{{ bar.wordStyle }}">{{ bar.word }}</span>
+                <div style="flex:1;height:19px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;overflow:hidden"><div style="{{ bar.barStyle }}"></div></div>
+                <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);width:32px;text-align:right">{{ bar.logit }}</span>
+                <span style="{{ bar.pctStyle }}">{{ bar.valText }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ GENERATE ============ -->
+  <sc-if value="{{ isGenerate }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:940px">
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">AUTOREGRESSIVE GENERATION</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.4px;line-height:1.3;margin-bottom:14px;max-width:640px">Predict one token, append it, feed the whole thing back in — repeat.</div>
+        <div style="font-size:14px;color:var(--ink2);line-height:1.7;max-width:700px">A single forward pass predicts <i>one</i> token. Generation is the outer loop: sample from that distribution, stick the token on the end of the sequence, and run the entire pass again on the longer input. Everything you saw in the other tabs runs once per generated token.</div>
+        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px;font-family:'Courier New',monospace;font-size:11px;color:var(--mute)">
+          <span style="background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:5px 10px">sequence</span><span>→</span>
+          <span style="background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent);border-radius:0;padding:5px 10px">forward pass</span><span>→</span>
+          <span style="background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:5px 10px">sample next</span><span>→</span>
+          <span style="background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:5px 10px">append</span><span style="color:var(--accent);font-size:14px">↺</span>
+        </div>
+      </div>
+
+      <!-- controls -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:20px 22px;margin-bottom:18px">
+        <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center">
+          <div style="display:flex;gap:9px">
+            <button onClick="{{ onPlay }}" style="{{ playStyle }}">{{ playLabel }}</button>
+            <button onClick="{{ onStep }}" style="{{ ctrlStyle }}">Step →</button>
+            <button onClick="{{ onReset }}" style="{{ ctrlStyle }}">↺ Reset</button>
+          </div>
+          <div style="width:1px;height:34px;background:var(--line)"></div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">DECODING</span>
+            <div style="display:flex;gap:3px;background:var(--panel3);border:1px solid var(--line);border-radius:0;padding:3px">
+              <sc-for list="{{ modeBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.onClick }}" style="{{ b.segStyle }}">{{ b.label }}</button></sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ notGreedy }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:11px">
+              <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">TEMP</span>
+              <input type="range" min="0.1" max="1.5" step="0.05" value="{{ genTempVal }}" onInput="{{ onTemp }}" style="width:150px;accent-color:var(--accent);cursor:pointer">
+              <span style="font-family:'Courier New',monospace;font-size:12px;font-weight:600;color:var(--ink);width:34px">{{ genTempVal }}</span>
+            </div>
+          </sc-if>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2);margin-top:13px;line-height:1.6">{{ genHint }}</div>
+      </div>
+
+      <!-- main: sequence + next-token dist -->
+      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px">
+        <div style="flex:2;min-width:320px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+            <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute)">SEQUENCE</div>
+            <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2)">{{ genCount }} / 14 tokens</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <sc-for list="{{ genChips }}" as="c" hint-placeholder-count="5"><div style="{{ c.chipStyle }}">{{ c.word }}</div></sc-for>
+            <sc-if value="{{ genPlaying }}" hint-placeholder-val="{{ false }}"><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--accent)">▊</span></sc-if>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:16px;font-family:'Courier New',monospace;font-size:10px;color:var(--mute2)">
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:0;background:var(--panel3);border:1px solid var(--line)"></span>prompt</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:0;background:var(--accent-soft);border:1px solid var(--accent)"></span>generated</span>
+          </div>
+          <sc-if value="{{ genFull }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute);margin-top:14px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:9px 12px">Context cap reached (this toy runs to 14 tokens). Reset to start over.</div></sc-if>
+        </div>
+        <div style="flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:4px">NEXT-TOKEN DISTRIBUTION</div>
+          <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);margin-bottom:14px">{{ distSub }}</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <sc-for list="{{ nextBars }}" as="b" hint-placeholder-count="8">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="{{ b.wStyle }}">{{ b.word }}</span>
+                <div style="flex:1;height:16px;background:var(--panel3);border:1px solid var(--line2);border-radius:0;overflow:hidden;position:relative"><div style="{{ b.barStyle }}"></div><sc-if value="{{ showGhost }}" hint-placeholder-val="{{ false }}"><div style="{{ b.ghostStyle }}"></div></sc-if></div>
+                <span style="{{ b.pStyle }}">{{ b.pct }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- roll-out trace -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:14px">ROLL-OUT TRACE</div>
+        <sc-if value="{{ genEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute2);padding:8px 0">Press <b style="color:var(--accent)">Generate</b> (or Step) to roll out tokens — each row records the token that was sampled and the top candidates it was drawn from.</div>
+        </sc-if>
+        <sc-if value="{{ hasGenSteps }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:grid;grid-template-columns:30px 90px 64px 76px 1fr;gap:12px;padding:0 12px;font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:.5px;color:var(--mute2)">
+              <div>#</div><div>SAMPLED</div><div>ln p</div><div>Σ ln p</div><div>TOP CANDIDATES</div>
+            </div>
+            <sc-for list="{{ genSteps }}" as="s" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:30px 90px 64px 76px 1fr;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:9px 12px">
+                <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute2)">{{ s.idx }}</span>
+                <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:600;color:var(--accent)">{{ s.word }} <span style="color:var(--mute);font-weight:400;font-size:11px">{{ s.p }}</span></span>
+                <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">{{ s.lnp }}</span>
+                <span style="font-family:'Courier New',monospace;font-size:11.5px;font-weight:600;color:var(--ink)">{{ s.cum }}</span>
+                <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute)">from: {{ s.cand }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);margin-top:10px">ln p uses the model's untempered (T=1) probability — the running total is the log-likelihood the model assigns its own output</div>
+        </sc-if>
+      </div>
+
+      <!-- serving compute -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-top:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">COMPUTE · WHAT GENERATION COSTS</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:14px">You've now seen both phases of inference. <b>Prefill</b>: all prompt positions computed in parallel — one pass, like the all-position pass on the Training tab. <b>Decode</b>: this loop — strictly one token at a time, because each token's input includes the last output. This toy recomputes every position on every step; real models keep a <b>KV-cache</b> (the K and V rows you saw in attention, stored per layer) so each new token only computes its own row.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          <sc-for list="{{ srvCells }}" as="c" hint-placeholder-count="5">
+            <div style="flex:1;min-width:128px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 12px">
+              <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1px;color:var(--mute2);margin-bottom:4px">{{ c.k }}</div>
+              <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600;color:var(--ink)">{{ c.v }}</div>
+              <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--mute2);margin-top:3px">{{ c.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:8px">Decode speed is <b>memory-bound, not FLOP-bound</b>: every single token streams all N weights through the chip once, so bandwidth sets the single-stream ceiling and the arithmetic units mostly idle. Serving stacks many users into one batch to share each weight-read — that's why inference is priced per token.</div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);line-height:1.8">reference numbers for an 8-B-param model in fp16 on one H100-class GPU (~3.4 TB/s memory) · this toy: ~2 kFLOP per token, no cache — your browser tab is a supercomputer for it</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ TRAINING ============ -->
+  <sc-if value="{{ isTraining }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:960px">
+      <!-- intro -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">TRAINING PIPELINE</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.4px;line-height:1.3;margin-bottom:14px;max-width:660px">Everything you've seen is inference. Training is the loop that <i>sets the weights</i>.</div>
+        <div style="font-size:14px;color:var(--ink2);line-height:1.7;max-width:700px">The forward pass in the other tabs runs a <b>fixed</b> set of weights. Training is the outer loop that produced them: run the forward pass, measure how wrong the prediction was, push every weight a little in the direction that reduces the error, and repeat. Crucially — the <b>operations never change</b>. Attention, LayerNorm, the FFN shapes are all fixed. Training only nudges the ≈188 numbers inside them.</div>
+      </div>
+
+      <!-- the loop -->
+      <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:10px">THE TRAINING LOOP</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <sc-for list="{{ loopCards }}" as="c" hint-placeholder-count="6">
+          <div style="{{ c.cardStyle }}">
+            <div style="{{ c.numStyle }}">{{ c.n }}</div>
+            <div style="{{ c.titleStyle }}">{{ c.t }}</div>
+            <div style="{{ c.descStyle }}">{{ c.d }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute);background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:10px 13px;margin-bottom:22px">W ← W − η · ∂L/∂W&nbsp;&nbsp;·&nbsp;&nbsp;η = learning rate&nbsp;&nbsp;·&nbsp;&nbsp;only weights move; the architecture is frozen</div>
+
+      <!-- LIVE teacher forcing -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent)">LIVE · TEACHER FORCING ON YOUR INPUT</div>
+          <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2)">computed live · edit the input above</div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:700px;margin-bottom:18px">The training signal, on your actual sentence. At each position the model predicts the next token; we compare that to the <b>real</b> next token and score it with cross-entropy loss = −ln p(correct). This is exactly what backprop would minimize.</div>
+
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:20px">
+          <div style="display:grid;grid-template-columns:26px 1fr 74px 74px 1fr 52px;gap:10px;font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:.5px;color:var(--mute2);padding:0 2px">
+            <div></div><div>CONTEXT SO FAR</div><div>PREDICTS</div><div>ACTUAL</div><div>−ln p(correct)</div><div style="text-align:right">LOSS</div>
+          </div>
+          <sc-for list="{{ tf }}" as="r" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:26px 1fr 74px 74px 1fr 52px;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:9px 10px">
+              <div style="{{ r.markStyle }}">{{ r.mark }}</div>
+              <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--ink)">{{ r.ctx }}<span style="color:var(--mute2)"> _</span></div>
+              <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink2)">{{ r.pred }} <span style="color:var(--mute2)">{{ r.predP }}</span></div>
+              <div style="font-family:'Courier New',monospace;font-size:11.5px;font-weight:600;color:var(--accent)">{{ r.target }}</div>
+              <div style="height:14px;background:var(--panel3);border-radius:0;overflow:hidden"><div style="{{ r.barStyle }}"></div></div>
+              <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:600;text-align:right;color:var(--ink)">{{ r.loss }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:13px 15px">
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:5px">AVG LOSS (this input)</div>
+            <div style="font-family:'Courier New',monospace;font-size:20px;font-weight:600;color:var(--ink)">{{ avgLoss }}</div>
+          </div>
+          <div style="flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:13px 15px">
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:5px">PERPLEXITY · e^loss</div>
+            <div style="font-family:'Courier New',monospace;font-size:20px;font-weight:600;color:var(--ink)">{{ perplexity }}</div>
+          </div>
+          <div style="flex:2;min-width:220px;background:var(--panel3);border:1px dashed var(--accent-line);border-radius:0;padding:13px 15px;display:flex;align-items:center">
+            <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--ink2);line-height:1.6">Random-guess baseline = ln(8) = <b>{{ randomLoss }}</b>. These untrained weights sit near it — <b>training is the process of driving this number down</b> across billions of examples.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- what the training data IS -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">THE TRAINING DATA</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">A dataset is just text — no labels, no answers. Teacher forcing slices every sentence into one example per position: <b>everything so far → the actual next word</b>. Your 5-token sentence is the entire corpus here, so it yields exactly these {{ tdCount }} examples:</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+          <sc-for list="{{ tdPairs }}" as="p" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:8px 12px">
+              <span style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);width:18px">{{ p.n }}</span>
+              <div style="display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ p.ctx }}" as="c" hint-placeholder-count="3"><span style="{{ tdCtxChip }}">{{ c }}</span></sc-for></div>
+              <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--mute)">→ target</span>
+              <span style="{{ tdTgtChip }}">{{ p.target }}</span>
+              <div style="flex:1"></div>
+              <span style="font-family:'Courier New',monospace;font-size:10.5px;color:{{ p.pColor }}">model now: p = {{ p.p }} {{ p.mark }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);line-height:1.8">real models do exactly this — but over web text, books and code: ~15 trillion tokens ≈ 15 trillion (context → next word) examples, batched millions at a time. same loss, same update rule; only the scale changes.</div>
+      </div>
+
+      <!-- LIVE gradient-descent exercise -->
+      <div style="background:var(--panel);border:1.5px solid var(--accent);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent)">EXERCISE · TRAIN IT — REAL GRADIENT DESCENT</div>
+          <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2)">{{ trainedNote }}</div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">Run <b>W ← W − η·∂L/∂W</b> for real, on all 172 trainable weights, against the loss above. Every tab reads the same weights — watch the prediction chip in the top bar, the ✓ column, and the attention heatmaps reorganize as the loss falls.</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
+          <div style="display:flex;gap:8px">
+            <button onClick="{{ onStep1 }}" style="{{ stepBtn }}">Step ×1</button>
+            <button onClick="{{ onStep10 }}" style="{{ stepBtn }}">×10</button>
+            <button onClick="{{ onStep100 }}" style="{{ stepBtn }}">×100</button>
+            <button onClick="{{ onResetW }}" style="{{ resetWBtn }}">↺ Reset weights</button>
+          </div>
+          <div style="width:1px;height:30px;background:var(--line)"></div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">η LR</span>
+            <input type="range" min="0.05" max="1" step="0.05" value="{{ lrVal }}" onInput="{{ onLr }}" style="width:120px;accent-color:var(--accent);cursor:pointer">
+            <span style="font-family:'Courier New',monospace;font-size:12px;font-weight:600;width:34px">{{ lrVal }}</span>
+          </div>
+          <sc-if value="{{ trainingBusy }}" hint-placeholder-val="{{ false }}"><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--accent)">training…</span></sc-if>
+        </div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:2;min-width:300px">
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:6px">LOSS CURVE · {{ stepCount }} STEPS</div>
+            <svg width="100%" height="110" viewBox="0 0 560 110" preserveAspectRatio="none" style="display:block;background:var(--panel2);border:1px solid var(--line2);border-radius:0">
+              <line x1="0" y1="{{ lossBaseY }}" x2="560" y2="{{ lossBaseY }}" stroke-dasharray="4 4" stroke-width="1" style="stroke:var(--mute2);opacity:.6"></line>
+              <polyline points="{{ lossPts }}" fill="none" stroke-width="2" style="stroke:var(--accent)"></polyline>
+            </svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);margin-top:4px"><span>┄ ln(8) = 2.08 random guess</span><span>loss now <b style="color:var(--accent)">{{ curTrainLoss }}</b></span></div>
+          </div>
+          <div style="flex:1.4;min-width:270px">
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2);margin-bottom:6px">GREEDY ROLLOUT · UNTRAINED vs NOW</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center"><span style="{{ cmpTag }}">untrained</span><sc-for list="{{ rollBefore }}" as="c" hint-placeholder-count="6"><span style="{{ c.style }}">{{ c.w }}</span></sc-for></div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center"><span style="{{ cmpTagNow }}">now</span><sc-for list="{{ rollAfter }}" as="c" hint-placeholder-count="6"><span style="{{ c.style }}">{{ c.w }}</span></sc-for></div>
+            </div>
+            <div style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);margin-top:10px">6-token greedy continuation of your prompt · highlighted = diverged from untrained</div>
+          </div>
+        </div>
+        <sc-if value="{{ overfit }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px;background:var(--accent-soft);border:1px dashed var(--accent-line);border-radius:0;padding:12px 15px;font-size:12.5px;color:var(--ink2);line-height:1.6"><b style="color:var(--accent)">Loss ≈ 0 — it memorized your sentence.</b> Now edit one input token in the top bar: the loss jumps right back up. That's memorization, not language — real training drives loss down across billions of <i>different</i> sentences so the model generalizes.</div>
+        </sc-if>
+      </div>
+
+      <!-- touch one weight -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">EXERCISE · TOUCH ONE WEIGHT</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:710px;margin-bottom:16px">Training is nothing more than search over these numbers. Drag one and watch the loss respond — the curve is the loss landscape along this single weight's axis. Gradient descent just rolls downhill on it, in 172 dimensions at once.</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+          <div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ twBtns }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <input type="range" min="-1.5" max="1.5" step="0.01" value="{{ twVal }}" onInput="{{ onTw }}" style="width:200px;accent-color:var(--accent);cursor:pointer">
+            <span style="font-family:'Courier New',monospace;font-size:12.5px;font-weight:600;width:50px">{{ twVal }}</span>
+          </div>
+        </div>
+        <svg width="100%" height="110" viewBox="0 0 560 110" preserveAspectRatio="none" style="display:block;background:var(--panel2);border:1px solid var(--line2);border-radius:0">
+          <polyline points="{{ twPts }}" fill="none" stroke-width="2" style="stroke:var(--flow)"></polyline>
+          <circle cx="{{ twDotX }}" cy="{{ twDotY }}" r="5" style="fill:var(--accent)"></circle>
+        </svg>
+        <div style="display:flex;justify-content:space-between;font-family:'Courier New',monospace;font-size:9.5px;color:var(--mute2);margin-top:4px;flex-wrap:wrap;gap:6px"><span>{{ twName }} swept −1.5 … +1.5 · everything else held fixed</span><span>loss here <b style="color:var(--accent)">{{ curTrainLoss }}</b> · prediction "{{ predWord }}"</span></div>
+      </div>
+
+      <!-- the weights, architecturally -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent)">THE WEIGHTS, ARCHITECTURALLY · 172 TRAINABLE</div>
+          <div style="display:flex;gap:5px"><sc-for list="{{ wViewBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:18px">{{ wMapDesc }}</div>
+        <div style="display:flex;gap:22px;flex-wrap:wrap">
+          <div>
+            <div style="{{ wGroupCap }}">EMBED · 32 params</div>
+            <div style="{{ capStyle }}">E — token embeddings <span style="color:var(--mute2)">(8×4 · unembed is Eᵀ, tied)</span></div>
+            <dc-import name="Matrix" values="{{ wE }}" rowlabels="{{ vocabLabels }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,240px"></dc-import>
+          </div>
+          <div>
+            <div style="{{ wGroupCap }}">ATTENTION · 64 params</div>
+            <div style="display:grid;grid-template-columns:auto auto;gap:12px 18px">
+              <div><div style="{{ capStyle }}">W_Q <span style="color:var(--mute2)">(4×4)</span></div><dc-import name="Matrix" values="{{ wWQ }}" rowlabels="{{ dims }}" collabels="{{ qkDims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,130px"></dc-import></div>
+              <div><div style="{{ capStyle }}">W_K <span style="color:var(--mute2)">(4×4)</span></div><dc-import name="Matrix" values="{{ wWK }}" rowlabels="{{ dims }}" collabels="{{ qkDims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,130px"></dc-import></div>
+              <div><div style="{{ capStyle }}">W_V <span style="color:var(--mute2)">(4×4)</span></div><dc-import name="Matrix" values="{{ wWV }}" rowlabels="{{ dims }}" collabels="{{ qkDims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,130px"></dc-import></div>
+              <div><div style="{{ capStyle }}">W_O <span style="color:var(--mute2)">(4×4)</span></div><dc-import name="Matrix" values="{{ wWO }}" rowlabels="{{ dims }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,130px"></dc-import></div>
+            </div>
+          </div>
+          <div>
+            <div style="{{ wGroupCap }}">FFN · 76 params</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div><div style="{{ capStyle }}">W₁ <span style="color:var(--mute2)">(4×8 up-projection)</span></div><dc-import name="Matrix" values="{{ wW1 }}" rowlabels="{{ dims }}" collabels="{{ ffnLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="320px,130px"></dc-import></div>
+              <div><div style="{{ capStyle }}">b₁ <span style="color:var(--mute2)">(8)</span></div><dc-import name="Matrix" values="{{ wB1 }}" rowlabels="{{ biasRowLabel }}" collabels="{{ ffnLabels }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="320px,60px"></dc-import></div>
+              <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+                <div><div style="{{ capStyle }}">W₂ <span style="color:var(--mute2)">(8×4 down-projection)</span></div><dc-import name="Matrix" values="{{ wW2 }}" rowlabels="{{ ffnLabels }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,220px"></dc-import></div>
+                <div><div style="{{ capStyle }}">b₂ <span style="color:var(--mute2)">(4)</span></div><dc-import name="Matrix" values="{{ wB2 }}" rowlabels="{{ biasRowLabel }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="180px,60px"></dc-import></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);margin-top:14px;line-height:1.8">this is the whole model — there is nothing else for training to touch. the 16 LayerNorm params (γ, β) are fixed at 1, 0 in this toy. GPT-scale models are the same picture with bigger rectangles: more dims per matrix, more heads, N stacked blocks.</div>
+      </div>
+
+      <!-- training compute -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">COMPUTE · WHAT TRAINING COSTS</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 14px;margin-bottom:14px">
+          <span style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute2)">THE STEP BUTTON ABOVE</span>
+          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink2)">172 weights · 345 forward passes per step (2 per weight, finite differences) · ≈0.7 MFLOP · ~7 ms in this tab</span>
+        </div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:16px">Real training never brute-forces the gradient like that button does. <b>Backpropagation</b> reuses the forward pass's intermediate values to get <i>all N</i> gradients for roughly the cost of 2 extra forward passes — so one step costs ~3 forwards' compute regardless of N. At 8 B parameters, finite differences would need 16&nbsp;billion forward passes per step; backprop needs the equivalent of ~3. That algorithm is the only reason any of the rows below are possible. The totals follow one rule of thumb: <b>FLOPs ≈ 6 · N params · D tokens</b>.</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px"><sc-for list="{{ scaleBtns }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          <sc-for list="{{ scaleCells }}" as="c" hint-placeholder-count="6">
+            <div style="flex:1;min-width:118px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 12px">
+              <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1px;color:var(--mute2);margin-bottom:4px">{{ c.k }}</div>
+              <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600;color:var(--ink)">{{ c.v }}</div>
+              <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--mute2);margin-top:3px">{{ c.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;max-width:740px;margin-bottom:8px">{{ scaleNote }}</div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:var(--mute2);line-height:1.8">wall-clock = 6·N·D ÷ (GPUs × ~0.4 PFLOP/s sustained per H100-class GPU) — real runs add data pipelines, checkpoint restarts and node failures · architecture is unchanged across every row: same attention, same FFN, same loss as this page</div>
+      </div>
+
+      <!-- post-training stages -->
+      <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:10px">PRODUCTION IS THREE STAGES — THIS TOY HAS NONE</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px">
+        <sc-for list="{{ postCards }}" as="s" hint-placeholder-count="3">
+          <div style="flex:1;min-width:250px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:20px 22px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="width:26px;height:26px;border-radius:0;background:var(--accent);color:#fff;font-family:'Courier New',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center">{{ s.k }}</span>
+              <div style="font-size:15px;font-weight:700">{{ s.t }}</div>
+              <span style="font-family:'Courier New',monospace;font-size:9.5px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:0;padding:2px 9px">{{ s.tag }}</span>
+            </div>
+            <div style="font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:12px">{{ s.d }}</div>
+            <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute);border-top:1px solid var(--line2);padding-top:10px">{{ s.obj }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- compare table -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:10px">TRAINING: THIS TOY vs PRODUCTION-GRADE</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:680px;margin-bottom:20px">The <i>objective</i> is the one thing that stays the same — everything about scale, data and machinery is where production lives.</div>
+        <div style="border:1px solid var(--line2);border-radius:0;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1fr 1.05fr 1.4fr;background:var(--head-bg);color:#fff;font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px">
+            <div style="padding:11px 14px">ASPECT</div>
+            <div style="padding:11px 14px;color:#8fb0ee">THIS TOY</div>
+            <div style="padding:11px 14px;border-left:1px solid rgba(255,255,255,.12)">PRODUCTION LLM</div>
+          </div>
+          <sc-for list="{{ trainCompare }}" as="r" hint-placeholder-count="11">
+            <div style="display:grid;grid-template-columns:1fr 1.05fr 1.4fr;background:{{ r.bg }};border-top:1px solid var(--line2);font-size:12.5px">
+              <div style="padding:10px 14px;color:var(--ink2);font-weight:500">{{ r.label }}</div>
+              <div style="padding:10px 14px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--accent);font-weight:600">{{ r.toy }}</div>
+              <div style="padding:10px 14px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">{{ r.real }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ ABOUT ============ -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:900px">
+      <!-- intro -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:26px 28px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">GARAGELM.ORG · ABOUT THIS PROJECT</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.4px;line-height:1.3;margin-bottom:14px;max-width:640px">A working transformer forward pass, small enough to read every number.</div>
+        <div style="font-size:14px;color:var(--ink2);line-height:1.7;max-width:680px">This is a complete decoder-only transformer — the same architecture behind GPT-class models — shrunk to a size where nothing is hidden. Four dimensions, two heads, one block, an eight-word vocabulary. Type in five tokens and watch text turn into a next-token probability distribution, one matrix multiply at a time. Nothing is pre-baked: every value on screen is computed live in your browser from the input you choose.</div>
+      </div>
+
+      <!-- usage + coverage -->
+      <div style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:22px">
+        <div style="flex:1;min-width:300px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:16px">HOW TO USE IT</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{ usage }}" as="u" hint-placeholder-count="4">
+              <div style="display:flex;gap:13px;align-items:flex-start">
+                <span style="flex:none;width:24px;height:24px;border-radius:0;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent);font-family:'Courier New',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px">{{ u.n }}</span>
+                <div>
+                  <div style="font-size:14px;font-weight:600;margin-bottom:3px">{{ u.t }}</div>
+                  <div style="font-size:12.5px;color:var(--ink2);line-height:1.6">{{ u.d }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:1;min-width:300px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+          <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:6px">WHAT THE PASS COVERS</div>
+          <div style="font-size:12px;color:var(--mute2);margin-bottom:16px;line-height:1.5">Every operation a real forward pass runs, in order:</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ coverage }}" as="c" hint-placeholder-count="12">
+              <div style="display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.45">
+                <span style="flex:none;color:var(--accent);font-weight:700;font-family:'Courier New',monospace;font-size:12px;margin-top:1px">✓</span>
+                <span>{{ c }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- complexity truth -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:10px">THE COMPLEXITY TRUTH</div>
+        <div style="font-size:14px;color:var(--ink2);line-height:1.7;max-width:680px;margin-bottom:20px">What's <b>real</b> here is the <i>shape</i> of the computation — the operations, the data flow, the causal masking, the way dimensions transform stage to stage. What's <b>not</b> real is everything about scale and training. The numbers are illustrative, the weights are hand-chosen rather than learned, and a single four-dimensional block obviously cannot model language. Read this as a wiring diagram you can run, not a small language model.</div>
+
+        <div style="border:1px solid var(--line2);border-radius:0;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1.1fr 1fr 1.35fr;background:var(--head-bg);color:#fff;font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px">
+            <div style="padding:11px 14px">DIMENSION</div>
+            <div style="padding:11px 14px;color:#8fb0ee">THIS TOY</div>
+            <div style="padding:11px 14px;border-left:1px solid rgba(255,255,255,.12)">PRODUCTION LLM (≈ 7B)</div>
+          </div>
+          <sc-for list="{{ compare }}" as="r" hint-placeholder-count="12">
+            <div style="display:grid;grid-template-columns:1.1fr 1fr 1.35fr;background:{{ r.bg }};border-top:1px solid var(--line2);font-size:12.5px">
+              <div style="padding:10px 14px;color:var(--ink2);font-weight:500">{{ r.label }}</div>
+              <div style="padding:10px 14px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--accent);font-weight:600">{{ r.toy }}</div>
+              <div style="padding:10px 14px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">{{ r.real }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- omitted -->
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
+        <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:var(--mute);margin-bottom:6px">DELIBERATELY LEFT OUT</div>
+        <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:16px;max-width:660px">These live in every real model but would only obscure the mechanism at this scale. Their absence is the edge between this toy and a production system:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ omitted }}" as="o" hint-placeholder-count="12">
+            <span style="font-family:'Courier New',monospace;font-size:11px;color:var(--ink2);background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:5px 12px">{{ o }}</span>
+          </sc-for>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute2);margin-top:18px;line-height:1.6;border-top:1px solid var(--line2);padding-top:14px">Same architecture, honest about its scale · computed live · no data leaves your browser</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ tourOn }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;right:22px;bottom:22px;width:330px;background:var(--panel);border:1.5px solid var(--accent);border-radius:0;box-shadow:0 18px 48px rgba(0,0,0,.28);padding:18px 20px;z-index:120">
+    <div style="font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">TOUR · {{ tourN }} / 6</div>
+    <div style="font-size:14.5px;font-weight:700;margin-bottom:6px;color:var(--ink)">{{ tourTitle }}</div>
+    <div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px">{{ tourDesc }}</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button onClick="{{ tourPrev }}" style="{{ tourBtn2 }}">← Back</button>
+      <button onClick="{{ tourNext }}" style="{{ tourBtn }}">{{ tourNextLabel }}</button>
+      <div style="flex:1"></div>
+      <button onClick="{{ tourEnd }}" style="{{ tourSkip }}">End</button>
+    </div>
+  </div>
+  </sc-if>
+
+  </div>
+
+  <!-- SITE FOOTER -->
+  <div style="border-top:1px dashed var(--line);padding:14px 20px 20px;max-width:756px;margin:0 auto;font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div><a href="index.html">home</a> · <a href="models.html">models</a> · <a href="notes.html">notes</a> · <b>learn</b> · <a href="team.html">team</a></div>
+    <div><a href="https://huggingface.co/garagelm" target="_blank">hf ↗</a> · <a href="https://github.com/garagelm" target="_blank">github ↗</a></div>
+    <div>© 2026 garagelm.org</div>
+      <div>real models · cheap hardware · honest numbers</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Site&quot;}}">
+class Component extends DCLogic {
+  state = { tokens: [0, 1, 2, 3, 0], editIdx: -1, view: 'about', dark: (() => { try { return localStorage.getItem('garagelm-theme') === 'dark'; } catch (e) { return false; } })(), stage: 'attn', head: 0, qpos: 4, sel: 'attn',
+            genSeq: null, genSteps: [], genPlaying: false, genTemp: 0.8, genGreedy: false, genPromptLen: null,
+            lineage: null, attnView: 'heat', maskCmp: false, tourStep: -1,
+            lr: 0.3, trainHist: null, trainSteps: 0, training: false, twSel: 0, scaleSel: 1 };
+
+  ensureWorker(cb) {
+    if (this._wk) return cb(this._wk);
+    if (this._wkFail || typeof Worker === 'undefined') return cb(null);
+    fetch('./llm-engine.js').then(r => r.text()).then(src => {
+      const code = 'self.window = self;\n' + src + '\nonmessage = function(e){ var d = e.data; var L = self.window.LLM; L.setWeights(d.weights); var buf = []; for (var i = 0; i < d.steps; i++) { buf.push(L.trainStep(d.tokens, d.lr)); if (buf.length >= 5 && i < d.steps - 1) { postMessage({ losses: buf.splice(0), weights: L.getWeights(), done: false }); } } postMessage({ losses: buf, weights: L.getWeights(), done: true }); };';
+      this._wk = new Worker(URL.createObjectURL(new Blob([code], { type: 'text/javascript' })));
+      cb(this._wk);
+    }).catch(() => { this._wkFail = true; cb(null); });
+  }
+
+  runTrain(n) {
+    const LLM = window.LLM;
+    if (!LLM || !LLM.trainStep || this.state.training) return;
+    const init = this.state.trainHist || [LLM.forward(this.state.tokens).avgLoss];
+    this.setState({ training: true, trainHist: init });
+    this.ensureWorker(w => {
+      if (!w || !LLM.setWeights) return this.runTrainSync(n);
+      w.onmessage = e => {
+        const d = e.data;
+        LLM.setWeights(d.weights);
+        if (d.losses.length) this.setState(s => ({ trainHist: [...(s.trainHist || []), ...d.losses], trainSteps: (s.trainSteps || 0) + d.losses.length }));
+        if (d.done) { this.setState({ training: false }); setTimeout(() => this.saveWeights(), 0); }
+      };
+      w.onerror = () => { this._wkFail = true; this._wk = null; this.runTrainSync(n); };
+      w.postMessage({ weights: LLM.getWeights(), tokens: this.state.tokens, lr: this.state.lr, steps: n });
+    });
+  }
+
+  runTrainSync(n) {
+    const LLM = window.LLM;
+    let left = n;
+    const tick = () => {
+      const chunk = Math.min(left, 4);
+      const losses = [];
+      for (let i = 0; i < chunk; i++) losses.push(LLM.trainStep(this.state.tokens, this.state.lr));
+      left -= chunk;
+      this.setState(s => ({ trainHist: [...(s.trainHist || []), ...losses], trainSteps: (s.trainSteps || 0) + chunk }));
+      if (left > 0) this._tr = setTimeout(tick, 30);
+      else { this._tr = null; this.setState({ training: false }); setTimeout(() => this.saveWeights(), 0); }
+    };
+    tick();
+  }
+
+  saveWeights() {
+    try {
+      const LLM = window.LLM;
+      if (!LLM || !LLM.getWeights) return;
+      localStorage.setItem('llm-explorer-v2.weights', JSON.stringify({
+        v: 1, w: LLM.getWeights(), steps: this.state.trainSteps || 0,
+        tok: this.state.tokens.join(''), hist: (this.state.trainHist || []).slice(-400)
+      }));
+    } catch (e) {}
+  }
+
+  restoreWeights() {
+    try {
+      const LLM = window.LLM;
+      const raw = localStorage.getItem('llm-explorer-v2.weights');
+      if (!LLM || !LLM.setWeights || !raw) return;
+      const d = JSON.parse(raw);
+      if (!d || !d.w || d.v !== 1) return;
+      LLM.setWeights(d.w);
+      const patch = { trainSteps: d.steps || 0 };
+      if (d.tok === this.state.tokens.join('') && d.hist && d.hist.length) patch.trainHist = d.hist;
+      this.setState(patch);
+    } catch (e) {}
+  }
+
+  resetWeights() {
+    const LLM = window.LLM;
+    if (!LLM || !LLM.resetWeights) return;
+    if (this._tr) { clearTimeout(this._tr); this._tr = null; }
+    if (this._wk && this.state.training) { this._wk.terminate(); this._wk = null; }
+    LLM.resetWeights();
+    try { localStorage.removeItem('llm-explorer-v2.weights'); } catch (e) {}
+    this.setState({ training: false, trainHist: null, trainSteps: 0 });
+  }
+
+  tourDefs() {
+    return [
+      { t: 'Everything is live', d: 'The five chips in the top bar are the model input. Click one and pick a different word — amber flashes mark every downstream number that changed.', set: { view: 'pipeline', stage: 'embed' } },
+      { t: 'The shape of the model', d: 'The whole architecture, input at the bottom. Hover any block for its formula, output shape and parameter count — then jump in with “Open in Pipeline”.', set: { view: 'arch', sel: 'attn' } },
+      { t: 'Watch a token look around', d: 'Each row of the weights matrix is one token deciding where to look. Hover a score to trace the Q and K rows that made it, click it to see the arithmetic, or switch to Arcs.', set: { view: 'pipeline', stage: 'attn' } },
+      { t: 'Down to single scalars', d: 'The same numbers, expanded operation by operation. Pick a head, a query and a key — nothing is pre-baked.', set: { view: 'math' } },
+      { t: 'Generation is a loop', d: 'Press Generate: predict → sample → append → run the whole pass again. The trace logs every pick and the running log-probability.', set: { view: 'generate' } },
+      { t: 'What training actually does', d: 'Cross-entropy on your own sentence — then train it for real: hit Step ×10 and watch the loss fall, the ✓s appear, and the prediction chip flip. Reset weights when done.', set: { view: 'training' } }
+    ];
+  }
+
+  applyTour(n) {
+    const T = this.tourDefs();
+    if (n < 0 || n >= T.length) { this.setState({ tourStep: -1 }); return; }
+    this.setState(Object.assign({ tourStep: n }, T[n].set));
+  }
+
+  componentDidUpdate() {
+    try {
+      const st = this.state;
+      const h = `v=${st.view}&s=${st.stage}&hd=${st.head}&q=${st.qpos}&tok=${st.tokens.join('')}`;
+      if (this._hash !== h) { this._hash = h; history.replaceState(null, '', '#' + h); }
+    } catch (e) {}
+  }
+
+  componentDidMount() {
+    let v = 1;
+    try {
+      v = parseInt(localStorage.getItem('garagelm-visits') || '0', 10) || 0;
+      if (!sessionStorage.getItem('garagelm-session')) { v += 1; localStorage.setItem('garagelm-visits', String(v)); sessionStorage.setItem('garagelm-session', '1'); }
+    } catch (e) {}
+    this.setState({ visits: v });
+    if (!window.LLM) {
+      if (!document.getElementById('llm-engine-js')) {
+        const s = document.createElement('script');
+        s.id = 'llm-engine-js';
+        s.src = './llm-engine.js';
+        s.onload = () => this.forceUpdate();
+        document.head.appendChild(s);
+      }
+      this._t = setInterval(() => { if (window.LLM) { clearInterval(this._t); setTimeout(() => this.restoreWeights(), 0); this.forceUpdate(); } }, 40);
+    } else {
+      setTimeout(() => this.restoreWeights(), 0);
+    }
+    try {
+      const m = {};
+      (location.hash || '').slice(1).split('&').forEach(kv => { const p = kv.split('='); if (p[0]) m[p[0]] = decodeURIComponent(p[1] || ''); });
+      const patch = {};
+      if (['about', 'arch', 'pipeline', 'math', 'residual', 'generate', 'training'].indexOf(m.v) !== -1) patch.view = m.v;
+      if (['embed', 'attn', 'add1', 'ffn', 'add2', 'out'].indexOf(m.s) !== -1) patch.stage = m.s;
+      if (m.hd === '0' || m.hd === '1') patch.head = +m.hd;
+      if (m.q != null && m.q !== '' && !isNaN(+m.q)) patch.qpos = Math.max(0, Math.min(4, +m.q));
+      if (m.tok && /^[0-7]{5}$/.test(m.tok)) patch.tokens = m.tok.split('').map(Number);
+      if (Object.keys(patch).length) this.setState(patch);
+    } catch (e) {}
+    this._kb = (e) => {
+      const tag = ((e.target && e.target.tagName) || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+      const st = this.state, seq = st.tokens.length;
+      if (e.key === 'h' || e.key === 'H') {
+        if (st.view === 'pipeline' && st.stage === 'attn') this.setState({ head: 1 - st.head });
+        else if (st.view === 'math') this.setState({ mathHead: 1 - (st.mathHead || 0) });
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        const d = e.key === 'ArrowRight' ? 1 : -1;
+        if (st.view === 'pipeline' && st.stage === 'attn') { this.setState({ qpos: Math.max(0, Math.min(seq - 1, st.qpos + d)) }); e.preventDefault(); }
+        else if (st.view === 'math') { const q = Math.min(st.mathQ == null ? seq - 1 : st.mathQ, seq - 1); const nq = Math.max(0, Math.min(seq - 1, q + d)); this.setState({ mathQ: nq, mathK: Math.min(st.mathK || 0, nq) }); e.preventDefault(); }
+      }
+    };
+    window.addEventListener('keydown', this._kb);
+  }
+
+  componentWillUnmount() { if (this._gen) clearInterval(this._gen); if (this._t) clearInterval(this._t); if (this._tr) clearTimeout(this._tr); if (this._wk) this._wk.terminate(); if (this._sv) clearTimeout(this._sv); if (this._kb) window.removeEventListener('keydown', this._kb); }
+
+  navTo(id) { if (id !== 'generate') this.stopGen(); this.setState({ view: id }); }
+
+  stopGen() { if (this._gen) { clearInterval(this._gen); this._gen = null; } if (this.state.genPlaying) this.setState({ genPlaying: false }); }
+
+  togglePlay() {
+    if (this.state.genPlaying) { this.stopGen(); return; }
+    this.setState({ genPlaying: true });
+    this._gen = setInterval(() => this.genStep(), 750);
+    this.genStep();
+  }
+
+  genStep() {
+    const LLM = window.LLM; if (!LLM) return;
+    const st = this.state, VOCAB = LLM.VOCAB;
+    const seq = st.genSeq ? st.genSeq.slice() : st.tokens.slice();
+    const promptLen = st.genPromptLen == null ? st.tokens.length : st.genPromptLen;
+    if (seq.length >= 14) { this.stopGen(); return; }
+    const logits = LLM.forward(seq).logits;
+    let probs, pick;
+    if (st.genGreedy) {
+      pick = logits.indexOf(Math.max(...logits));
+      probs = logits.map((_, i) => (i === pick ? 1 : 0));
+    } else {
+      const T = Math.max(0.05, st.genTemp);
+      const sc = logits.map(l => l / T);
+      const m = Math.max(...sc);
+      const ex = sc.map(v => Math.exp(v - m));
+      const s = ex.reduce((a, b) => a + b, 0);
+      probs = ex.map(v => v / s);
+      let r = Math.random(), acc = 0; pick = probs.length - 1;
+      for (let i = 0; i < probs.length; i++) { acc += probs[i]; if (r <= acc) { pick = i; break; } }
+    }
+    const bm = Math.max(...logits); const bex = logits.map(v => Math.exp(v - bm)); const bsum = bex.reduce((a, b) => a + b, 0);
+    const cand = probs.map((p, i) => ({ w: VOCAB[i], p })).sort((a, b) => b.p - a.p).slice(0, 3);
+    const newSeq = [...seq, pick];
+    this.setState({ genSeq: newSeq, genPromptLen: promptLen, genSteps: [...st.genSteps, { word: VOCAB[pick], p: probs[pick], baseP: bex[pick] / bsum, cand }] });
+    if (newSeq.length >= 14) this.stopGen();
+  }
+
+  resetGen() { this.stopGen(); this.setState({ genSeq: this.state.tokens.slice(), genPromptLen: this.state.tokens.length, genSteps: [] }); }
+
+  pickToken(idx, v) { this.stopGen(); const nt = this.state.tokens.slice(); nt[idx] = v; this.setState({ tokens: nt, editIdx: -1, genSeq: null, genSteps: [], genPromptLen: nt.length, trainHist: null }); }
+
+  renderVals() {
+    const LLM = window.LLM;
+    if (!LLM) return { chips: [], tabs: [], themeBtns: [], stages: [], nodes: [], flow: [], skips: [], bars: [], headBtns: [], qBtns: [], theme: 'light' };
+    const { VOCAB, DIMS } = LLM;
+    const st = this.state;
+    const dark = st.dark;
+    const tokens = st.tokens;
+    const f = LLM.forward(tokens);
+    const seq = f.seq, words = f.words, dims = DIMS;
+    const top = f.ranked[0];
+    const S = seq + '×4';
+    const capStyle = "font-family:'Courier New',monospace;font-size:10.5px;color:var(--ink2);margin-bottom:6px;font-weight:500";
+
+    // ---------- shared: chips ----------
+    const chipStyle = a => `cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;padding:7px 11px;border-radius:0;border:1.5px solid ${a ? 'var(--accent)' : 'var(--line)'};background:${a ? 'var(--accent-soft)' : 'var(--chip)'};color:var(--ink);display:flex;align-items:center;gap:3px`;
+    const optStyle = sel => `cursor:pointer;font-family:inherit;font-size:12px;padding:6px 4px;border-radius:0;border:1px solid ${sel ? 'var(--accent)' : 'transparent'};background:${sel ? 'var(--accent-soft)' : 'transparent'};color:var(--ink)`;
+    const chips = tokens.map((t, idx) => ({
+      word: VOCAB[t], editing: st.editIdx === idx,
+      chipStyle: chipStyle(st.editIdx === idx),
+      onClick: () => this.setState({ editIdx: st.editIdx === idx ? -1 : idx }),
+      vocab: VOCAB.map((w, v) => ({ w, optStyle: optStyle(v === t), onClick: () => this.pickToken(idx, v) }))
+    }));
+
+    // ---------- tabs + theme ----------
+    const tabStyle = a => `cursor:pointer;background:none;border:none;padding:2px 5px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--accent)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const tabs = [['about', 'About'], ['arch', 'Architecture'], ['pipeline', 'Pipeline'], ['math', 'Math'], ['residual', 'Residual Stream'], ['generate', 'Generate'], ['training', 'Training']].map(([id, label]) => ({ label, onClick: () => this.navTo(id), tabStyle: tabStyle(st.view === id) }));
+    const segStyle = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const themeIcon = st.dark ? '☀' : '☾';
+    const onTheme = () => { const d = !st.dark; try { localStorage.setItem('garagelm-theme', d ? 'dark' : 'light'); } catch (e) {} this.setState({ dark: d }); };
+    const lessonsOpen = !!st.lessonsOpen;
+    const onLessons = () => this.setState({ lessonsOpen: !st.lessonsOpen });
+
+    // ---------- shared: output bars ----------
+    const maxP = top.p;
+    const bars = f.ranked.map((d, i) => ({
+      word: d.word, valText: (d.p * 100).toFixed(1) + '%', logit: f.logits[d.i].toFixed(2),
+      wordStyle: `font-family:'Courier New',monospace;font-size:12px;font-weight:${i === 0 ? 600 : 450};color:${i === 0 ? 'var(--ink)' : 'var(--ink2)'};width:42px`,
+      pctStyle: `font-family:'Courier New',monospace;font-size:11.5px;font-weight:${i === 0 ? 600 : 450};color:${i === 0 ? 'var(--accent)' : 'var(--mute)'};width:46px;text-align:right`,
+      barStyle: `width:${Math.max(1.5, (d.p / maxP) * 100)}%;height:100%;background:${i === 0 ? 'var(--accent)' : (dark ? '#3a527e' : '#a9c0e6')};border-radius:0;transition:width .35s ease`
+    }));
+
+    // ================= ARCHITECTURE =================
+    const info = {
+      output: { tag: 'OUT', name: 'Output distribution', formula: 'argmax / sample p', shape: 'vocab=8', params: '0', desc: 'The next-token probabilities. Greedy decoding takes the argmax; sampling draws from the distribution.' },
+      softmax: { tag: 'σ', name: 'Softmax', formula: 'p = softmax(logits)', shape: 'vocab=8', params: '0', desc: 'Exponentiate and normalize the logits into a probability distribution over the vocabulary.' },
+      linear: { tag: 'W', name: 'Linear (unembed)', formula: 'logits = h · Eᵀ', shape: 'vocab=8', params: '0 (tied)', desc: 'Project the final hidden vector onto every vocabulary token. Weight tied to the transpose of the embedding table.' },
+      addnorm2: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x + FFN(x))', shape: S, params: '8 (γ,β)', desc: 'Residual add of the FFN output, then LayerNorm. This is the block output. (γ=1, β=0 in this toy — counted, but not free.)' },
+      ffn: { tag: '3', name: 'Feed Forward', formula: 'GELU(x·W₁+b₁)·W₂+b₂', shape: S, params: '76', desc: 'Position-wise MLP: expand 4→8, non-linearity, project 8→4. Applied identically at every position — where most parameters live.' },
+      addnorm1: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x⁰ + Attn)', shape: S, params: '8 (γ,β)', desc: 'Residual add of the attention output back into the stream, then LayerNorm to stabilize activations. (γ=1, β=0 in this toy — counted, but not free.)' },
+      attn: { tag: '2', name: 'Masked Multi-Head Attention', formula: 'softmax(QKᵀ/√dₖ)·V', shape: S, params: '64', desc: 'Each of 2 heads scores every query against every key (future masked), softmaxes, and mixes values. Heads concat then mix through W_O.' },
+      posenc: { tag: '⊕', name: 'Positional Encoding', formula: 'x⁰ = e + PE(pos)', shape: S, params: '0', desc: 'Add fixed sinusoidal vectors so the otherwise permutation-invariant model can distinguish token positions.' },
+      embed: { tag: '1', name: 'Token Embedding', formula: 'e = E[token_id]', shape: S, params: '32', desc: 'Look up a learned d-dimensional vector for each token id from the embedding table E (8×4).' },
+      input: { tag: 'IN', name: 'Input tokens', formula: 'text → ids', shape: 'seq=' + seq, params: '0', desc: 'The tokenized prompt. Each token is an integer id into the vocabulary.' }
+    };
+    const order = [
+      { id: 'output', main: 'Output: ' + top.word + ' (' + (top.p * 100).toFixed(0) + '%)', sub: '', cat: 'accent', h: 46 },
+      { id: 'softmax', main: 'Softmax', sub: '', cat: 'io', h: 42 },
+      { id: 'linear', main: 'Linear (unembed)', sub: 'h · Eᵀ → logits', cat: 'io', h: 50 },
+      { id: 'addnorm2', main: 'Add & Norm', sub: '', cat: 'norm', h: 40 },
+      { id: 'ffn', main: 'Feed Forward', sub: '4 → 8 → 4 · GELU', cat: 'sub', h: 54 },
+      { id: 'addnorm1', main: 'Add & Norm', sub: '', cat: 'norm', h: 40 },
+      { id: 'attn', main: 'Masked Multi-Head Attention', sub: '2 heads · causal', cat: 'sub', h: 58 },
+      { id: 'posenc', main: '⊕  Positional Encoding', sub: 'sinusoidal', cat: 'io', h: 46 },
+      { id: 'embed', main: 'Token Embedding', sub: 'lookup E', cat: 'io', h: 50 },
+      { id: 'input', main: 'Input tokens', sub: tokens.map(t => VOCAB[t]).join(' · '), cat: 'accent', h: 50 }
+    ];
+    const gap = 20, colW = 250, boxL = 44, boxW = 240, cx = boxL + boxW / 2;
+    let cur = 0;
+    order.forEach(n => { n.y = cur; n.yb = cur + n.h; n.yc = cur + n.h / 2; cur += n.h + gap; });
+    const totalH = cur - gap;
+    const byId = {}; order.forEach(n => byId[n.id] = n);
+    const selId = st.sel;
+    const boxStyleFor = (n) => {
+      const on = n.id === selId; let bg, bd, bw = '1px';
+      if (n.cat === 'sub') { bg = on ? 'var(--accent)' : 'var(--accent-soft)'; bd = 'var(--accent)'; bw = '1.5px'; }
+      else if (n.cat === 'norm') { bg = on ? 'var(--accent-line)' : 'var(--panel3)'; bd = 'var(--accent-line)'; }
+      else if (n.cat === 'accent') { bg = 'var(--head-bg)'; bd = 'var(--head-bg)'; }
+      else { bg = on ? 'var(--accent-soft)' : 'var(--panel)'; bd = on ? 'var(--accent)' : 'var(--line)'; bw = on ? '1.5px' : '1px'; }
+      const sh = on ? '0 4px 16px var(--accent-glow)' : '0 1px 2px rgba(0,0,0,.05)';
+      return `position:absolute;left:${boxL}px;top:${n.y}px;width:${boxW}px;height:${n.h}px;border-radius:0;background:${bg};border:${bw} solid ${bd};box-shadow:${sh};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px 10px;transition:all .13s;z-index:2`;
+    };
+    const txtC = n => (n.cat === 'accent' || (n.cat === 'sub' && n.id === selId)) ? '#fff' : 'var(--ink)';
+    const subC = n => (n.cat === 'accent') ? '#9db8e8' : (n.cat === 'sub' && n.id === selId) ? '#cfe0ff' : 'var(--mute)';
+    const nodes = order.map(n => ({
+      main: n.main, sub: n.sub, hasSub: !!n.sub, boxStyle: boxStyleFor(n),
+      mainStyle: `font-size:${n.cat === 'norm' ? 12 : 13}px;font-weight:600;color:${txtC(n)};line-height:1.2`,
+      subStyle: `font-family:'Courier New',monospace;font-size:10px;color:${subC(n)};margin-top:3px`,
+      onEnter: () => this.setState({ sel: n.id })
+    }));
+    const flow = [];
+    for (let i = 0; i < order.length - 1; i++) flow.push({ x1: cx, y1: order[i + 1].y - 1, x2: cx, y2: order[i].yb + 2 });
+    const rx = boxL + boxW;
+    const skips = [
+      { d: `M${rx} ${byId.attn.yb} C ${rx + 46} ${byId.attn.yb}, ${rx + 46} ${byId.addnorm1.yc}, ${rx + 2} ${byId.addnorm1.yc}` },
+      { d: `M${rx} ${byId.ffn.yb} C ${rx + 46} ${byId.ffn.yb}, ${rx + 46} ${byId.addnorm2.yc}, ${rx + 2} ${byId.addnorm2.yc}` }
+    ];
+    const bTop = byId.addnorm2.y, bBot = byId.attn.yb;
+    const bracketStyle = `position:absolute;left:20px;top:${bTop}px;height:${bBot - bTop}px;width:12px;border:1.5px solid var(--bracket);border-right:none;border-radius:0 0 0 4px;z-index:1`;
+    const bracketLabelStyle = `position:absolute;left:-7px;top:${(bTop + bBot) / 2 - 10}px;font-family:'Courier New',monospace;font-size:11px;font-weight:600;color:var(--ink2);background:var(--bg);padding:2px 0;writing-mode:vertical-rl;transform:rotate(180deg);z-index:2`;
+    const skipLabel1 = `position:absolute;left:${rx + 30}px;top:${(byId.attn.yb + byId.addnorm1.yc) / 2 - 7}px;font-family:'Courier New',monospace;font-size:9px;color:var(--accent);background:var(--bg);padding:0 2px;z-index:2`;
+    const skipLabel2 = `position:absolute;left:${rx + 30}px;top:${(byId.ffn.yb + byId.addnorm2.yc) / 2 - 7}px;font-family:'Courier New',monospace;font-size:9px;color:var(--accent);background:var(--bg);padding:0 2px;z-index:2`;
+    const sel = info[selId] || info.attn;
+
+    // ================= PIPELINE =================
+    const defs = [
+      { id: 'embed', name: 'Embed + Position', formula: 'x⁰ = E[tok] + PE(pos)', shape: seq + '×4' },
+      { id: 'attn', name: 'Self-Attention', formula: 'softmax(QKᵀ/√dₖ)·V', shape: seq + '×4' },
+      { id: 'add1', name: 'Add & Norm', formula: 'LN(x⁰ + attn)', shape: seq + '×4' },
+      { id: 'ffn', name: 'Feed-Forward', formula: 'GELU(xW₁)W₂', shape: seq + '×4' },
+      { id: 'add2', name: 'Add & Norm', formula: 'LN(x + ffn)', shape: seq + '×4' },
+      { id: 'out', name: 'Unembed + Softmax', formula: 'softmax(h·Eᵀ)', shape: VOCAB.length + '' }
+    ];
+    const cardStyle = a => `text-align:left;cursor:pointer;font-family:inherit;width:168px;min-height:78px;padding:11px 13px;border-radius:0;border:1.5px solid ${a ? 'var(--accent)' : 'var(--line)'};background:${a ? 'var(--accent-soft)' : 'var(--panel)'};box-shadow:${a ? '0 3px 12px var(--accent-glow)' : '0 1px 2px rgba(0,0,0,.04)'};transition:all .15s;color:var(--ink)`;
+    const numStyle = a => `display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:0;font-family:'Courier New',monospace;font-size:10px;font-weight:600;background:${a ? 'var(--accent)' : 'var(--line2)'};color:${a ? '#fff' : 'var(--mute)'}`;
+    const pstage = st.stage;
+    const stages = defs.map((s, i) => ({ name: s.name, formula: s.formula, shape: s.shape, index: String(i + 1), arrow: i < defs.length - 1, cardStyle: cardStyle(pstage === s.id), numStyle: numStyle(pstage === s.id), onSelect: () => this.setState({ stage: s.id }) }));
+    const pcur = defs.find(d => d.id === pstage) || defs[0];
+    const curIndex = String(defs.findIndex(d => d.id === pstage) + 1);
+    const head = st.head, qpos = Math.min(st.qpos, seq - 1), hd = f.heads[head];
+    const headColLabels = [head * 2, head * 2 + 1].map(d => 'd' + d);
+    const toggle = a => `cursor:pointer;font-family:'Courier New',monospace;font-size:11px;font-weight:${a ? 600 : 450};padding:5px 11px;border-radius:0;border:1px solid ${a ? 'var(--accent)' : 'var(--line)'};background:${a ? 'var(--accent)' : 'var(--panel)'};color:${a ? '#fff' : 'var(--ink2)'}`;
+    const headBtns = [0, 1].map(h => ({ label: 'Head ' + h, onClick: () => this.setState({ head: h }), btnStyle: toggle(h === head) }));
+    const smallToggle = a => `cursor:pointer;font-family:'Courier New',monospace;font-size:10.5px;font-weight:${a ? 600 : 450};padding:4px 9px;border-radius:0;border:1px solid ${a ? 'var(--ink)' : 'var(--line)'};background:${a ? 'var(--ink)' : 'var(--panel)'};color:${a ? 'var(--panel)' : 'var(--ink2)'}`;
+    const qBtns = words.map((w, i) => ({ label: 'q' + i + '·' + w, onClick: () => this.setState({ qpos: i }), btnStyle: smallToggle(i === qpos) }));
+    const wr = hd.weights[qpos];
+    const parts = wr.map((p, j) => ({ p, w: words[j], j })).filter(x => x.p > 0.001).sort((a, b) => b.p - a.p);
+    const qExplain = `query "${words[qpos]}" (pos ${qpos}) attends to: ` + parts.map(x => `${x.w}=${(x.p * 100).toFixed(0)}%`).join('  ·  ') + `  → weighted sum over ${parts.length} key${parts.length > 1 ? 's' : ''} (positions > ${qpos} masked)`;
+
+    // -- lineage hover + attention views --
+    const lin = st.lineage;
+    const onWCell = (i, j) => { const cur = this.state.lineage; if (i < 0) { if (cur) this.setState({ lineage: null }); } else if (!cur || cur.i !== i || cur.j !== j) this.setState({ lineage: { i, j } }); };
+    const onWClick = (i, j) => { if (j <= i) this.setState({ view: 'math', mathHead: head, mathQ: i, mathK: j, lineage: null }); };
+    const qHl = lin ? lin.i : -1, kHl = lin ? lin.j : -1, vHl = lin ? lin.j : -1;
+    const wHlRow = lin ? lin.i : qpos, wHlCol = lin ? lin.j : -1;
+    const attnView = st.attnView || 'heat';
+    const showHeat = attnView === 'heat', showArcs = attnView === 'arcs';
+    const viewBtns = [['heat', 'Heatmap'], ['arcs', 'Arcs']].map(([id, l]) => ({ label: l, onClick: () => this.setState({ attnView: id }), btnStyle: toggle(attnView === id) }));
+    const maskCmp = !!st.maskCmp;
+    const onMaskCmp = () => this.setState({ maskCmp: !maskCmp });
+    const maskBtnLabel = maskCmp ? '✕ hide no-mask' : '⇄ compare: no mask';
+    const maskBtnStyle = `cursor:pointer;font-family:'Courier New',monospace;font-size:10.5px;font-weight:${maskCmp ? 600 : 450};padding:5px 10px;border-radius:0;border:1px dashed ${maskCmp ? '#c2673f' : 'var(--line)'};background:${maskCmp ? (dark ? '#2a1c14' : '#fbf1ea') : 'var(--panel)'};color:${maskCmp ? '#c2673f' : 'var(--ink2)'}`;
+    const smaxRow = a => { const mx = Math.max(...a); const ex = a.map(v => Math.exp(v - mx)); const s2 = ex.reduce((x, y) => x + y, 0); return ex.map(v => v / s2); };
+    const noMaskW = hd.raw.map(smaxRow);
+    // arcs geometry
+    const AW = 108, arcW = seq * AW, arcY = 108;
+    const arcs = [];
+    for (let j = 0; j <= qpos; j++) {
+      const w = hd.weights[qpos][j];
+      const x1 = qpos * AW + AW / 2, x2 = j * AW + AW / 2;
+      let d;
+      if (j === qpos) d = `M ${x1 - 14} ${arcY} C ${x1 - 34} ${arcY - 52}, ${x1 + 34} ${arcY - 52}, ${x1 + 14} ${arcY}`;
+      else { const mid = (x1 + x2) / 2, lift = Math.min(98, 36 + Math.abs(x1 - x2) * 0.22); d = `M ${x1} ${arcY} Q ${mid} ${arcY - lift}, ${x2} ${arcY}`; }
+      arcs.push({ d, style: `stroke:var(--accent);stroke-width:${(1 + w * 6).toFixed(1)};opacity:${(0.2 + w * 0.8).toFixed(2)};fill:none;stroke-linecap:round` });
+    }
+    const arcToks = words.map((w, i) => ({
+      label: w,
+      pct: i <= qpos ? (hd.weights[qpos][i] * 100).toFixed(0) + '%' : '▨',
+      onClick: () => this.setState({ qpos: i }),
+      chipStyle: `cursor:pointer;width:92px;height:30px;border-radius:0;font-family:'Courier New',monospace;font-size:13px;font-weight:600;border:1.5px solid ${i > qpos ? 'var(--line2)' : 'var(--accent-line)'};background:${i === qpos ? 'var(--accent)' : 'var(--panel)'};color:${i === qpos ? '#fff' : (i > qpos ? 'var(--mute2)' : 'var(--ink)')}`,
+      pctStyle: `font-family:'Courier New',monospace;font-size:10.5px;font-weight:600;color:${i > qpos ? 'var(--mute2)' : 'var(--accent)'}`
+    }));
+
+    // ================= RESIDUAL =================
+    const bandStyle = "background:var(--panel);border:1px solid var(--line);border-radius:0;padding:15px 17px;box-shadow:0 1px 3px rgba(0,0,0,.05)";
+    const normBand = "background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:0;padding:12px 17px;display:flex;align-items:center;gap:14px;flex-wrap:wrap";
+    const bandHead = "font-size:14px;font-weight:600;margin-bottom:13px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:var(--ink)";
+    const bandNum = "display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:0;font-family:'Courier New',monospace;font-size:11px;font-weight:600;background:var(--accent);color:#fff";
+    const bandForm = "font-family:'Courier New',monospace;font-size:10.5px;color:var(--mute);font-weight:400";
+    const nodeBase = "position:absolute;left:12px;top:15px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:10px;font-weight:600;z-index:3;box-shadow:0 0 0 4px var(--bg)";
+    const nodeStyle = nodeBase + ";background:var(--accent);color:#fff";
+    const readNode = nodeBase + ";background:var(--panel);color:var(--ink2);border:2px solid var(--accent-line);font-size:9px";
+    const addNode = nodeBase + ";top:8px;background:var(--head-bg);color:#fff;font-size:16px";
+    const outNode = nodeBase + ";background:var(--head-bg);color:#fff;font-size:9px";
+
+    // ================= MATH (scalar-level worked derivations) =================
+    const nf = (x, d = 3) => (x >= 0 ? '' : '−') + Math.abs(x).toFixed(d);
+    const dh = LLM.DH;
+    const mh = Math.min(st.mathHead || 0, LLM.H - 1);
+    const MH = f.heads[mh];
+    const mQ = Math.min(st.mathQ == null ? seq - 1 : st.mathQ, seq - 1);
+    const mK = Math.min(st.mathK == null ? 0 : st.mathK, mQ);
+    const mTok = Math.min(st.mathTok == null ? seq - 1 : st.mathTok, seq - 1);
+    const mFF = Math.min(st.mathFF == null ? 0 : st.mathFF, LLM.DFF - 1);
+    const c0 = mh * dh;
+
+    // -- 1. one attention score, scalar by scalar
+    const qi = MH.Qh[mQ], kj = MH.Kh[mK];
+    const sqdk = Math.sqrt(dh);
+    let dotSum = 0; for (let d = 0; d < dh; d++) dotSum += qi[d] * kj[d];
+    const scoreScaled = dotSum / sqdk;
+    const lineBase = "color:var(--ink)";
+    const lineHi = "font-weight:600;color:var(--accent);font-size:13.5px";
+    const scoreLines = [
+      { t: `score(q${mQ}, k${mK}) = (q${mQ} · k${mK}) / √d\u2096`, hi: lineBase },
+      { t: `= ( ` + qi.map((q, d) => `q${mQ}[${d}]·k${mK}[${d}]`).join(' + ') + ` ) / √${dh}`, hi: lineBase },
+      { t: `= ( ` + qi.map((q, d) => `${nf(q)}×${nf(kj[d])}`).join(' + ') + ` ) / ${nf(sqdk)}`, hi: lineBase },
+      { t: `= ( ` + qi.map((q, d) => nf(q * kj[d])).join(' + ') + ` ) / ${nf(sqdk)}`, hi: lineBase },
+      { t: `= ${nf(dotSum)} / ${nf(sqdk)}`, hi: lineBase },
+      { t: `= ${nf(scoreScaled)}`, hi: lineHi }
+    ];
+
+    // -- 2. softmax over the query row
+    const smx = [];
+    let smax = -Infinity;
+    for (let j = 0; j <= mQ; j++) { const s = MH.masked[mQ][j]; smx.push({ j, word: words[j], s }); if (s > smax) smax = s; }
+    let esum = 0; smx.forEach(o => { o.ez = Math.exp(o.s - smax); esum += o.ez; });
+    smx.forEach(o => { o.w = o.ez / esum; });
+    const softRows = smx.map(o => ({
+      j: o.j, word: o.word, s: nf(o.s), ez: nf(o.ez), w: (o.w * 100).toFixed(1) + '%', isSel: o.j === mK,
+      rowStyle: `display:grid;grid-template-columns:70px 74px 90px 60px;gap:8px;padding:7px 10px;border-radius:0;background:${o.j === mK ? 'var(--accent-soft)' : 'var(--panel2)'};border:1px solid ${o.j === mK ? 'var(--accent-line)' : 'var(--line2)'}`
+    }));
+    const softInfo = `keys 0…${mQ} are visible · positions > ${mQ} are masked to −∞ (weight 0) · Σ exp = ${nf(esum)} · weights sum to 1.000`;
+
+    // -- 3. weighted sum of values → head output component
+    const valLines = [];
+    for (let c = 0; c < dh; c++) {
+      let s = 0; const terms = [];
+      for (let j = 0; j <= mQ; j++) { const w = MH.weights[mQ][j], v = MH.Vh[j][c]; s += w * v; terms.push(`${nf(w, 2)}×${nf(v)}`); }
+      valLines.push({ t: `out[${mQ}][${c}] = ` + terms.join(' + ') + ` = ${nf(s)}`, dim: 'd' + (c0 + c) });
+    }
+
+    // -- 4. LayerNorm on one row
+    const xrow = f.res1[mTok];
+    const mu = xrow.reduce((a, b) => a + b, 0) / xrow.length;
+    const varr = xrow.reduce((a, b) => a + (b - mu) ** 2, 0) / xrow.length;
+    const denom = Math.sqrt(varr + 1e-5);
+    const lnHead = [
+      { t: `x = [ ${xrow.map(v => nf(v)).join(', ')} ]` },
+      { t: `μ = (Σ x) / 4 = ${nf(mu)}` },
+      { t: `σ² = (Σ (x−μ)²) / 4 = ${nf(varr)}` },
+      { t: `√(σ² + ε) = √(${nf(varr)} + 1e-5) = ${nf(denom)}` }
+    ];
+    const lnRows = xrow.map((x, c) => ({ t: `x̂[${c}] = (${nf(x)} − ${nf(mu)}) / ${nf(denom)} = ${nf((x - mu) / denom)}`, dim: 'd' + c }));
+
+    // -- 5. GELU on one activation
+    const gx = f.preAct[mTok][mFF];
+    const gout = f.act[mTok][mFF];
+    const gInner = Math.sqrt(2 / Math.PI) * (gx + 0.044715 * gx ** 3);
+    const geluLines = [
+      { t: `GELU(x) = 0.5·x·(1 + tanh[ √(2/π)·(x + 0.044715·x³) ])`, hi: lineBase },
+      { t: `= 0.5·${nf(gx)}·(1 + tanh[ ${nf(gInner)} ])`, hi: lineBase },
+      { t: `= 0.5·${nf(gx)}·(1 + ${nf(Math.tanh(gInner))})`, hi: lineBase },
+      { t: `= ${nf(gout)}`, hi: lineHi }
+    ];
+    const mSelCap = "font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1px;color:var(--mute);margin-bottom:7px";
+    const mCard = "background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px;margin-bottom:20px";
+    const mHead = "font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px;color:var(--ink)";
+    const mNum = "width:24px;height:24px;border-radius:0;background:var(--accent);color:#fff;font-family:'Courier New',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none";
+    const mBox = "font-family:'Courier New',monospace;font-size:12.5px;line-height:1.95;color:var(--ink);background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:14px 16px;overflow-x:auto";
+
+    // -- selectors
+    const mToggle = a => `cursor:pointer;font-family:'Courier New',monospace;font-size:11px;font-weight:${a ? 600 : 450};padding:4px 10px;border-radius:0;border:1px solid ${a ? 'var(--accent)' : 'var(--line)'};background:${a ? 'var(--accent)' : 'var(--panel)'};color:${a ? '#fff' : 'var(--ink2)'}`;
+    const mHeadBtns = [0, 1].map(h => ({ label: 'head ' + h, onClick: () => this.setState({ mathHead: h }), btnStyle: mToggle(h === mh) }));
+    const mQBtns = words.map((w, i) => ({ label: 'q' + i, onClick: () => this.setState({ mathQ: i, mathK: Math.min(mK, i) }), btnStyle: mToggle(i === mQ) }));
+    const mKBtns = words.slice(0, mQ + 1).map((w, j) => ({ label: 'k' + j, onClick: () => this.setState({ mathK: j }), btnStyle: mToggle(j === mK) }));
+    const mTokBtns = words.map((w, i) => ({ label: w, onClick: () => this.setState({ mathTok: i }), btnStyle: mToggle(i === mTok) }));
+    const mFFBtns = [0, 1, 2, 3, 4, 5, 6, 7].map(j => ({ label: String(j), onClick: () => this.setState({ mathFF: j }), btnStyle: mToggle(j === mFF) }));
+    const mathQword = words[mQ], mathKword = words[mK], mathTokWord = words[mTok];
+
+    // -- 6. temperature on the final softmax
+    const mT = st.mathT == null ? 0.8 : st.mathT;
+    const tmax = Math.max(...f.logits);
+    const te = f.logits.map(z => Math.exp((z - tmax) / mT));
+    const tes = te.reduce((a, b) => a + b, 0);
+    const tp = te.map(v => v / tes);
+    const tArg = tp.indexOf(Math.max(...tp));
+    const tempRows = f.logits.map((z, j) => ({ j, w: VOCAB[j], z, e: te[j], p: tp[j], p1: f.probs[j] }))
+      .sort((a, b) => b.p - a.p)
+      .map(o => ({
+        word: o.w, z: nf(o.z), zt: nf(o.z / mT), e: nf(o.e), p: (o.p * 100).toFixed(1) + '%', p1: (o.p1 * 100).toFixed(1) + '%',
+        barStyle: `width:${Math.max(1.5, o.p * 100)}%;height:100%;background:${o.j === tArg ? 'var(--accent)' : (dark ? '#3a527e' : '#a9c0e6')};border-radius:2px;transition:width .25s`,
+        rowStyle: `display:grid;grid-template-columns:52px 66px 66px 66px 56px 56px 1fr;gap:8px;align-items:center;padding:6px 10px;border-radius:0;background:${o.j === tArg ? 'var(--accent-soft)' : 'var(--panel2)'};border:1px solid ${o.j === tArg ? 'var(--accent-line)' : 'var(--line2)'}`
+      }));
+    const tempHeadRow = `display:grid;grid-template-columns:52px 66px 66px 66px 56px 56px 1fr;gap:8px;padding:0 10px 6px;font-size:9.5px;letter-spacing:.5px;color:var(--mute2)`;
+    const tempBtns = [0.25, 0.5, 0.8, 1.0, 1.5, 3.0].map(v => ({ label: 'T ' + v, onClick: () => this.setState({ mathT: v }), btnStyle: mToggle(Math.abs(v - mT) < 1e-9) }));
+    const tEnt = -tp.reduce((a, p) => a + (p > 0 ? p * Math.log(p) : 0), 0);
+    const tEnt1 = -f.probs.reduce((a, p) => a + (p > 0 ? p * Math.log(p) : 0), 0);
+    const tempInfo = `entropy H = ${tEnt.toFixed(2)} nats at T ${mT} (${tEnt1.toFixed(2)} at T 1) · T→0 collapses to argmax (H=0) · T→∞ flattens to uniform (H = ln 8 = 2.08) · dividing by T scales logit GAPS, and softmax only sees gaps`;
+    const mTLabel = String(mT);
+
+    // ================= GENERATE =================
+    const gseq = st.genSeq || tokens;
+    const promptLen = st.genPromptLen == null ? tokens.length : st.genPromptLen;
+    const gf = LLM.forward(gseq);
+    const gArg = gf.logits.indexOf(Math.max(...gf.logits));
+    let gprobs;
+    if (st.genGreedy) { gprobs = gf.logits.map((_, i) => (i === gArg ? 1 : 0)); }
+    else { const T = Math.max(0.05, st.genTemp); const sc = gf.logits.map(l => l / T); const mm = Math.max(...sc); const ex = sc.map(v => Math.exp(v - mm)); const ssum = ex.reduce((a, b) => a + b, 0); gprobs = ex.map(v => v / ssum); }
+    const gmax = Math.max(...gprobs) || 1;
+    const baseM = Math.max(...gf.logits); const baseEx = gf.logits.map(v => Math.exp(v - baseM)); const baseS = baseEx.reduce((a, b) => a + b, 0); const baseProbs = baseEx.map(v => v / baseS);
+    const showGhost = !st.genGreedy && Math.abs(st.genTemp - 1) > 0.02;
+    const nextBars = gprobs.map((p, i) => ({ w: VOCAB[i], p, bp: baseProbs[i] })).sort((a, b) => b.p - a.p).map((d, i) => ({
+      word: d.w, pct: (d.p * 100).toFixed(0) + '%',
+      wStyle: `font-family:'Courier New',monospace;font-size:12px;font-weight:${i === 0 ? 600 : 450};color:${i === 0 ? 'var(--ink)' : 'var(--ink2)'};width:38px`,
+      pStyle: `font-family:'Courier New',monospace;font-size:11px;color:var(--mute);width:40px;text-align:right`,
+      barStyle: `width:${Math.max(2, (d.p / gmax) * 100)}%;height:100%;background:${i === 0 ? 'var(--accent)' : (dark ? '#3a527e' : '#a9c0e6')};border-radius:0;transition:width .3s`,
+      ghostStyle: `position:absolute;left:calc(${Math.min(100, (d.bp / gmax) * 100).toFixed(1)}% - 1px);top:1px;bottom:1px;width:2px;background:var(--ink2);opacity:.55;border-radius:1px`
+    }));
+    const distSub = st.genGreedy ? 'argmax — deterministic, nothing is sampled' : (showGhost ? 'reshaped by temperature · ▎ marker = weight at T 1.00' : 'what the next sample draws from');
+    const genChips = gseq.map((t, i) => {
+      const isP = i < promptLen, isNew = i === gseq.length - 1 && gseq.length > promptLen;
+      return { word: VOCAB[t], chipStyle: `font-family:'Courier New',monospace;font-size:14px;font-weight:600;padding:8px 12px;border-radius:0;border:1px solid ${isP ? 'var(--line)' : 'var(--accent)'};background:${isP ? 'var(--panel3)' : 'var(--accent-soft)'};color:${isP ? 'var(--ink2)' : 'var(--accent)'};${isNew ? 'box-shadow:0 0 0 3px var(--accent-glow);' : ''}transition:all .2s` };
+    });
+    let cumLnp = 0;
+    const genSteps = st.genSteps.map((s, i) => {
+      const lnp = Math.log((s.baseP != null ? s.baseP : s.p) + 1e-12);
+      cumLnp += lnp;
+      return { idx: String(i + 1), word: s.word, p: (s.p * 100).toFixed(0) + '%', lnp: lnp.toFixed(2), cum: cumLnp.toFixed(2), cand: s.cand.map(c => c.w + ' ' + (c.p * 100).toFixed(0)).join(' · ') };
+    });
+    const genPlaying = st.genPlaying;
+    const canGen = gseq.length < 14;
+    const playLabel = genPlaying ? '❚❚  Pause' : (st.genSteps.length ? '▶  Continue' : '▶  Generate');
+    const playStyle = `cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;padding:9px 18px;border-radius:0;border:1px solid var(--accent);background:${canGen || genPlaying ? 'var(--accent)' : 'var(--line2)'};color:#fff;opacity:${canGen || genPlaying ? 1 : .5}`;
+    const ctrlStyle = `cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;padding:9px 15px;border-radius:0;border:1px solid var(--line);background:var(--panel);color:var(--ink2)`;
+    const modeBtns = [['Sample', false], ['Greedy', true]].map(([l, g]) => ({ label: l, onClick: () => this.setState({ genGreedy: g }), segStyle: segStyle(st.genGreedy === g) }));
+    const genGreedy = st.genGreedy;
+    const genTempVal = st.genTemp.toFixed(2);
+    const onTemp = (e) => this.setState({ genTemp: parseFloat(e.target.value) });
+    const onPlay = () => this.togglePlay();
+    const onStep = () => { if (canGen) this.genStep(); };
+    const onReset = () => this.resetGen();
+    const genHint = genGreedy
+      ? 'Greedy always takes the top token — notice how it quickly falls into a loop. That degeneration is exactly why sampling exists.'
+      : (st.genTemp <= 0.4 ? 'Low temperature → sharp, near-greedy, repetitive.' : st.genTemp >= 1.1 ? 'High temperature → flatter distribution, more surprising (and more chaotic) picks.' : 'Balanced temperature — some variety while still favoring likely tokens.');
+
+    // ================= TRAINING =================
+    // Live teacher-forcing loss on the current sentence (each position predicts the next).
+    const tf = f.perTokenLoss.map(pt => {
+      const predTop = f.allProbs[pt.pos].map((p, i) => ({ p, w: VOCAB[i] })).sort((a, b) => b.p - a.p)[0];
+      const hit = predTop.w === pt.targetWord;
+      const lossPct = Math.min(1, pt.loss / 3.5); // ~ln(vocab) scale for the bar
+      return {
+        ctx: words.slice(0, pt.pos + 1).join(' '),
+        target: pt.targetWord,
+        pred: predTop.w,
+        predP: (predTop.p * 100).toFixed(0) + '%',
+        pTarget: (pt.p * 100).toFixed(1) + '%',
+        loss: pt.loss.toFixed(2),
+        hit,
+        mark: hit ? '✓' : '·',
+        markStyle: `flex:none;width:20px;height:20px;border-radius:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'Courier New',monospace;background:${hit ? 'var(--accent-soft)' : 'var(--panel3)'};color:${hit ? 'var(--accent)' : 'var(--mute2)'};border:1px solid ${hit ? 'var(--accent-line)' : 'var(--line2)'}`,
+        barStyle: `width:${Math.max(3, lossPct * 100)}%;height:100%;background:${dark ? '#e0895a' : '#c2673f'};opacity:.85;border-radius:0;transition:width .35s`
+      };
+    });
+    const avgLoss = f.avgLoss.toFixed(2);
+    const perplexity = f.perplexity.toFixed(1);
+    const randomLoss = Math.log(VOCAB.length).toFixed(2);
+
+    // -- training data panel --
+    const tdPairs = f.perTokenLoss.map((pt, i) => {
+      const row = f.allProbs[pt.pos];
+      const hit = row.indexOf(Math.max(...row)) === pt.target;
+      return { n: String(i + 1), ctx: words.slice(0, pt.pos + 1), target: pt.targetWord,
+               p: pt.p.toFixed(2), mark: hit ? '✓' : '✗', pColor: hit ? 'var(--accent)' : 'var(--mute)' };
+    });
+    const tdCount = String(tdPairs.length);
+    const tdCtxChip = `font-family:'Courier New',monospace;font-size:11.5px;font-weight:500;padding:3px 8px;border-radius:0;border:1px solid var(--line2);background:var(--panel3);color:var(--ink2)`;
+    const tdTgtChip = `font-family:'Courier New',monospace;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:0;border:1px solid var(--accent-line);background:var(--accent-soft);color:var(--accent)`;
+
+    // -- live gradient-descent exercise --
+    const trainSteps = st.trainSteps || 0;
+    const trainHist = st.trainHist || [f.avgLoss];
+    const maxL = Math.max(2.3, ...trainHist);
+    const lossY = v => 6 + (1 - Math.max(0, v) / maxL) * 98;
+    const histDraw = trainHist.length === 1 ? [trainHist[0], trainHist[0]] : trainHist;
+    const lossPts = histDraw.map((v, i) => `${((i / (histDraw.length - 1)) * 560).toFixed(1)},${lossY(v).toFixed(1)}`).join(' ');
+    const lossBaseY = lossY(Math.log(VOCAB.length)).toFixed(1);
+    const curTrainLoss = f.avgLoss.toFixed(3);
+    const stepBtn = `cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:0;border:1px solid var(--accent);background:var(--accent);color:#fff;opacity:${st.training ? .55 : 1}`;
+    const resetWBtn = `cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:500;padding:8px 13px;border-radius:0;border:1px solid var(--line);background:var(--panel);color:var(--ink2)`;
+    const onStep1 = () => this.runTrain(1), onStep10 = () => this.runTrain(10), onStep100 = () => this.runTrain(100);
+    const onResetW = () => this.resetWeights();
+    const lrVal = (st.lr || 0.3).toFixed(2);
+    const onLr = e => this.setState({ lr: parseFloat(e.target.value) });
+    const trainingBusy = !!st.training;
+    const stepCount = String(trainSteps);
+    const trainedNote = trainSteps ? trainSteps + ' steps applied — saved in this browser; ↺ Reset to clear' : 'weights at their hand-set starting point';
+    const overfit = trainSteps > 0 && !st.training && f.avgLoss < 0.08;
+    const rollFrom = wgt => { let s = tokens.slice(); const out = []; for (let k = 0; k < 6; k++) { const lg = LLM.forward(s, wgt).logits; const p = lg.indexOf(Math.max(...lg)); out.push(VOCAB[p]); s = [...s, p]; } return out; };
+    const rollB = LLM.ORIG ? rollFrom(LLM.ORIG) : [], rollA = LLM.ORIG ? rollFrom(null) : [];
+    const rollChip = diff => `font-family:'Courier New',monospace;font-size:11.5px;font-weight:600;padding:4px 8px;border-radius:0;border:1px solid ${diff ? 'var(--accent)' : 'var(--line2)'};background:${diff ? 'var(--accent-soft)' : 'var(--panel3)'};color:${diff ? 'var(--accent)' : 'var(--ink2)'}`;
+    const rollBefore = rollB.map(w2 => ({ w: w2, style: rollChip(false) }));
+    const rollAfter = rollA.map((w2, i) => ({ w: w2, style: rollChip(w2 !== rollB[i]) }));
+    const cmpTag = `font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:.5px;color:var(--mute);width:70px;flex:none`;
+    const cmpTagNow = `font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:.5px;color:var(--accent);font-weight:600;width:70px;flex:none`;
+    // -- touch one weight --
+    const TWDEFS = [
+      { label: 'W_Q[0][0]', name: 'W_Q d0→q0 (attention query)', get: w => w.WQ[0][0], set: (w, v) => { w.WQ[0][0] = v; } },
+      { label: 'W_O[1][2]', name: 'W_O d1→d2 (attention output mix)', get: w => w.WO[1][2], set: (w, v) => { w.WO[1][2] = v; } },
+      { label: 'W₁[0][4]', name: 'FFN W₁ d0→unit4 (up-projection)', get: w => w.W1[0][4], set: (w, v) => { w.W1[0][4] = v; } },
+      { label: 'E[cat][0]', name: 'embedding of "cat", dim d0 (tied to unembed)', get: w => w.E[1][0], set: (w, v) => { w.E[1][0] = v; } }
+    ];
+    const twSel = Math.min(st.twSel || 0, TWDEFS.length - 1);
+    const twDef = TWDEFS[twSel];
+    const wLive = LLM.getWeights ? LLM.getWeights() : null;
+    const twCur = wLive ? twDef.get(wLive) : 0;
+    const twBtns = TWDEFS.map((d, i) => ({ label: d.label, onClick: () => this.setState({ twSel: i }), btnStyle: mToggle(i === twSel) }));
+    let twPts = '', twDotX = '0', twDotY = '0';
+    if (st.view === 'training' && wLive) {
+      const lsKey = twSel + '|' + (LLM.getVersion ? LLM.getVersion() : 0) + '|' + tokens.join('');
+      if (!this._lsc || this._lsc.key !== lsKey) {
+        const orig = twDef.get(wLive); const samples = [];
+        for (let k = 0; k <= 40; k++) { twDef.set(wLive, -1.5 + (k / 40) * 3); samples.push(LLM.forward(tokens).avgLoss); }
+        twDef.set(wLive, orig);
+        this._lsc = { key: lsKey, samples };
+      }
+      const sm = this._lsc.samples;
+      const mn = Math.min(...sm), mx = Math.max(...sm);
+      const yOf = v => 8 + (1 - (v - mn) / ((mx - mn) || 1)) * 94;
+      twPts = sm.map((v, k) => `${((k / 40) * 560).toFixed(1)},${yOf(v).toFixed(1)}`).join(' ');
+      twDotX = Math.max(0, Math.min(560, ((twCur + 1.5) / 3) * 560)).toFixed(1);
+      twDotY = Math.max(4, Math.min(106, yOf(f.avgLoss))).toFixed(1);
+    }
+    const twVal = twCur.toFixed(2);
+    const onTw = e => { const v = parseFloat(e.target.value); if (!wLive) return; twDef.set(wLive, v); if (LLM.bump) LLM.bump(); clearTimeout(this._sv); this._sv = setTimeout(() => this.saveWeights(), 400); this.forceUpdate(); };
+    const twName = twDef.name;
+
+    // -- compute panels --
+    const SCALES = [
+      { label: 'GPT-2 · 1.5B', cells: [['PARAMS N', '1.5 B', '≈9,000× this toy'], ['TOKENS D', '~10 B', 'web text'], ['TRAIN FLOPS', '9×10¹⁹', '6·N·D'], ['CLUSTER', '8 GPUs', 'one node'], ['WALL-CLOCK', '~8 hours', 'a working day'], ['POWER', '~11 kW', 'a house']],
+        note: 'In 2019 this took weeks on hundreds of GPUs. The same run fits on one modern 8-GPU node overnight — compute per dollar is the quiet driver of the whole field.' },
+      { label: 'Llama-class · 8B', cells: [['PARAMS N', '8 B', 'd=4096 · 32 heads · 32 blocks'], ['TOKENS D', '~15 T', '≈4×10¹² of your 4-example datasets'], ['TRAIN FLOPS', '7×10²³', '6·N·D'], ['CLUSTER', '1,024 GPUs', 'H100-class'], ['WALL-CLOCK', '~3 weeks', 'around the clock'], ['POWER', '~1.4 MW', 'a small factory']],
+        note: 'Architecturally this is the toy above with bigger rectangles: same E → Q/K/V/O → W₁/W₂ picture, just 4096 dims instead of 4, 32 heads instead of 2, 32 blocks instead of 1.' },
+      { label: '70B', cells: [['PARAMS N', '70 B', 'd=8192 · 64 heads · 80 blocks'], ['TOKENS D', '~15 T', 'same data, bigger model'], ['TRAIN FLOPS', '6×10²⁴', '6·N·D'], ['CLUSTER', '16,384 GPUs', 'a purpose-built hall'], ['WALL-CLOCK', '~2 weeks', 'more GPUs than FLOPs'], ['POWER', '~23 MW', 'a small town']],
+        note: 'Past ~10k GPUs the hard problems stop being math: keeping the gradient synchronized across the cluster, and surviving hardware failures mid-run (at this scale, several per day).' },
+      { label: 'frontier', cells: [['PARAMS N', '~2 T', 'mixture-of-experts'], ['TOKENS D', 'tens of T', 'near the usable-text limit'], ['TRAIN FLOPS', '~10²⁶', 'rumored class'], ['CLUSTER', '~100,000 GPUs', 'a dedicated campus'], ['WALL-CLOCK', '~1–2 months', 'plus months of prep'], ['POWER', '~140 MW', 'a small city']],
+        note: 'Frontier runs are industrial projects: dedicated power contracts, custom cooling, teams babysitting the loss curve. And the loop inside is still exactly the one on this page — forward, loss, gradient, nudge.' }
+    ];
+    const scaleSel = Math.min(st.scaleSel == null ? 1 : st.scaleSel, SCALES.length - 1);
+    const scaleBtns = SCALES.map((s, i) => ({ label: s.label, onClick: () => this.setState({ scaleSel: i }), btnStyle: mToggle(i === scaleSel) }));
+    const scaleCells = SCALES[scaleSel].cells.map(c => ({ k: c[0], v: c[1], sub: c[2] }));
+    const scaleNote = SCALES[scaleSel].note;
+    const srvCells = [
+      { k: 'FLOPS / TOKEN', v: '≈2·N = 16 GFLOP', sub: 'every weight used once' },
+      { k: 'MEMORY READ / TOKEN', v: '16 GB', sub: 'all weights, fp16 — the bottleneck' },
+      { k: 'SINGLE-STREAM CEILING', v: '~200 tok/s', sub: '3.4 TB/s ÷ 16 GB' },
+      { k: 'KV-CACHE / TOKEN', v: '~0.5 MB', sub: '2 · 32 layers · 4096 · fp16' },
+      { k: 'KV AT 32K CONTEXT', v: '~16 GB', sub: 'why long context costs' }
+    ];
+
+    // -- weights map --
+    const wDelta = st.wView === 'delta';
+    const O = LLM.ORIG;
+    const dM = (m, o) => (wDelta ? m.map((r, i) => r.map((v, j) => v - o[i][j])) : m);
+    const dV = (v, o) => [wDelta ? v.map((x, i) => x - o[i]) : v.slice()];
+    const wE = wLive ? dM(wLive.E, O.E) : [[0]];
+    const wWQ = wLive ? dM(wLive.WQ, O.WQ) : [[0]];
+    const wWK = wLive ? dM(wLive.WK, O.WK) : [[0]];
+    const wWV = wLive ? dM(wLive.WV, O.WV) : [[0]];
+    const wWO = wLive ? dM(wLive.WO, O.WO) : [[0]];
+    const wW1 = wLive ? dM(wLive.W1, O.W1) : [[0]];
+    const wW2 = wLive ? dM(wLive.W2, O.W2) : [[0]];
+    const wB1 = wLive ? dV(wLive.b1, O.b1) : [[0]];
+    const wB2 = wLive ? dV(wLive.b2, O.b2) : [[0]];
+    const wViewBtns = [['vals', 'values'], ['delta', 'Δ vs untrained']].map(([id, l]) => ({ label: l, onClick: () => this.setState({ wView: id }), btnStyle: mToggle((st.wView || 'vals') === id) }));
+    const wMapDesc = wDelta
+      ? 'Every cell shows how far training has moved that weight from its starting value — blank means untouched. Run some steps above and see the changes spread through the whole stack; the query/key columns of the head doing the work usually move most.'
+      : 'This is the entire model, laid out where each matrix sits in the architecture: embeddings feed attention (Q, K, V in, O out), attention feeds the FFN sandwich. Gradient descent may move every one of these numbers at every step.';
+    const wGroupCap = `font-family:'Courier New',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--mute2);border-bottom:1px solid var(--line2);padding-bottom:5px;margin-bottom:10px`;
+    const vocabLabels = VOCAB;
+    const qkDims = ['q/k0', 'q/k1', 'q/k2', 'q/k3'];
+    const ffnLabels = ['u0', 'u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7'];
+    const biasRowLabel = ['b'];
+
+    const loopStages = [
+      { n: '1', t: 'Data + Tokenize', d: 'Raw text → token ids → shuffled batches.', tone: 'io' },
+      { n: '2', t: 'Forward pass', d: 'Run the block(s), produce logits at every position.', tone: 'sub' },
+      { n: '3', t: 'Cross-entropy loss', d: 'Compare predicted distribution to the actual next token.', tone: 'loss' },
+      { n: '4', t: 'Backward pass', d: 'Backprop ∂L/∂W to every weight (autograd).', tone: 'sub' },
+      { n: '5', t: 'Optimizer step', d: 'AdamW nudges each weight down its gradient.', tone: 'norm' },
+      { n: '↻', t: 'Repeat ×N steps', d: 'Millions of steps until the loss curve flattens.', tone: 'accent' }
+    ];
+    const loopCards = loopStages.map(s => {
+      let bg = 'var(--panel)', bd = 'var(--line)', accent = 'var(--mute)';
+      if (s.tone === 'sub') { bg = 'var(--accent-soft)'; bd = 'var(--accent-line)'; accent = 'var(--accent)'; }
+      else if (s.tone === 'loss') { bg = dark ? '#2a1c14' : '#fbf1ea'; bd = dark ? '#4a2f1f' : '#f0dccb'; accent = dark ? '#e0895a' : '#c2673f'; }
+      else if (s.tone === 'norm') { bg = 'var(--panel3)'; bd = 'var(--accent-line)'; accent = 'var(--accent)'; }
+      else if (s.tone === 'accent') { bg = 'var(--head-bg)'; bd = 'var(--head-bg)'; accent = '#8fb0ee'; }
+      const white = s.tone === 'accent';
+      return {
+        n: s.n, t: s.t, d: s.d,
+        cardStyle: `flex:1;min-width:150px;background:${bg};border:1px solid ${bd};border-radius:0;padding:14px 15px`,
+        numStyle: `width:24px;height:24px;border-radius:0;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:12px;font-weight:600;background:${white ? 'rgba(255,255,255,.14)' : 'var(--panel)'};color:${accent};border:1px solid ${white ? 'rgba(255,255,255,.2)' : bd};margin-bottom:9px`,
+        titleStyle: `font-size:13px;font-weight:600;margin-bottom:4px;color:${white ? '#fff' : 'var(--ink)'}`,
+        descStyle: `font-size:11.5px;line-height:1.5;color:${white ? '#9db8e8' : 'var(--ink2)'}`
+      };
+    });
+
+    const trainCompareRows = [
+      ['Objective', 'next-token cross-entropy', 'next-token cross-entropy — identical'],
+      ['Training data', 'none — weights hand-set', '~15T tokens · web, code, books, math'],
+      ['Tokens seen', '0', '10¹³ +'],
+      ['Optimizer', '— (not trained)', 'AdamW · cosine decay · warmup'],
+      ['Batch size', '1 sequence', '1M – 4M tokens per step'],
+      ['Precision', 'fp64 (JS)', 'bf16 / fp8 mixed precision'],
+      ['Hardware', 'your browser tab', '1000s of GPUs · weeks of wall-clock'],
+      ['Parallelism', 'none', 'data · tensor · pipeline · FSDP'],
+      ['Regularization', 'none', 'weight decay · grad clipping · dropout'],
+      ['Compute', '~0 FLOPs', '10²³ – 10²⁵ FLOPs'],
+      ['Post-training', 'none', 'SFT → preference tuning (RLHF / DPO)']
+    ];
+    const trainCompare = trainCompareRows.map((r, i) => ({ label: r[0], toy: r[1], real: r[2], bg: i % 2 ? 'var(--panel2)' : 'transparent' }));
+
+    const stagesPost = [
+      { k: 'A', t: 'Pretraining', tag: 'self-supervised', d: 'Predict the next token over trillions of tokens of raw text. Builds a general model of language, facts and reasoning. 99%+ of total compute lives here.', obj: 'objective: next-token CE (what this toy shows)' },
+      { k: 'B', t: 'Supervised fine-tuning', tag: 'SFT', d: 'Continue training on curated prompt→response pairs so the model follows instructions and adopts a helpful format. Same loss, tiny high-quality dataset.', obj: 'objective: next-token CE on demonstrations' },
+      { k: 'C', t: 'Preference tuning', tag: 'RLHF / DPO', d: 'Optimize against human preference signals (a reward model or paired comparisons) to align tone, safety and helpfulness. A different objective entirely.', obj: 'objective: reward / preference, not CE' }
+    ];
+    const postCards = stagesPost.map(s => ({
+      k: s.k, t: s.t, tag: s.tag, d: s.d, obj: s.obj
+    }));
+
+    // ================= ABOUT =================
+    const usage = [
+      { n: '1', t: 'Edit the input', d: 'Click any token chip in the top bar and pick a different word. The whole forward pass — every matrix, heatmap, and the next-token distribution — recomputes instantly.' },
+      { n: '2', t: 'Switch lenses', d: 'Architecture, Pipeline and Residual Stream are three views of the same computation. Your input and its prediction carry across all of them.' },
+      { n: '3', t: 'Inspect the math', d: 'Hover a block in Architecture for its formula, shape and parameter count. In Pipeline, click a stage, switch attention heads, and pick a query row to see exactly what it attends to.' },
+      { n: '4', t: 'Toggle theme', d: '☀ / ☾ lives top-right — heatmaps re-base onto the active surface instead of washing out.' },
+      { n: '5', t: 'Tour & shortcuts', d: 'Hit ✦ Tour in the top bar for a 6-step guided walk. In attention views, ←/→ moves the query row and H switches heads. The URL tracks your view, so any exact state is shareable.' }
+    ];
+    const coverage = [
+      'Token embedding lookup (learned table E)', 'Sinusoidal positional encoding', 'Q / K / V linear projections',
+      'Scaled dot-product attention · QKᵀ/√dₖ', 'Causal (autoregressive) masking', 'Multi-head split → concat → W_O',
+      'Softmax (attention weights & output)', 'Residual / skip connections', 'LayerNorm (per-row μ, σ)',
+      'Position-wise FFN with GELU · 4→8→4', 'Weight-tied unembedding → logits', 'Argmax read at the final position'
+    ];
+    const compareRows = [
+      ['Parameters', '≈ 188', '≈ 7,000,000,000'],
+      ['Model width  d', '4', '≈ 4096'],
+      ['Transformer blocks', '1', '≈ 32'],
+      ['Attention heads', '2  ·  d_head 2', '≈ 32  ·  d_head 128'],
+      ['Vocabulary', '8 whole words', '≈ 128k BPE subwords'],
+      ['Context length', '5 tokens', '8k – 1M+ tokens'],
+      ['Positional scheme', 'fixed sinusoidal', 'RoPE / ALiBi (rotary)'],
+      ['Normalization', 'post-LayerNorm', 'pre-RMSNorm'],
+      ['Feed-forward', 'GELU MLP', 'SwiGLU gated MLP'],
+      ['Attention', 'full MHA', 'GQA/MQA · FlashAttention · KV-cache'],
+      ['Weights', 'hand-set, untrained', 'trained on trillions of tokens'],
+      ['Decoding', 'argmax (greedy)', 'temperature · top-p/k · speculative']
+    ];
+    const compare = compareRows.map((r, i) => ({ label: r[0], toy: r[1], real: r[2], bg: i % 2 ? 'var(--panel2)' : 'transparent' }));
+    const omitted = ['BPE tokenization', 'RoPE', 'GQA / MQA', 'KV-cache', 'FlashAttention', 'MoE routing', 'dropout', 'bf16 / fp8 precision', 'RLHF / instruction tuning', 'embedding scale √d', 'bias terms', 'LR schedules'];
+
+    // ================= CROSS-NAV + TOUR =================
+    const nodeToStage = { input: 'embed', embed: 'embed', posenc: 'embed', attn: 'attn', addnorm1: 'add1', ffn: 'ffn', addnorm2: 'add2', linear: 'out', softmax: 'out', output: 'out' };
+    const crumbDefs = [['embed', 'embed+pos'], ['attn', 'attention'], ['add1', 'add+norm'], ['ffn', 'ffn'], ['add2', 'add+norm'], ['out', 'unembed']];
+    let curCrumb = null;
+    if (st.view === 'pipeline') curCrumb = pstage;
+    else if (st.view === 'arch') curCrumb = nodeToStage[selId] || null;
+    else if (st.view === 'math') curCrumb = 'attn';
+    const crumbs = crumbDefs.map(([id, label], i) => ({
+      label, arrow: i < crumbDefs.length - 1,
+      onClick: () => this.setState({ view: 'pipeline', stage: id }),
+      style: `cursor:pointer;font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;padding:4px 11px;border-radius:14px;border:1px solid ${curCrumb === id ? 'var(--accent)' : 'var(--line)'};background:${curCrumb === id ? 'var(--accent-soft)' : 'var(--panel)'};color:${curCrumb === id ? 'var(--accent)' : 'var(--mute)'};font-weight:${curCrumb === id ? 600 : 450}`
+    }));
+    const showCrumbs = ['arch', 'pipeline', 'math', 'residual'].indexOf(st.view) !== -1;
+    const linkBtn = `cursor:pointer;font-family:'Courier New',monospace;font-size:11px;font-weight:600;padding:6px 12px;border-radius:0;border:1px solid var(--accent-line);background:var(--accent-soft);color:var(--accent)`;
+    const selGoPipeline = () => this.setState({ view: 'pipeline', stage: nodeToStage[selId] || 'embed' });
+    const selHasMath = ['attn', 'addnorm1', 'addnorm2', 'ffn'].indexOf(selId) !== -1;
+    const selGoMath = () => this.setState({ view: 'math' });
+    const TOUR = this.tourDefs();
+    const tourOn = st.tourStep >= 0;
+    const tourCur = tourOn ? TOUR[st.tourStep] : { t: '', d: '' };
+    const tourNext = () => (st.tourStep >= TOUR.length - 1 ? this.setState({ tourStep: -1 }) : this.applyTour(st.tourStep + 1));
+    const tourPrev = () => this.applyTour(Math.max(0, st.tourStep - 1));
+    const tourEnd = () => this.setState({ tourStep: -1 });
+    const tourNextLabel = st.tourStep >= TOUR.length - 1 ? 'Done ✓' : 'Next →';
+    const tourBtn = `cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:7px 14px;border-radius:0;border:1px solid var(--accent);background:var(--accent);color:#fff`;
+    const tourBtn2 = `cursor:pointer;font-family:inherit;font-size:12px;font-weight:500;padding:7px 12px;border-radius:0;border:1px solid var(--line);background:var(--panel);color:var(--ink2)`;
+    const tourSkip = `cursor:pointer;font-family:'Courier New',monospace;font-size:11px;padding:7px 8px;border-radius:0;border:none;background:transparent;color:var(--mute)`;
+    const onTour = () => (tourOn ? this.setState({ tourStep: -1 }) : this.applyTour(0));
+    const tourLaunchStyle = `cursor:pointer;background:none;border:1px solid var(--line);padding:3px 10px;font-family:'Courier New',monospace;font-size:12.5px;font-weight:${tourOn ? 700 : 400};color:${tourOn ? 'var(--warm)' : 'var(--accent)'}`;
+
+    return {
+      theme: dark ? 'dark' : 'light', dark, themeIcon, onTheme, lessonsOpen, onLessons,
+      visits: String(this.state.visits || 1).padStart(6, '0'),
+      chips, tabs, predWord: top.word, predPct: (top.p * 100).toFixed(0) + '%',
+      onTour, tourLaunchStyle, showCrumbs, crumbs,
+      tourOn, tourN: st.tourStep + 1, tourTitle: tourCur.t, tourDesc: tourCur.d, tourNext, tourPrev, tourEnd, tourNextLabel, tourBtn, tourBtn2, tourSkip,
+      isArch: st.view === 'arch', isPipeline: st.view === 'pipeline', isMath: st.view === 'math', isResidual: st.view === 'residual', isGenerate: st.view === 'generate', isTraining: st.view === 'training', isAbout: st.view === 'about',
+      scoreLines, softRows, softInfo, valLines, lnHead, lnRows, geluLines,
+      mHeadBtns, mQBtns, mKBtns, mTokBtns, mFFBtns, mathQword, mathKword, mathTokWord, mQi: mQ, mKj: mK, mFFi: mFF, mHeadi: mh,
+      tempRows, tempBtns, tempInfo, tempHeadRow, mTLabel,
+      mSelCap, mCard, mHead, mNum, mBox,
+      usage, coverage, compare, omitted,
+      tf, avgLoss, perplexity, randomLoss, loopCards, trainCompare, postCards,
+      onStep1, onStep10, onStep100, onResetW, stepBtn, resetWBtn, lrVal, onLr, trainingBusy, stepCount, trainedNote, lossPts, lossBaseY, curTrainLoss, rollBefore, rollAfter, cmpTag, cmpTagNow, overfit,
+      twBtns, twVal, onTw, twPts, twDotX, twDotY, twName,
+      tdPairs, tdCount, tdCtxChip, tdTgtChip,
+      wE, wWQ, wWK, wWV, wWO, wW1, wW2, wB1, wB2, wViewBtns, wMapDesc, wGroupCap, vocabLabels, qkDims, ffnLabels, biasRowLabel,
+      scaleBtns, scaleCells, scaleNote, srvCells,
+      nextBars, genChips, genSteps, genPlaying, canGen, playLabel, playStyle, ctrlStyle, modeBtns, genGreedy, genTempVal, onTemp, onPlay, onStep, onReset, genHint,
+      genEmpty: st.genSteps.length === 0, hasGenSteps: st.genSteps.length > 0, notGreedy: !st.genGreedy, genFull: gseq.length >= 14, genCount: gseq.length, showGhost, distSub,
+      words, dims, posLabels: tokens.map((_, i) => 'pos' + i), ffLabels: ['0', '1', '2', '3', '4', '5', '6', '7'], vocab: VOCAB, seq, seqDim: S, f, bars, capStyle,
+      // arch
+      nodes, flow, skips, totalH, areaStyle: `position:relative;width:${colW + 120}px;height:${totalH}px;flex:none`, bracketStyle, bracketLabelStyle, skipLabel1, skipLabel2, sel,
+      // pipeline
+      stages, curName: pcur.name, curFormula: pcur.formula, curIndex, headBtns, qBtns, bars, hd, qpos, headColLabels, headDimText: 'd' + (head * 2) + ',d' + (head * 2 + 1), sqrtdk: Math.sqrt(LLM.DH).toFixed(3),
+      qHl, kHl, vHl, wHlRow, wHlCol, onWCell, onWClick, viewBtns, showHeat, showArcs, maskCmp, onMaskCmp, maskBtnStyle, maskBtnLabel, noMaskW, arcs, arcToks, arcW, qWord: words[qpos], headNo: String(head), qExplain,
+      selGoPipeline, selHasMath, selGoMath, linkBtn,
+      lastWord: words[seq - 1], lastRow: [f.last], logitsRow: [f.logits],
+      isEmbed: pstage === 'embed', isAttn: pstage === 'attn', isAdd1: pstage === 'add1', isFfn: pstage === 'ffn', isAdd2: pstage === 'add2', isOut: pstage === 'out',
+      // residual
+      w0: f.heads[0].weights, w1: f.heads[1].weights,
+      bandStyle, normBand, bandHead, bandNum, bandForm, nodeStyle, readNode, addNode, outNode
+    };
+  }
+}
+</script>
+</body>
+</html>

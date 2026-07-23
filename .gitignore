@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.pt
+experiments/**/data/
+experiments/**/out/
+benchmarks/mlx/converted/
+.claude/*
+!.claude/agents/
+.DS_Store
+release/hf/
+experiments/10-sft/data/

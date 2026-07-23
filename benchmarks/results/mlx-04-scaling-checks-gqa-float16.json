@@ -1,0 +1,41 @@
+{
+  "model": "04-scaling-checks-gqa",
+  "tag": "float16",
+  "dtype": "float16",
+  "quant_bits": null,
+  "params": 231852032,
+  "block_size": 512,
+  "window": null,
+  "global_every": null,
+  "peak_memory_gb": 1.17,
+  "lengths": [
+    {
+      "prompt_len": 64,
+      "decode_tokens": 64,
+      "ttft_s": 0.009,
+      "prefill_tok_per_s": 7116.3,
+      "decode_tok_per_s": 311.8,
+      "kv_mb_after_prefill": 1.05,
+      "kv_mb_after_decode": 2.1
+    },
+    {
+      "prompt_len": 256,
+      "decode_tokens": 64,
+      "ttft_s": 0.0235,
+      "prefill_tok_per_s": 10872.8,
+      "decode_tok_per_s": 274.8,
+      "kv_mb_after_prefill": 4.19,
+      "kv_mb_after_decode": 5.24
+    },
+    {
+      "prompt_len": 448,
+      "decode_tokens": 64,
+      "ttft_s": 0.0383,
+      "prefill_tok_per_s": 11702.7,
+      "decode_tok_per_s": 238.3,
+      "kv_mb_after_prefill": 7.34,
+      "kv_mb_after_decode": 8.39
+    }
+  ],
+  "val_loss": 1.3702
+}

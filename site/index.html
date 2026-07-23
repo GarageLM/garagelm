@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  [data-theme="light"], :root {
+    --bg:#fffff8; --ink:#1a1a1a; --ink2:#3d3d38; --mute:#6f6f66; --line:#c9c9bd;
+    --accent:#0000cc; --visited:#551a8b; --hover:#cc4400; --warm:#1e3a8a; --ok:#0a7a2f; --code:#f4f4ea;
+  }
+  [data-theme="dark"] {
+    --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
+    --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
+  }
+  ::selection { background: #3355bb; color:#fff; }
+  a:link { color: var(--accent); }
+  a:visited { color: var(--visited); }
+  a:hover { color: var(--hover); }
+  [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
+  @keyframes blink { 0%,55% { opacity:1; } 56%,100% { opacity:0; } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
+  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <div style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></div>
+      <div style="flex:1"></div>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+    </div>
+    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><b>home</b> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span><span style="flex:1"></span><span style="font-size:10px;letter-spacing:1px;color:var(--mute)">visitor no.&nbsp;</span><span style="background:#000;color:#6fef6f;border:1px solid var(--line);font-size:11px;padding:1px 7px;letter-spacing:2px">{{ visits }}</span></div>
+
+    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+
+    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 10px"><span style="color:var(--warm)">$</span> about</div>
+    <p style="margin:0 0 14px;color:var(--ink2)"><b style="font-family:'Courier New',monospace;font-size:14px">garagelm</b> is a non-profit artificial intelligence research lab founded in 2026, built on the hardware you'd find in a garage rather than a datacenter. The work is open source first: code, training recipes, write-ups, and weights are published wherever possible — and negative results ship alongside the wins.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin:0 0 14px">
+      <div style="flex:1;min-width:260px;border:1px solid var(--line);border-top:3px solid var(--warm);padding:14px 16px;background:var(--code)">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:2px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"></path><path d="M10 3v6.3L4.7 18.6A2 2 0 0 0 6.5 21.5h11a2 2 0 0 0 1.8-2.9L14 9.3V3"></path><path d="M7.5 15h9"></path></svg>
+          <div style="font-family:'Courier New',monospace;font-size:13px;font-weight:700">lab objective 1: research</div>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:12.5px;color:var(--ink2);margin-bottom:8px">the metal — one apple m4 pro</div>
+        <div style="font-size:13.5px;color:var(--ink2);line-height:1.65">Capability-per-dollar and per-watt: real models trained end-to-end on one consumer Mac, measured against published baselines under a fair-comparison rule, weights released. Written up win or lose.</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;margin-top:9px"><a href="models.html">models »</a> · <a href="notes.html#roadmap">roadmap »</a></div>
+      </div>
+      <div style="flex:1;min-width:260px;border:1px solid var(--line);border-top:3px solid var(--ok);padding:14px 16px;background:var(--code)">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:2px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>
+          <div style="font-family:'Courier New',monospace;font-size:13px;font-weight:700">lab objective 2: learning</div>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:12.5px;color:var(--ink2);margin-bottom:8px">the browser — your tab</div>
+        <div style="font-size:13.5px;color:var(--ink2);line-height:1.65">The same ideas at readable scale: working models shrunk until every matrix fits on screen, probes on every number, permission to break things. Nothing canned; it all recomputes live.</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;margin-top:9px"><a href="learn.html">learn »</a> · <a href="notes.html">notes »</a></div>
+      </div>
+    </div>
+    <p style="margin:0;font-family:'Courier New',monospace;font-size:12px;color:var(--mute)"><span style="color:var(--warm)">est. 2026</span> · non-profit · open-source focused · no cluster · no CUDA · no tracking. just a browser tab and one Mac.</p>
+
+    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+
+    <div id="research" style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 6px"><span style="color:var(--warm)">$</span> research</div>
+    <p style="margin:0 0 14px;color:var(--ink2)">The core of the lab chases one question: how much intelligence can you train per dollar, per watt, per hour? Every experiment in attention variants, data quality, and training-cycle efficiency runs on a single Apple M4 Pro (48GB, no CUDA) under a strict fair-comparison rule, and gets written up win or lose.</p>
+    <div style="border:1px solid var(--line);background:var(--code);padding:13px 16px;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.8;margin-bottom:14px">
+      <div style="font-weight:700;margin-bottom:6px">headline result — hybrid-gpt-232m</div>
+      <div>vs pythia-160m &nbsp;... statistical tie, at 600&#215; fewer tokens</div>
+      <div>vs gpt2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... ahead on arc-easy + piqa</div>
+      <div>kv cache &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... ~30% of full attention</div>
+      <div>decode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... 527+ tok/s on-device (mlx fp16)</div>
+      <div style="margin-top:8px"><a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">weights on hugging face &#8599;</a> &nbsp;·&nbsp; <a href="models.html">model cards &#187;</a> &nbsp;·&nbsp; <a href="note-600x-tokens.html">the write-up &#187;</a></div>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:12.5px;line-height:2">
+      <div>02 &nbsp;&nbsp;&nbsp;baseline — 114M GQA/RoPE/SwiGLU control <span style="color:var(--mute)">[control]</span></div>
+      <div>03–04 attention shootout — sliding-window "wins" twice <span style="color:var(--warm)">[artifact]</span></div>
+      <div>05 &nbsp;&nbsp;&nbsp;data frontier — refined corpus flips it: hybrid beats full attention <span style="color:var(--ok)">[win]</span></div>
+      <div>07 &nbsp;&nbsp;&nbsp;flagship — ties pythia-160m at 600&#215; fewer tokens <span style="color:var(--ok)">[600&#215;]</span></div>
+      <div>08 &nbsp;&nbsp;&nbsp;solidify — hybrid &gt; full attention in 3/3 seeds <span style="color:var(--ok)">[3/3]</span></div>
+      <div>09 &nbsp;&nbsp;&nbsp;flagship-2 — 1B tokens; the token axis saturates <span style="color:var(--warm)">[saturating]</span></div>
+      <div>10 &nbsp;&nbsp;&nbsp;sft + release — chat tuning, zero regression, weights published <span style="color:var(--ok)">[shipped]</span></div>
+      <div>11 &nbsp;&nbsp;&nbsp;efficiency — flagship quality at half the wall-clock <span style="color:var(--warm)">[active]</span></div>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:10px"><a href="notes.html#roadmap">full experiment roadmap »</a></div>
+
+    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+
+    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 6px"><span style="color:var(--warm)">$</span> learn</div>
+    <p style="margin:0 0 14px;color:var(--ink2)">Instruments, not articles. You supply the input, your browser does the math, and every intermediate number is inspectable.</p>
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[01]</span> <a href="learn.html" style="font-weight:700">forward-pass explorer</a> <span style="color:var(--ok);font-size:12px">&#9679; live</span></div>
+      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">A complete decoder-only transformer at d=4 · 2 heads · 188 parameters, all of them visible. Trace embeddings → attention → logits, hover any cell for its lineage, then step gradient descent and watch it overfit your sentence. Seven views: about, architecture, pipeline, math, residual stream, generate, training.</div>
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700;color:var(--ink2)">tokenizer workbench</span> <span style="color:var(--mute);font-size:12px">(planned)</span></div>
+      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--mute)">Paste text, watch it split: merges, byte fallbacks, vocabulary pressure.</div>
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[03]</span> <span style="font-weight:700;color:var(--ink2)">kv-cache visualizer</span> <span style="color:var(--mute);font-size:12px">(planned)</span></div>
+      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--mute)">Full vs sliding-window vs hybrid cache growth: the research result above, animated.</div>
+    </div>
+    <div>
+      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[04]</span> <span style="font-weight:700;color:var(--ink2)">attention-head zoo</span> <span style="color:var(--mute);font-size:12px">(planned)</span></div>
+      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--mute)">Every head's pattern across prompts: induction, positional, syntax.</div>
+    </div>
+
+    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+
+    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 10px"><span style="color:var(--warm)">$</span> recent notes</div>
+    <div style="font-family:'Courier New',monospace;font-size:13px;line-height:2.1">
+      <div>2026-07-23 · <a href="notes.html#p=0">How this lab is built: Claude on both sides</a></div>
+      <div>2026-07-22 · <a href="notes.html#p=1">Training 188 parameters with finite differences</a></div>
+      <div>2026-07-21 · <a href="note-600x-tokens.html">600&#215; fewer tokens: tying Pythia-160M on one Mac</a></div>
+      <div>2026-07-18 · <a href="notes.html#p=3">Hybrid attention beat full attention at 30% of the cache</a></div>
+      <div>2026-07-16 · <a href="notes.html#p=4">The sliding-window win that wasn't</a></div>
+      <div>2026-07-14 · <a href="notes.html#p=5">Generation is a memory problem, not a math problem</a></div>
+      <div style="color:var(--mute)">draft &nbsp;&nbsp;&nbsp;&nbsp;· Sinusoidal positions you can read by hand</div>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:10px"><a href="notes.html">all notes &#187;</a></div>
+
+    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
+    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+      <div><b>home</b> · <a href="models.html">models</a> · <a href="notes.html">notes</a> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
+      <div>real models · cheap hardware · honest numbers</div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div>© 2026 garagelm.org</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Site&quot;}}">
+class Component extends DCLogic {
+  state = { dark: null };
+  componentDidMount() {
+    let v = 1;
+    try {
+      v = parseInt(localStorage.getItem('garagelm-visits') || '0', 10) || 0;
+      if (!sessionStorage.getItem('garagelm-session')) { v += 1; localStorage.setItem('garagelm-visits', String(v)); sessionStorage.setItem('garagelm-session', '1'); }
+    } catch (e) {}
+    this.setState({ visits: v });
+  }
+  renderVals() {
+    let dark = this.state.dark;
+    if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
+    if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    return {
+      theme: dark ? 'dark' : 'light',
+      visits: String(this.state.visits || 1).padStart(6, '0'),
+      themeIcon: dark ? '☀' : '☾',
+      onTheme: () => { const d = !dark; try { localStorage.setItem('garagelm-theme', d ? 'dark' : 'light'); } catch (e) {} this.setState({ dark: d }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

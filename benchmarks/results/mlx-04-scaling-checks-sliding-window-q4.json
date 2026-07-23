@@ -1,0 +1,41 @@
+{
+  "model": "04-scaling-checks-sliding-window",
+  "tag": "q4",
+  "dtype": "float16",
+  "quant_bits": 4,
+  "params": 36255392,
+  "block_size": 512,
+  "window": 64,
+  "global_every": null,
+  "peak_memory_gb": 1.1,
+  "lengths": [
+    {
+      "prompt_len": 64,
+      "decode_tokens": 64,
+      "ttft_s": 0.0101,
+      "prefill_tok_per_s": 6308.5,
+      "decode_tok_per_s": 481.6,
+      "kv_mb_after_prefill": 1.03,
+      "kv_mb_after_decode": 1.03
+    },
+    {
+      "prompt_len": 256,
+      "decode_tokens": 64,
+      "ttft_s": 0.0302,
+      "prefill_tok_per_s": 8484.9,
+      "decode_tok_per_s": 481.0,
+      "kv_mb_after_prefill": 1.03,
+      "kv_mb_after_decode": 1.03
+    },
+    {
+      "prompt_len": 448,
+      "decode_tokens": 64,
+      "ttft_s": 0.0519,
+      "prefill_tok_per_s": 8627.4,
+      "decode_tok_per_s": 449.2,
+      "kv_mb_after_prefill": 1.03,
+      "kv_mb_after_decode": 1.03
+    }
+  ],
+  "val_loss": 1.3782
+}

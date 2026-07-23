@@ -1,0 +1,18 @@
+[project]
+name = "llm-arch-explore"
+version = "0.1.0"
+description = "Deep research into LLM attention architecture: literature review, local experiments, and benchmarks."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "torch>=2.4",
+    "numpy>=1.26",
+    "tiktoken>=0.7",
+    "lm-eval>=0.4",
+    "pyarrow>=24.0.0",
+    "mlx>=0.32.0",
+    "mlx-lm>=0.31.3",
+    "transformers>=5.0,<5.6",
+    "accelerate>=1.14.0",
+    "fastapi>=0.139.2",
+    "uvicorn>=0.51.0",
+]

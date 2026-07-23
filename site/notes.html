@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  [data-theme="light"], :root {
+    --bg:#fffff8; --ink:#1a1a1a; --ink2:#3d3d38; --mute:#6f6f66; --line:#c9c9bd;
+    --accent:#0000cc; --visited:#551a8b; --hover:#cc4400; --warm:#1e3a8a; --ok:#0a7a2f; --code:#f4f4ea;
+  }
+  [data-theme="dark"] {
+    --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
+    --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
+  }
+  ::selection { background: #3355bb; color:#fff; }
+  a:link { color: var(--accent); }
+  a:visited { color: var(--visited); }
+  a:hover { color: var(--hover); }
+  [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
+  @keyframes blink { 0%,55% { opacity:1; } 56%,100% { opacity:0; } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
+  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <div style="flex:1"></div>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+    </div>
+    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <b>notes</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span><span style="flex:1"></span><span style="font-size:10px;letter-spacing:1px;color:var(--mute)">visitor no.&nbsp;</span><span style="background:#000;color:#6fef6f;border:1px solid var(--line);font-size:11px;padding:1px 7px;letter-spacing:2px">{{ visits }}</span></div>
+
+    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+
+    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> lab notes</div>
+    <p style="margin:0 0 8px;color:var(--ink2)">Write-ups from both sides of the lab, the browser instruments and the training runs on one Mac: the math that surprised us, the numbers behind the demos, and the results that didn't survive replication.</p>
+    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-bottom:22px">{{ postCount }} notes · research, training, inference</div>
+
+    <div style="border-top:1px solid var(--line)">
+    <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">
+      <span style="min-width:78px">date</span>
+      <span style="min-width:74px;text-align:center">category</span>
+      <span style="min-width:66px;text-align:center">experiment</span>
+      <span style="flex:1;min-width:200px">title</span>
+      <span>read</span>
+    </div>
+    <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
+      <div style="border-bottom:1px solid var(--line)">
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:9px 2px">
+          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:78px">{{ p.date }}</span>
+          <span style="{{ p.tagStyle }}">{{ p.tagText }}</span>
+          <span style="{{ p.expStyle }}">{{ p.expText }}</span>
+          <a href="{{ p.href }}" style="font-size:14.5px;font-weight:700;letter-spacing:-0.1px;line-height:1.4;flex:1;min-width:200px">{{ p.title }}</a>
+          <button onClick="{{ p.onToggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+        </div>
+        <sc-if value="{{ p.open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:6px 2px 16px 90px">
+            <div style="font-size:13.5px;color:var(--ink2);font-style:italic;margin-bottom:12px">{{ p.excerpt }}</div>
+            <sc-for list="{{ p.paras }}" as="pp" hint-placeholder-count="4"><div style="{{ pp.style }}">{{ pp.text }}</div></sc-for>
+            <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:4px"><a href="{{ p.linkHref }}">{{ p.linkLabel }}</a></div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+    </div>
+
+    <div id="roadmap" style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:28px 0 8px"><span style="color:var(--warm)">$</span> experiment roadmap</div>
+    <p style="margin:0 0 14px;color:var(--ink2);font-size:14px">Where the research program has been and where it goes next. Every milestone runs under the fair-comparison rule — change one thing, gate every lane — and gets a note here, win or lose.</p>
+    <div style="border-top:1px solid var(--line)">
+      <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">
+        <span style="min-width:52px">exp</span>
+        <span style="min-width:64px">date</span>
+        <span style="min-width:150px">milestone</span>
+        <span style="flex:1;min-width:200px">what happened</span>
+        <span style="min-width:66px;text-align:center">status</span>
+      </div>
+      <sc-for list="{{ roadmap }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:8px 2px;border-bottom:1px solid var(--line)">
+          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:52px">{{ r.id }}</span>
+          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:64px">{{ r.date }}</span>
+          <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:700;min-width:150px">{{ r.name }}</span>
+          <span style="font-size:13px;color:var(--ink2);flex:1;min-width:200px">{{ r.what }}</span>
+          <span style="{{ r.stampStyle }}">{{ r.stamp }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-top:10px">milestone 11 lanes, gated up front: muon [runs] · bf16 [cut — 1.01×, negative result] · epoch4 + edu-score4 [queued]. flagship-3 target: match 09's val loss in ≤ half the 127h wall-clock.</div>
+
+    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
+    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+      <div><a href="index.html">home</a> · <a href="models.html">models</a> · <b>notes</b> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
+      <div>real models · cheap hardware · honest numbers</div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div>© 2026 garagelm.org</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Site&quot;}}">
+class Component extends DCLogic {
+  state = { dark: null, open: -1 };
+
+  componentDidMount() {
+    const read = () => { const m = /p=(\d+)/.exec(location.hash || ''); if (m) this.setState({ open: +m[1] }); };
+    read();
+    window.addEventListener('hashchange', read);
+    let v = 1;
+    try {
+      v = parseInt(localStorage.getItem('garagelm-visits') || '0', 10) || 0;
+      if (!sessionStorage.getItem('garagelm-session')) { v += 1; localStorage.setItem('garagelm-visits', String(v)); sessionStorage.setItem('garagelm-session', '1'); }
+    } catch (e) {}
+    this.setState({ visits: v });
+  }
+
+  posts() {
+    return [
+      { date: '2026-07-23', tag: 'META', exp: 'site', title: 'How this lab is built: Claude on both sides',
+        excerpt: 'One person, two AI collaborators: Claude in the design tool for the site and instruments, Claude Code in the terminal for the research repo and training runs.',
+        body: [
+          'garagelm runs lean by design, and part of that is treating AI assistance as lab equipment. Two tools cover the two sides of the lab.',
+          'The site you are reading, and the instruments in Learn, are built with Claude in a design environment: the raw blog styling, the forward-pass explorer with its lineage tracing and live training loop, the model cards, all of it iterated conversationally and rendered as plain HTML that computes everything client-side.',
+          'The research side runs on Claude Code in the terminal, working directly in the experiments repo: scaffolding milestone harnesses, writing attention variants, wiring evaluation gates, babysitting 127-hour training runs with resumable checkpoints. The fair-comparison discipline (change one thing, gate every lane) is exactly the kind of structure an agent is good at enforcing.',
+          'The division of labor is consistent: humans pick the questions, set the gates, and read the loss curves; the tools write the code and keep the notebooks. Every result still has to pass its pre-registered gate before it ships, no matter who typed it.',
+          'It is also honest to say the failure modes are real. Agents will cheerfully produce a plausible benchmark harness that measures the wrong thing, which is why milestone 03\u2019s sliding-window artifact got caught by discipline, not by cleverness. Trust the gates, not the vibes.'
+        ],
+        linkLabel: 'the research ledger \u00bb', linkHref: 'index.html#research' },
+      { date: '2026-07-22', tag: 'TRAINING', exp: 'toy-188', title: 'Training 188 parameters with finite differences',
+        excerpt: 'No autograd, no GPU: nudge every weight and measure the loss. At toy scale, the dumbest gradient estimator is a feature.',
+        body: [
+          'The Training tab in the Forward-Pass Explorer does something real: it minimizes cross-entropy on the sentence you give it, live, in your browser. There is no autograd library behind it. The gradient is estimated the honest, brute-force way: nudge a weight by a tiny ε, run the forward pass again, and see how the loss moves.',
+          '∂L/∂w ≈ ( L(w+ε) − L(w) ) / ε — one extra forward pass per parameter.',
+          'With 188 parameters, one training step costs 189 forward passes. At d=4 that is microseconds, so the browser can afford it. The same trick on GPT-2 would take 124 million forward passes per step — which is exactly why backpropagation exists: one forward plus one backward pass, roughly 2–3× the cost of inference, computes every gradient at once.',
+          'Watching the loop run teaches more than the formula. The loss falls fast, then grinds: early steps fix the big misses, late steps trade tiny improvements between competing examples. The weight heatmaps flash amber where the gradient is doing work: mostly the output projection early on, then attention, as the model discovers which context token matters.',
+          'The best part is breaking it. Train until the model nails your sentence, then edit one token. The distribution collapses into confident garbage. That is overfitting: 188 parameters memorized one sentence and learned nothing transferable. Real models escape this only because their data is too large to memorize.',
+          'Try it yourself: give the explorer your own five tokens, step the optimizer, and watch which weights move first.'
+        ],
+        linkLabel: 'open the training tab »', linkHref: 'learn.html#v=training' },
+      { date: '2026-07-21', tag: 'RESEARCH', exp: 'exp 07+09', page: 'note-600x-tokens.html', title: '600× fewer tokens: tying Pythia-160M on one Mac',
+        excerpt: 'The lab\u2019s flagship: a 232M hybrid-attention model, 1B refined tokens, one Apple M4 Pro, with published weights that tie a 300B-token baseline.',
+        body: [
+          'The research half of garagelm runs on one machine: an Apple M4 Pro with 48GB of unified memory. No CUDA, no cluster, no cloud burst. The mission is capability-per-dollar: how intelligent a model can you train when the hardware budget is one consumer desktop?',
+          'The flagship recipe: 232M parameters, hybrid local+global attention (64-token windows, a full-attention layer every 4th), trained on a refined FineWeb-Edu + Cosmopedia-v2 pool. At 0.5B tokens (63 hours of training) it statistically ties Pythia-160M on HellaSwag, PIQA, ARC-Easy and WinoGrande under a matched evaluation harness. Pythia saw 300B tokens: 600× more.',
+          'Flagship-2 pushed to 1.0B tokens: perplexity dropped to 21.5, the model is now ahead-or-tied against Pythia everywhere, and it passes gpt2 on ARC-Easy and PIQA. Refined tokens are worth more than raw ones; data quality is doing most of the work.',
+          'The fine print: doubling tokens bought just 0.055 nats. The token axis is saturating at this scale, so the active milestone chases intelligence per training hour instead (Muon, multi-epoch reuse, elite filtering), targeting flagship quality at half the wall-clock. One lane has already been cut by its own gate: bf16 autocast was a 1.01× non-result on MPS, and is written up as such.',
+          'Both checkpoints are published, a base model and a SmolTalk-SFT chat variant, and load with transformers.'
+        ],
+        linkLabel: 'weights on hugging face ↗', linkHref: 'https://huggingface.co/garagelm/hybrid-gpt-232m' },
+      { date: '2026-07-18', tag: 'RESEARCH', exp: 'exp 05+08', title: 'Hybrid attention beat full attention at 30% of the cache',
+        excerpt: 'Local windows plus a global layer every 4th: lower loss than full attention at equal parameters, replicated in 3/3 seeds.',
+        body: [
+          'The cleanest result in the lab so far. Three 114M models, identical except the attention module (same tokenizer, data, token budget, optimizer, seed), trained on 100M refined tokens at 1024 context.',
+          '· val loss — hybrid 3.809 · full attention (GQA) 3.868 · sliding-window 3.928',
+          'The hybrid is sliding-window attention (w=64) with a full-attention layer every 4th, the Gemma-2/3 pattern. It beats full attention outright at equal parameters, while carrying ~30% of its KV cache.',
+          'The per-position loss curves explain it: pure sliding-window goes flat past position ~64, its window edge, while the hybrid keeps improving deep into the context. A few global layers do all the long-range work; cheap local layers handle everything else.',
+          'It replicates: three seeds, hybrid ahead in all three (mean gap −0.038 nats). The sweep also said w=128 is worse than w=64, and a 2-global-layer variant ties the champion at ~15% cache, flagged as future work. On-device the saving is exactly analytic: the MLX port decodes at 527+ tok/s with the 30% cache.',
+          'The toy in Learn uses full attention everywhere; at 5 tokens a window would be the whole context. The arcs view is still the right mental picture: most layers allowed only short arcs, every 4th layer free to reach back.'
+        ],
+        linkLabel: 'watch attention work in the explorer »', linkHref: 'learn.html#v=pipeline' },
+      { date: '2026-07-16', tag: 'RESEARCH', exp: 'exp 03\u201305', title: 'The sliding-window win that wasn\u2019t',
+        excerpt: 'Our first attention shootout crowned sliding-window. The winner turned out to be the corpus.',
+        body: [
+          'Milestone 03 was a five-way attention shootout on TinyStories (GQA, full MHA, MLA, sliding-window, NSA-lite) under a strict fair-comparison rule: change only the attention module. Sliding-window won, with the best perplexity at zero parameter cost, and the ordering held in a 232M scaling check. A clean, publishable-looking result.',
+          'It was also too good. A 64-token window can only tie full attention if nothing useful lives more than 64 tokens back, and TinyStories is short children\u2019s stories with essentially no long-range structure. The benchmark could not see the one thing the window gives up.',
+          'The refined-corpus re-test made it visible. On FineWeb-Edu + Cosmopedia at 1024 context, sliding-window fell to last place, and its per-position loss curve goes flat right at the window edge while full and hybrid attention keep improving: the ceiling, drawn on a chart.',
+          'The moral for small-scale work: a benchmark measures your corpus as much as your architecture. The fair-comparison discipline made the artifact findable; upgrading the data made it undeniable. Negative results like this are why every milestone gets written up, win or lose.'
+        ],
+        linkLabel: 'read the hybrid result that followed »', linkHref: '#p=3' },
+      { date: '2026-07-14', tag: 'INFERENCE', exp: 'toy-188', title: 'Generation is a memory problem, not a math problem',
+        excerpt: 'Prefill saturates the chips; decode starves them. The KV-cache arithmetic that decides how fast your tokens stream.',
+        body: [
+          'Generating text has two very different phases. Prefill processes your whole prompt at once: big matrix multiplies, thousands of operations per byte fetched from memory, exactly what GPUs are built for. Decode produces one token at a time, and every step must re-read essentially all of the model\u2019s weights to do a comparatively tiny amount of math.',
+          'The ratio of compute to memory traffic is called arithmetic intensity. Prefill runs at hundreds of FLOPs per byte; decode runs near one. Below the hardware\u2019s balance point the chip idles waiting on memory, so decode speed is set by memory bandwidth, not by FLOPS. This is why token streams tick like a metronome: each token is one full read of the weights.',
+          'The KV cache is the trick that keeps decode from going quadratic: store every past token\u2019s keys and values, so each new token attends over history without recomputing it. The price is memory that grows linearly with context. At frontier scale, a long chat carries gigabytes of cache per user.',
+          'The Generate tab\u2019s cost panel runs these numbers live, for the toy and for real model sizes side by side. The toy\u2019s whole cache is 40 numbers; the mechanism is identical.'
+        ],
+        linkLabel: 'see the cost panel »', linkHref: 'learn.html#v=generate' },
+      { date: '2026-07-22', tag: 'DRAFT', draft: true, exp: 'toy-188', title: 'Sinusoidal positions you can read by hand',
+        excerpt: 'At d=4 the positional encoding is four sine waves you can tabulate on paper. Notes toward a post on why frequencies beat indices.',
+        body: [
+          'Outline — to be written up:',
+          '· At d=4 there are two frequency pairs; positions 0–4 give a 5×4 table you can verify by hand.',
+          '· Why not just the integer index: magnitudes explode, and relative offsets are not linearly recoverable from one number.',
+          '· Sinusoids make relative position a rotation — a fixed linear map sends PE(pos) to PE(pos+k).',
+          '· What replaced them: learned position embeddings (GPT-2), then RoPE rotating Q and K directly.'
+        ],
+        linkLabel: 'see the PE matrix in the math tab »', linkHref: 'learn.html#v=math' }
+    ];
+  }
+
+  renderVals() {
+    const st = this.state;
+    let dark = st.dark;
+    if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
+    if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const raw = this.posts();
+    const posts = raw.map((p, i) => {
+      const open = st.open === i;
+      return {
+        ...p, open: open && !p.page, href: p.page || ('#p=' + i),
+        tagText: p.tag.toLowerCase(),
+        tagStyle: `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;font-weight:700;border:1px solid ${p.draft ? 'var(--line)' : 'var(--warm)'};padding:0 6px;color:${p.draft ? 'var(--mute)' : 'var(--warm)'};min-width:74px;text-align:center`,
+        expText: p.exp || '—',
+        expStyle: `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;border:1px solid var(--line);padding:0 6px;color:var(--mute);min-width:66px;text-align:center`,
+        paras: p.body.map(text => ({
+          text,
+          style: text.startsWith('·') || text.startsWith('Outline') || text.startsWith('∂')
+            ? `font-family:'Courier New',monospace;font-size:13px;line-height:1.8;margin-bottom:10px;${text.startsWith('∂') ? 'color:var(--ink);background:var(--code);border:1px solid var(--line);padding:9px 12px;margin:4px 0 14px' : 'color:var(--ink2)'}`
+            : 'font-size:14.5px;color:var(--ink2);line-height:1.75;margin-bottom:13px'
+        })),
+        onToggle: () => { if (p.page) { location.href = p.page; return; } this.setState({ open: open ? -1 : i }); },
+        btnLabel: p.page ? 'full note »' : (open ? 'close ↑' : 'expand ↓'),
+        btnStyle: `cursor:pointer;background:none;border:none;padding:0;font-family:'Courier New',monospace;font-size:11.5px;color:var(--accent);text-decoration:underline;white-space:nowrap`
+      };
+    });
+    const stamp = kind => {
+      const c = kind === 'done' ? 'var(--ok)' : kind === 'active' ? 'var(--warm)' : kind === 'cut' ? 'var(--mute)' : 'var(--mute)';
+      return `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;font-weight:700;border:1px solid ${c};padding:0 6px;color:${c};min-width:66px;text-align:center${kind === 'planned' ? ';border-style:dashed;font-weight:400' : ''}`;
+    };
+    const roadmap = [
+      { id: '01\u201302', date: '2026-05', name: 'baselines', what: 'smoke test, then a 114M GQA/RoPE/SwiGLU control everything else is measured against', stamp: 'done', k: 'done' },
+      { id: '03\u201304', date: '2026-06', name: 'attention shootout', what: 'five variants under fair comparison; sliding-window "wins" — later shown to be a corpus artifact', stamp: 'artifact', k: 'done' },
+      { id: '05', date: '2026-06', name: 'data frontier', what: 'refined corpus (FineWeb-Edu + Cosmopedia); hybrid attention takes the lead for real', stamp: 'done', k: 'done' },
+      { id: '07', date: '2026-07', name: 'flagship', what: '232M hybrid on 0.5B refined tokens; ties Pythia-160M at 600\u00d7 fewer tokens', stamp: 'done', k: 'done' },
+      { id: '08', date: '2026-07', name: 'solidify', what: 'seed replication (3/3) and window sweep; the recipe is real, w=64 confirmed', stamp: 'done', k: 'done' },
+      { id: '09', date: '2026-07', name: 'flagship-2', what: '1.0B tokens; best model yet, and the token axis visibly saturates', stamp: 'done', k: 'done' },
+      { id: '10', date: '2026-07', name: 'sft + release', what: 'SmolTalk chat tuning, zero benchmark regression; both checkpoints published', stamp: 'shipped', k: 'done' },
+      { id: '11', date: '2026-07\u2013', name: 'efficiency', what: 'intelligence per training hour: muon, multi-epoch, elite filtering \u2014 gated lanes, A/B vs the 05 control', stamp: 'active', k: 'active' },
+      { id: '12', date: '2026-08', name: 'flagship-3', what: 'the adopted 11-lanes combined: match 09 quality in half the wall-clock', stamp: 'planned', k: 'planned' },
+      { id: '\u2014', date: '2026-q4', name: 'beyond tokens', what: 'the axes 09 pointed at: longer context, distillation, deeper post-training', stamp: 'planned', k: 'planned' },
+    ].map(r => ({ ...r, stampStyle: stamp(r.k) })).reverse();
+    return {
+      theme: dark ? 'dark' : 'light', posts, postCount: raw.length, roadmap,
+      visits: String(this.state.visits || 1).padStart(6, '0'),
+      themeIcon: dark ? '☀' : '☾',
+      onTheme: () => { const d = !dark; try { localStorage.setItem('garagelm-theme', d ? 'dark' : 'light'); } catch (e) {} this.setState({ dark: d }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

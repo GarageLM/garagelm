@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:inline-flex;flex-direction:column;gap:5px;font-family:'Courier New',monospace">
+  <sc-if value="{{ hasColLabels }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;gap:3px;align-items:flex-end">
+      <sc-if value="{{ hasRowLabels }}" hint-placeholder-val="{{ false }}"><div style="{{ padStyle }}"></div></sc-if>
+      <sc-for list="{{ colHeads }}" as="ch" hint-placeholder-count="4">
+        <div style="{{ ch.style }}">{{ ch.text }}</div>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-for list="{{ rows }}" as="row" hint-placeholder-count="5">
+    <div style="display:flex;gap:3px;align-items:center">
+      <sc-if value="{{ row.hasLabel }}" hint-placeholder-val="{{ false }}"><div style="{{ row.labelStyle }}">{{ row.label }}</div></sc-if>
+      <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="4">
+        <div style="{{ c.style }}" title="{{ c.title }}" onMouseEnter="{{ c.onEnter }}" onMouseLeave="{{ c.onLeave }}" onClick="{{ c.onClick }}">{{ c.text }}</div>
+      </sc-for>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:320,&quot;height&quot;:200},&quot;values&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number[][]&quot;},&quot;rowlabels&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;collabels&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;heat&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;'none'|'attn'|'signed'&quot;},&quot;decimals&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;compact&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;highlightrow&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;highlightcol&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;dark&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;oncellhover&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(i: number, j: number) =&gt; void&quot;},&quot;oncellclick&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(i: number, j: number) =&gt; void&quot;}}">
+class Component extends DCLogic {
+  state = { flash: null };
+
+  componentDidUpdate(prevProps) {
+    const key = m => Array.isArray(m) && Array.isArray(m[0]) ? m.map(r => r.map(v => (isFinite(v) ? v.toFixed(5) : 'm')).join(',')).join(';') : '';
+    const a = key(prevProps && prevProps.values), b = key(this.props.values);
+    if (a && b && a !== b) {
+      const pv = prevProps.values, nv = this.props.values;
+      const changed = [];
+      nv.forEach((r, i) => r.forEach((v, j) => {
+        const o = pv[i] ? pv[i][j] : undefined;
+        if (o === undefined) return;
+        const same = (isFinite(v) && isFinite(o)) ? Math.abs(v - o) < 1e-6 : (!isFinite(v) && !isFinite(o));
+        if (!same) changed.push(i + ',' + j);
+      }));
+      if (changed.length) {
+        clearTimeout(this._ft);
+        this.setState({ flash: changed });
+        this._ft = setTimeout(() => this.setState({ flash: null }), 850);
+      }
+    }
+  }
+
+  componentWillUnmount() { clearTimeout(this._ft); }
+
+  renderVals() {
+    const p = this.props || {};
+    const values = p.values;
+    if (!Array.isArray(values) || !values.length || !Array.isArray(values[0])) {
+      return { rows: [], colHeads: [], hasColLabels: false, hasRowLabels: false, padStyle: '' };
+    }
+    const decimals = p.decimals == null ? 2 : p.decimals;
+    const heat = p.heat || 'none';
+    const rowLabels = Array.isArray(p.rowlabels) ? p.rowlabels : null;
+    const colLabels = Array.isArray(p.collabels) ? p.collabels : null;
+    const compact = !!p.compact;
+    const cw = compact ? 40 : 50;
+    const chh = compact ? 22 : 26;
+    const labelW = compact ? 30 : 42;
+    const hlRow = p.highlightrow == null ? -1 : p.highlightrow;
+    const hlCol = p.highlightcol == null ? -1 : p.highlightcol;
+    const dark = !!p.dark;
+    const POS = dark ? '#5b8def' : '#2f6ae0';
+    const NEG = dark ? '#e0895a' : '#c2673f';
+    const INK = dark ? '#dfe8f5' : '#1e2a3a';
+    const MUTE = dark ? '#7183a0' : '#8a97a8';
+    const BASE = dark ? '#0f1826' : '#ffffff';
+    const BORDER = dark ? '1px solid #27344c' : '1px solid #d7dee8';
+    const HATCH = dark ? 'repeating-linear-gradient(45deg,#16202f,#16202f 3px,#1e2a3d 3px,#1e2a3d 6px)' : 'repeating-linear-gradient(45deg,#eef1f5,#eef1f5 3px,#e2e7ee 3px,#e2e7ee 6px)';
+    const HATCH_INK = dark ? '#41506c' : '#b9c2cf';
+    const NEG_TXT = dark ? '#d79a72' : '#98604a';
+    const HL = dark ? '#dfe8f5' : '#1e2a3a';
+
+    let maxAbs = 0;
+    values.forEach(r => r.forEach(v => { if (isFinite(v)) maxAbs = Math.max(maxAbs, Math.abs(v)); }));
+    if (maxAbs === 0) maxAbs = 1;
+
+    const FLASH = dark ? '#f0b357' : '#e39b2d';
+    const flash = (this.state && this.state.flash) || null;
+    const onHov = typeof p.oncellhover === 'function' ? p.oncellhover : null;
+    const onClk = typeof p.oncellclick === 'function' ? p.oncellclick : null;
+
+    const fmt = v => !isFinite(v) ? '−∞' : v.toFixed(decimals);
+    const cellStyle = (v, i, j) => {
+      let bg = BASE, color = INK, border = BORDER, weight = '450';
+      if (!isFinite(v)) { bg = HATCH; color = HATCH_INK; }
+      else if (heat === 'attn') {
+        const t = Math.max(0, Math.min(1, v));
+        const pct = Math.round(t * 100);
+        bg = `color-mix(in oklab, ${BASE}, ${POS} ${pct}%)`;
+        if (t > 0.55) { color = '#fff'; weight = '550'; }
+      } else if (heat === 'signed') {
+        const a = Math.round((Math.abs(v) / maxAbs) * 82);
+        bg = `color-mix(in oklab, ${BASE}, ${v >= 0 ? POS : NEG} ${a}%)`;
+        if (a > 55) { color = '#fff'; weight = '550'; }
+      } else {
+        color = v < 0 ? NEG_TXT : INK;
+      }
+      const hl = (i === hlRow || j === hlCol);
+      const fl = flash && flash.indexOf(i + ',' + j) !== -1;
+      let sh = hl ? `0 0 0 2px ${HL}` : '';
+      if (fl) sh += (sh ? ',' : '') + `inset 0 0 0 3px ${FLASH}`;
+      const box = sh ? `box-shadow:${sh};z-index:2;` : '';
+      return `width:${cw}px;height:${chh}px;display:flex;align-items:center;justify-content:center;font-size:${compact ? 10.5 : 11.5}px;font-weight:${weight};background:${bg};color:${color};border:${border};border-radius:2px;position:relative;transition:box-shadow .3s;${onClk ? 'cursor:pointer;' : ''}${box}`;
+    };
+
+    const rows = values.map((r, i) => ({
+      hasLabel: !!rowLabels,
+      label: rowLabels ? String(rowLabels[i] ?? '') : '',
+      labelStyle: `width:${labelW}px;text-align:right;font-size:${compact ? 9.5 : 10.5}px;color:${MUTE};padding-right:4px;white-space:nowrap`,
+      cells: r.map((v, j) => ({
+        text: fmt(v), title: `[${i},${j}] = ${isFinite(v) ? v.toFixed(4) : '-inf (masked)'}`, style: cellStyle(v, i, j),
+        onEnter: onHov ? (() => onHov(i, j)) : undefined,
+        onLeave: onHov ? (() => onHov(-1, -1)) : undefined,
+        onClick: onClk ? (() => onClk(i, j)) : undefined
+      }))
+    }));
+
+    const colHeads = colLabels ? colLabels.map((c, j) => ({
+      text: String(c ?? ''),
+      style: `width:${cw}px;text-align:center;font-size:${compact ? 9.5 : 10.5}px;color:${j === hlCol ? INK : MUTE};font-weight:${j === hlCol ? '600' : '450'}`
+    })) : [];
+
+    return {
+      rows, colHeads,
+      hasColLabels: !!colLabels,
+      hasRowLabels: !!rowLabels,
+      padStyle: `width:${labelW}px`
+    };
+  }
+}
+</script>
+</body>
+</html>
