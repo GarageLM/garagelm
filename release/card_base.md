@@ -11,9 +11,9 @@ tags: [hybrid-attention, sliding-window, small-model, research]
 
 A 232M-parameter research base model with **hybrid local+global attention**
 (sliding window w=64 on 12 of 16 layers, full causal attention every 4th
-layer), trained **entirely on one Apple M4 Pro laptop** on 1.0B tokens of
+layer), trained **entirely on one Apple M4 Pro Mac mini** on 1.0B tokens of
 refined data. This card is self-contained — the training code lives in a
-research repo (github.com/trevino293/llm-arch-explore) that may be private;
+research repo (github.com/GarageLM/garagelm) that may be private;
 everything needed to understand and evaluate the model is below.
 
 **Why it's interesting:**
@@ -22,7 +22,8 @@ everything needed to understand and evaluate the model is below.
   ~30% of full attention's KV cache (measured: 4.97MB at 1024 context).
 - At matched, locally re-run evaluation it is **ahead-or-tied vs
   Pythia-160M (300B training tokens) on all four tasks below with 300x
-  fewer tokens**, and ahead of gpt2 on ARC-Easy and PIQA.
+  fewer tokens** (within n=300 eval resolution), and ahead of gpt2 on
+  ARC-Easy — the one gap beyond 2× the slice standard error.
 
 | Model | Train tokens | HellaSwag | PIQA | ARC-E | WinoGrande |
 |---|---|---|---|---|---|
@@ -42,9 +43,8 @@ Decoder-only transformer: 16 layers, d_model 1024, 16 heads / 4 KV heads
 (GQA), SwiGLU FFN (hidden 2816), RoPE (θ=10000), RMSNorm, weight tying,
 context 1024, gpt2 BPE (vocab 50257). Attention is a sliding window of 64
 tokens except layers 3/7/11/15, which are fully causal — the KV cache at
-full context is ~30% of an all-global equivalent, with decode throughput
-unchanged (measured ~530 tok/s fp16 / ~700 tok/s 4-bit in MLX on M4 Pro,
-TTFT <75ms).
+full context is ~30% of an all-global equivalent, decoding at ~310 tok/s fp16 / ~530 tok/s 4-bit in MLX on M4 Pro
+(TTFT ≤75ms).
 
 ## Training
 

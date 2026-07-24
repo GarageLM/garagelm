@@ -69,7 +69,7 @@ capability-per-FLOP frontier against published same-size models, stated in
   (bounded rotating cache for windowed layers), verified to ~1e-5 logit
   parity against PyTorch. Measured: MLX decode is ~10x PyTorch/MPS
   (~530 vs ~53 tok/s at 114M), hybrid's cache is exactly its analytic 30%
-  of full, 4-bit costs ~0.01 nats for +35-60% speed. Results table in
+  of full, 4-bit costs ~0.01-0.016 nats for +35-75% speed. Results table in
   `benchmarks/README.md`, JSONs in `benchmarks/results/mlx-*.json`.
 
 - **`11-efficiency/`** — the training-cycle program: A/B lanes vs the
@@ -91,8 +91,8 @@ capability-per-FLOP frontier against published same-size models, stated in
 
 - **`09-flagship-2/`** — the flagship recipe at **1.0B tokens** (3.55B-token
   extended pool, identical val set). **PPL 21.5 (beat 07's 22.75); now
-  ahead-or-tied vs Pythia-160M everywhere and beats gpt2 on ARC-E + PIQA
-  with 2 ties** — but doubling tokens bought only 0.055 nats: the
+  ahead-or-tied vs Pythia-160M everywhere; clearly ahead of gpt2 on ARC-E
+  (PIQA ahead within noise)** — but doubling tokens bought only 0.055 nats: the
   data-quality lever is visibly saturating at this scale. Verdict in
   `09-flagship-2/README.md`.
 
@@ -104,11 +104,12 @@ capability-per-FLOP frontier against published same-size models, stated in
 
 - **`07-flagship-slm/`** — the `05` winner (hybrid) at the 232M recipe,
   block 1024, 500M refined tokens (63h clean, resumable every 500 steps).
-  **Result: statistically ties Pythia-160M (300B tokens — 600x ours) on
+  **Result: matches Pythia-160M (300B tokens — 600x ours; within n=300
+  eval resolution) on
   every task at matched evaluation**, ties-to-beats gpt2, beats
   Cerebras-GPT-111M across the board, and stays clearly behind
   SmolLM2-135M (2T tokens) as pre-registered. PPL 22.7 on the refined val
-  set; 527+ tok/s decode / 4.97MB KV cache in MLX. Full tables and the
+  set; ~310 tok/s fp16 decode (527+ at 4-bit) / 4.97MB KV cache in MLX. Full tables and the
   frontier-per-FLOP verdict: `07-flagship-slm/README.md`.
 
 ## Conventions

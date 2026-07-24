@@ -45,7 +45,7 @@
 
     <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute)"><a href="notes.html">« all notes</a> &nbsp;·&nbsp; 2026-07-21 · <span style="color:var(--warm);font-weight:700">[research]</span> · milestones 07 + 09</div>
     <h1 style="font-size:27px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,serif">600× fewer tokens: tying Pythia-160M on one Mac</h1>
-    <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:18px">A 232M hybrid-attention model trained on 0.5–1.0B refined tokens on a single Apple M4 Pro statistically ties a 300B-token baseline under a matched evaluation harness. The weights are published. This is the full account: setup, pre-registered gates, results, and where the lever stops working.</div>
+    <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:18px">A 232M hybrid-attention model trained on 0.5–1.0B refined tokens on a single Apple M4 Pro matches a 300B-token baseline within eval resolution under a matched evaluation harness. The weights are published. This is the full account: setup, pre-registered gates, results, and where the lever stops working.</div>
 
     <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin-bottom:22px">
       <div style="font-weight:700;margin-bottom:4px">methods box</div>
@@ -78,7 +78,7 @@
       </table>
     </div>
     <p style="margin:0 0 13px;font-size:13px;color:var(--mute)">MMLU is at chance (.267) for every model at this scale, SmolLM2 included, and is omitted. Local re-run numbers are deliberately not comparable to published full-set numbers.</p>
-    <p style="margin:0 0 13px;color:var(--ink2)">Reading the table: against Pythia-160M (600× the tokens at 0.5B; 300× at 1.0B) the result is a statistical tie at 0.5B and ahead-or-tied everywhere at 1.0B, clearly ahead on ARC-Easy. Against gpt2, two clear wins (ARC-E, PIQA) and two ties. Against Cerebras-GPT-111M's published numbers, ahead across the board — gate (a) met. Against SmolLM2, clearly behind, exactly as pre-registered: that gap is 2T refined tokens, not architecture.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Reading the table: against Pythia-160M (600× the tokens at 0.5B; 300× at 1.0B) the result is a statistical tie at 0.5B and ahead-or-tied everywhere at 1.0B, clearly ahead on ARC-Easy. Against gpt2, one clear win (ARC-E, the only gap beyond 2×SE), PIQA leaning our way inside the noise, and two ties. Against Cerebras-GPT-111M's published numbers, ahead across the board — gate (a) met. Against SmolLM2, clearly behind, exactly as pre-registered: that gap is 2T refined tokens, not architecture.</p>
     <div style="margin:0 0 13px">{{ benchFigure }}</div>
 
     <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">4.</span> long-range behavior</div>
@@ -89,7 +89,7 @@
     <p style="margin:0 0 13px;color:var(--ink2)">Run 09's clearest contribution is negative-shaped: doubling tokens from 0.5B to 1.0B bought 0.055 nats of val loss, +3.0 ARC-E, +1.6 PIQA, and ~0 HellaSwag. Refined data bought a 600× token-efficiency tie at 0.5B; the second 0.5B bought low-single-digit points. The steep part of the curve is behind. Next capability jumps need a different axis — bigger model, longer context, distillation, or post-training — which is what milestone 11 (intelligence per training hour) is now chasing.</p>
 
     <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">6.</span> deployment</div>
-    <p style="margin:0 0 13px;color:var(--ink2)">The MLX port passes logit parity and decodes at 527–535 tok/s in fp16 with 72ms time-to-first-token on 896-token prompts; the KV cache is 4.97MB at full context, ~30% of a full-attention equivalent. 4-bit quantization costs +0.014 nats and runs ~700 tok/s. Samples read as fluent encyclopedic prose with 232M-grade factual reliability — confidently wrong astronomy included.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">The MLX port passes logit parity and decodes at ~310 tok/s in fp16 with 72ms time-to-first-token on 896-token prompts; the KV cache is 4.97MB at full context, ~30% of a full-attention equivalent. 4-bit quantization costs +0.016 nats and runs ~530–550 tok/s. (The published weights are the 1.0B, 300× run.) Samples read as fluent encyclopedic prose with 232M-grade factual reliability — confidently wrong astronomy included.</p>
 
     <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin:18px 0">
       <div style="font-weight:700;margin-bottom:4px">reproduce this</div>

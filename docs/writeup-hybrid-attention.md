@@ -22,9 +22,9 @@ that only the attention pattern varied. Three findings:
    attention's KV cache. Pure sliding-window clearly lost (3.928),
    confirming the artifact.
 3. **Scaled to 232M params / 500M refined tokens (63h local training), the
-   hybrid statistically ties Pythia-160M — a model trained on 600x more
+   hybrid matches Pythia-160M (within n=300 eval resolution) — a model trained on 600x more
    tokens — on HellaSwag, PIQA, ARC-Easy, and WinoGrande under a matched
-   evaluation harness**, while decoding at 527+ tok/s on-device (MLX fp16)
+   evaluation harness**, while decoding at ~310 tok/s fp16 on-device (527+ at 4-bit, MLX)
    with a 4.97MB KV cache at 1024 context.
 
 The token-efficiency result quantifies the data-quality thesis
@@ -129,8 +129,8 @@ including SmolLM2 — 0-shot MMLU does not discriminate below ~1B params.)
   pre-registered as the ceiling; the remaining gap is refined-token scale,
   not architecture.
 
-**Deployment (MLX, measured)**: 527–535 tok/s fp16 decode / ~700 tok/s at
-4-bit (+0.014 nats val loss); TTFT 72ms at 896-token prompts; 4.97MB KV
+**Deployment (MLX, measured)**: 312–322 tok/s fp16 decode / 527–545
+tok/s at 4-bit (+0.014 nats val loss); TTFT 72ms at 896-token prompts; 4.97MB KV
 cache at full context vs ~16.8MB for an equivalent full-attention model.
 The MLX runtime is ~10x the PyTorch/MPS harness for decode at these sizes
 — on-device deployment numbers must be measured there.

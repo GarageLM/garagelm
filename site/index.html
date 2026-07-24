@@ -45,7 +45,7 @@
     <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
 
     <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 10px"><span style="color:var(--warm)">$</span> about</div>
-    <p style="margin:0 0 14px;color:var(--ink2)"><b style="font-family:'Courier New',monospace;font-size:14px">garagelm</b> is a non-profit artificial intelligence research lab founded in 2026, built on the hardware you'd find in a garage rather than a datacenter. The work is open source first: code, training recipes, write-ups, and weights are published wherever possible — and negative results ship alongside the wins.</p>
+    <p style="margin:0 0 14px;color:var(--ink2)"><b style="font-family:'Courier New',monospace;font-size:14px">garagelm</b> is an independent, open-source artificial intelligence research lab started in 2026, built on the hardware you'd find in a garage rather than a datacenter. The work is open source first: code, training recipes, write-ups, and weights are published wherever possible — and negative results ship alongside the wins.</p>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin:0 0 14px">
       <div style="flex:1;min-width:260px;border:1px solid var(--line);border-top:3px solid var(--warm);padding:14px 16px;background:var(--code)">
         <div style="display:flex;align-items:center;gap:9px;margin-bottom:2px">
@@ -66,7 +66,7 @@
         <div style="font-family:'Courier New',monospace;font-size:12px;margin-top:9px"><a href="learn.html">learn »</a> · <a href="notes.html">notes »</a></div>
       </div>
     </div>
-    <p style="margin:0;font-family:'Courier New',monospace;font-size:12px;color:var(--mute)"><span style="color:var(--warm)">est. 2026</span> · non-profit · open-source focused · no cluster · no CUDA · no tracking. just a browser tab and one Mac.</p>
+    <p style="margin:0;font-family:'Courier New',monospace;font-size:12px;color:var(--mute)"><span style="color:var(--warm)">est. 2026</span> · independent · open-source focused · no cluster · no CUDA · no tracking. just a browser tab and one Mac.</p>
 
     <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
 
@@ -74,17 +74,17 @@
     <p style="margin:0 0 14px;color:var(--ink2)">The core of the lab chases one question: how much intelligence can you train per dollar, per watt, per hour? Every experiment in attention variants, data quality, and training-cycle efficiency runs on a single Apple M4 Pro (48GB, no CUDA) under a strict fair-comparison rule, and gets written up win or lose.</p>
     <div style="border:1px solid var(--line);background:var(--code);padding:13px 16px;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.8;margin-bottom:14px">
       <div style="font-weight:700;margin-bottom:6px">headline result — hybrid-gpt-232m</div>
-      <div>vs pythia-160m &nbsp;... statistical tie, at 600&#215; fewer tokens</div>
-      <div>vs gpt2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... ahead on arc-easy + piqa</div>
+      <div>vs pythia-160m &nbsp;... at-or-above on all four tasks, at 300&#215; fewer tokens</div>
+      <div>vs gpt2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... clearly ahead on arc-easy; even elsewhere</div>
       <div>kv cache &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... ~30% of full attention</div>
-      <div>decode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... 527+ tok/s on-device (mlx fp16)</div>
+      <div>decode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;... ~310 tok/s fp16 &#183; 530+ at 4-bit (mlx)</div>
       <div style="margin-top:8px"><a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">weights on hugging face &#8599;</a> &nbsp;·&nbsp; <a href="models.html">model cards &#187;</a> &nbsp;·&nbsp; <a href="note-600x-tokens.html">the write-up &#187;</a></div>
     </div>
     <div style="font-family:'Courier New',monospace;font-size:12.5px;line-height:2">
       <div>02 &nbsp;&nbsp;&nbsp;baseline — 114M GQA/RoPE/SwiGLU control <span style="color:var(--mute)">[control]</span></div>
       <div>03–04 attention shootout — sliding-window "wins" twice <span style="color:var(--warm)">[artifact]</span></div>
       <div>05 &nbsp;&nbsp;&nbsp;data frontier — refined corpus flips it: hybrid beats full attention <span style="color:var(--ok)">[win]</span></div>
-      <div>07 &nbsp;&nbsp;&nbsp;flagship — ties pythia-160m at 600&#215; fewer tokens <span style="color:var(--ok)">[600&#215;]</span></div>
+      <div>07 &nbsp;&nbsp;&nbsp;flagship — matches pythia-160m at 600&#215; fewer tokens <span style="color:var(--ok)">[600&#215;]</span></div>
       <div>08 &nbsp;&nbsp;&nbsp;solidify — hybrid &gt; full attention in 3/3 seeds <span style="color:var(--ok)">[3/3]</span></div>
       <div>09 &nbsp;&nbsp;&nbsp;flagship-2 — 1B tokens; the token axis saturates <span style="color:var(--warm)">[saturating]</span></div>
       <div>10 &nbsp;&nbsp;&nbsp;sft + release — chat tuning, zero regression, weights published <span style="color:var(--ok)">[shipped]</span></div>

@@ -158,11 +158,11 @@ class Component extends DCLogic {
         ],
         linkLabel: 'open the training tab »', linkHref: 'learn.html#v=training' },
       { date: '2026-07-21', tag: 'RESEARCH', exp: 'exp 07+09', page: 'note-600x-tokens.html', title: '600× fewer tokens: tying Pythia-160M on one Mac',
-        excerpt: 'The lab\u2019s flagship: a 232M hybrid-attention model, 1B refined tokens, one Apple M4 Pro, with published weights that tie a 300B-token baseline.',
+        excerpt: 'The lab\u2019s flagship: a 232M hybrid-attention model, 1B refined tokens, one Apple M4 Pro, with published weights that match a 300B-token baseline within eval resolution.',
         body: [
           'The research half of garagelm runs on one machine: an Apple M4 Pro with 48GB of unified memory. No CUDA, no cluster, no cloud burst. The mission is capability-per-dollar: how intelligent a model can you train when the hardware budget is one consumer desktop?',
-          'The flagship recipe: 232M parameters, hybrid local+global attention (64-token windows, a full-attention layer every 4th), trained on a refined FineWeb-Edu + Cosmopedia-v2 pool. At 0.5B tokens (63 hours of training) it statistically ties Pythia-160M on HellaSwag, PIQA, ARC-Easy and WinoGrande under a matched evaluation harness. Pythia saw 300B tokens: 600× more.',
-          'Flagship-2 pushed to 1.0B tokens: perplexity dropped to 21.5, the model is now ahead-or-tied against Pythia everywhere, and it passes gpt2 on ARC-Easy and PIQA. Refined tokens are worth more than raw ones; data quality is doing most of the work.',
+          'The flagship recipe: 232M parameters, hybrid local+global attention (64-token windows, a full-attention layer every 4th), trained on a refined FineWeb-Edu + Cosmopedia-v2 pool. At 0.5B tokens (63 hours of training) it matches Pythia-160M (within the ±2.8-pt resolution of n=300 eval slices) on HellaSwag, PIQA, ARC-Easy and WinoGrande under a matched evaluation harness. Pythia saw 300B tokens: 600× more.',
+          'Flagship-2 pushed to 1.0B tokens: perplexity dropped to 21.5, the model is now ahead-or-tied against Pythia everywhere, and it passes gpt2 on ARC-Easy — the one gap beyond 2× the slice error — and sits ahead-or-even elsewhere. Refined tokens are worth more than raw ones; data quality is doing most of the work.',
           'The fine print: doubling tokens bought just 0.055 nats. The token axis is saturating at this scale, so milestone 11 chased intelligence per training hour instead — Muon, multi-epoch reuse, elite filtering, bf16 — and all four levers failed their pre-registered gates. The recipe survived its challengers; the story of that 0-for-4, including a caught val-set contamination, has its own note.',
           'Both checkpoints are published, a base model and a SmolTalk-SFT chat variant, and load with transformers.'
         ],
@@ -174,7 +174,7 @@ class Component extends DCLogic {
           '· val loss — hybrid 3.809 · full attention (GQA) 3.868 · sliding-window 3.928',
           'The hybrid is sliding-window attention (w=64) with a full-attention layer every 4th, the Gemma-2/3 pattern. It beats full attention outright at equal parameters, while carrying ~30% of its KV cache.',
           'The per-position loss curves explain it: pure sliding-window goes flat past position ~64, its window edge, while the hybrid keeps improving deep into the context. A few global layers do all the long-range work; cheap local layers handle everything else.',
-          'It replicates: three seeds, hybrid ahead in all three (mean gap −0.038 nats). The sweep also said w=128 is worse than w=64, and a 2-global-layer variant ties the champion at ~15% cache, flagged as future work. On-device the saving is exactly analytic: the MLX port decodes at 527+ tok/s with the 30% cache.',
+          'It replicates: three seeds, hybrid ahead in all three (mean gap −0.038 nats). The sweep also said w=128 is worse than w=64, and a 2-global-layer variant ties the champion at ~15% cache, flagged as future work. On-device the saving is exactly analytic: the MLX port decodes at ~510–530 tok/s fp16 (114M model) with the 30% cache.',
           'The toy in Learn uses full attention everywhere; at 5 tokens a window would be the whole context. The arcs view is still the right mental picture: most layers allowed only short arcs, every 4th layer free to reach back.'
         ],
         linkLabel: 'watch attention work in the explorer »', linkHref: 'learn.html#v=pipeline' },
@@ -243,12 +243,12 @@ class Component extends DCLogic {
       { id: '01\u201302', date: '2026-05', name: 'baselines', what: 'smoke test, then a 114M GQA/RoPE/SwiGLU control everything else is measured against', stamp: 'done', k: 'done' },
       { id: '03\u201304', date: '2026-06', name: 'attention shootout', what: 'five variants under fair comparison; sliding-window "wins" — later shown to be a corpus artifact', stamp: 'artifact', k: 'done' },
       { id: '05', date: '2026-06', name: 'data frontier', what: 'refined corpus (FineWeb-Edu + Cosmopedia); hybrid attention takes the lead for real', stamp: 'done', k: 'done' },
-      { id: '07', date: '2026-07', name: 'flagship', what: '232M hybrid on 0.5B refined tokens; ties Pythia-160M at 600\u00d7 fewer tokens', stamp: 'done', k: 'done' },
+      { id: '07', date: '2026-07', name: 'flagship', what: '232M hybrid on 0.5B refined tokens; matches Pythia-160M at 600\u00d7 fewer tokens', stamp: 'done', k: 'done' },
       { id: '08', date: '2026-07', name: 'solidify', what: 'seed replication (3/3) and window sweep; the recipe is real, w=64 confirmed', stamp: 'done', k: 'done' },
       { id: '09', date: '2026-07', name: 'flagship-2', what: '1.0B tokens; best model yet, and the token axis visibly saturates', stamp: 'done', k: 'done' },
       { id: '10', date: '2026-07', name: 'sft + release', what: 'SmolTalk chat tuning, zero benchmark regression; both checkpoints published', stamp: 'shipped', k: 'done' },
       { id: '11', date: '2026-07', name: 'efficiency', what: 'four levers vs the 05 control, four gated negatives (bf16, muon@default, 4\u00d7 reuse, elite filter) \u2014 the recipe stands', stamp: 'done', k: 'done' },
-      { id: '12', date: '2026-08', name: 'flagship-3', what: 'the adopted 11-lanes combined: match 09 quality in half the wall-clock', stamp: 'planned', k: 'planned' },
+      { id: '12', date: '2026-07–', name: 'budget ablation', what: 'does the hybrid-vs-full gap move at 50M/100M/200M tokens? pre-registered, running — flagship-3 cancelled (0-for-4, see exp 11)', stamp: 'planned', k: 'planned' },
       { id: '\u2014', date: '2026-q4', name: 'beyond tokens', what: 'the axes 09 pointed at: longer context, distillation, deeper post-training', stamp: 'planned', k: 'planned' },
     ].map(r => ({ ...r, stampStyle: stamp(r.k) })).reverse();
     return {

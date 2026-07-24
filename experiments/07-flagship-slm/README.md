@@ -75,9 +75,9 @@ position 1000 (`benchmarks/results/07-flagship-slm-per-position.json`) —
 the hybrid's global layers keep earning deep context at 232M.
 
 **Deployment numbers (MLX, milestone 06 harness)**: logit parity OK;
-fp16 decode **527–535 tok/s**, TTFT 72ms at 896-token prompts, KV cache
+fp16 decode **312–322 tok/s**, TTFT 72ms at 896-token prompts, KV cache
 **4.97MB** at full context (~30% of an equivalent full-attention model);
-4-bit: ~700 tok/s at +0.014 nats val loss. Qualitative samples are fluent
+4-bit: **527–545 tok/s** at +0.014 nats val loss. Qualitative samples are fluent
 encyclopedic prose with the usual small-model factual confabulation.
 
 ## Verdict
@@ -85,8 +85,8 @@ encyclopedic prose with the usual small-model factual confabulation.
 The phase goal — refined data + efficient attention on minimal hardware —
 lands where the literature said it should: **data quality bought ~600x
 token efficiency against Pythia-160M's Pile training** (a 2023-frontier
-recipe), while the hybrid attention keeps the KV cache at 30% and decode
-at 500+ tok/s on-device. What it does *not* do is touch SmolLM2 — closing
+recipe), while the hybrid attention keeps the KV cache at 30% with 500+ tok/s
+4-bit decode on-device (~310 fp16). What it does *not* do is touch SmolLM2 — closing
 that gap is about scale of refined tokens (2T vs 0.5B), not architecture.
 The honest frontier-per-FLOP claim: **at matched evaluation, this 0.5B-token
 local run is competitive with early-2020s 100M-class models trained on

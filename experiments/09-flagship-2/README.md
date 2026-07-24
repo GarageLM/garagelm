@@ -27,7 +27,8 @@ pre-registered "beat 07 on identical val data" criterion: **met**.
 (Same harness/slices as the `07` evaluation; reference rows reused from it.)
 
 - Pre-registered criterion #2 ("beat gpt2 on ≥3 of 4"): **partially met —
-  2 clear wins (ARC-E, PIQA), 2 statistical ties (HellaSwag, WinoGrande)**;
+  1 clear win (ARC-E, the only gap beyond 2×SE); PIQA ahead within
+  noise; 2 ties (HellaSwag, WinoGrande)**;
   behind only on HellaSwag acc_norm. Against Pythia-160M, 09 is now
   ahead-or-tied everywhere (clearly ahead on ARC-E).
 - **Scaling is bending**: doubling tokens bought 0.055 nats of val loss,

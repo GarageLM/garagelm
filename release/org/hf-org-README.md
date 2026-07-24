@@ -17,10 +17,10 @@ be left alone. -->
 
 # GarageLM
 
-**The most intelligent model trainable on the cheapest hardware.**
+**Chasing the most intelligent model on the cheapest hardware.**
 
 Every model here was pretrained, fine-tuned, evaluated, and benchmarked on
-a single Apple M4 Pro laptop — no cluster, no cloud, ~$3 of electricity
+a single Apple M4 Pro Mac mini — no cluster, no cloud, ~$3 of electricity
 per flagship run. The research axis: how much measured capability can one
 consumer machine produce?
 
@@ -32,11 +32,12 @@ consumer machine produce?
 | [hybrid-gpt-232m-chat](https://huggingface.co/garagelm/hybrid-gpt-232m-chat) | SmolTalk SFT of the base — zero benchmark regression |
 
 **Headline result**: at matched, locally re-run evaluation the base model
-is ahead-or-tied vs Pythia-160M (trained on 300× more tokens) across
-HellaSwag / PIQA / ARC-Easy / WinoGrande, and ahead of GPT-2 on ARC-Easy
-and PIQA with ~5× fewer training FLOPs. The hybrid attention runs at ~30%
-of full attention's KV cache and decodes at 530+ tok/s on-device (MLX
-fp16).
+is at-or-above Pythia-160M (trained on 300× more tokens) across
+HellaSwag / PIQA / ARC-Easy / WinoGrande within ±2.8-pt slice
+resolution, and ahead of GPT-2 on ARC-Easy — the one gap beyond 2×SE —
+with ~5× fewer training FLOPs (6ND, one-epoch-WebText assumed). The
+hybrid attention runs at ~30% of full attention's KV cache and decodes
+on-device at ~310 tok/s fp16 (530+ at 4-bit, MLX).
 
 ## Quick start
 

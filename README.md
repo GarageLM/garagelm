@@ -7,8 +7,9 @@ attention, distillation, modern optimizers, post-training) survive
 miniaturization to a hard hardware floor, currently one consumer
 Apple-Silicon machine. The tracked quantity is the **frontier lag**: what
 capability, at what fraction of the original hardware, how many years
-later. First data point: GPT-2-class capability (2019, TPU pods) beaten at
-~1/5th the FLOPs on a $2,500 laptop. Everything under a strict
+later. First data point: GPT-2-class capability (2019, TPU pods)
+reproduced at ~1/5th the training FLOPs (6ND, one-epoch-WebText
+accounting) on a $1,400–$2,200 desktop. Everything under a strict
 fair-comparison discipline; quality, size, and latency always reported
 together.
 
@@ -27,14 +28,16 @@ pushes the frontier itself.
 **Headline result so far** (full synthesis:
 [`docs/writeup-hybrid-attention.md`](docs/writeup-hybrid-attention.md)):
 a 232M-param **hybrid local+global attention** model trained on **0.5B
-refined tokens in 63h on one M4 Pro** statistically ties Pythia-160M
+refined tokens in 63h on one M4 Pro** matches Pythia-160M (within our
+n=300 eval resolution)
 (300B tokens — 600x more) on HellaSwag/PIQA/ARC-Easy/WinoGrande under a
-matched evaluation harness, at ~30% of full attention's KV cache and 527+
-tok/s on-device decode (MLX fp16). Along the way: sliding-window attention's
+matched evaluation harness, at ~30% of full attention's KV cache, decoding on-device at ~310 tok/s
+fp16 (530+ at 4-bit, MLX). Along the way: sliding-window attention's
 apparent parity with full attention proved to be a corpus artifact
 (TinyStories has no long-range structure — shown directly with per-position
 loss curves), and the hybrid pattern beat *full attention itself* at equal
-parameters on long-form refined data.
+parameters on long-form refined data (3/3 seeds, in our under-trained
+regime).
 
 ## Scope and hardware
 
@@ -65,7 +68,8 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
 7. **08: solidify** — seed replication (hybrid > full attention in 3/3
    seeds) + window/ratio sweep; w=64 / 1-in-4 globals confirmed.
 8. **09: flagship-2** — 1.0B tokens: PPL 21.5, ahead-or-tied vs
-   Pythia-160M everywhere, beats gpt2 on ARC-E + PIQA — and the honest
+   Pythia-160M everywhere, clearly ahead of gpt2 on ARC-E (PIQA ahead
+   within noise) — and the honest
    measurement that the token axis is saturating.
 9. **10: SFT + release** — SmolTalk chat tuning (no benchmark regression)
    and the published weights above.
@@ -87,5 +91,4 @@ See `experiments/README.md` for per-milestone results and
 - `benchmarks/` — tooling to measure quality vs. size vs. latency tradeoffs across
   architecture variants.
 
-The repo is currently at the roadmap/scaffolding stage — no training code has been
-written yet. See `CLAUDE.md` for the framework decision and working conventions.
+See `CLAUDE.md` for the framework decisions and working conventions.
