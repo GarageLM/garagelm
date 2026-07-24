@@ -46,7 +46,7 @@
 
     <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> lab notes</div>
     <p style="margin:0 0 8px;color:var(--ink2)">Write-ups from both sides of the lab, the browser instruments and the training runs on one Mac: the math that surprised us, the numbers behind the demos, and the results that didn't survive replication.</p>
-    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-bottom:22px">{{ postCount }} notes · research, training, inference</div>
+    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-bottom:22px">{{ postCount }} notes · the research ledger, curated · full history in git</div>
 
     <div style="border-top:1px solid var(--line)">
     <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">
@@ -136,27 +136,6 @@ class Component extends DCLogic {
           'Next lever class, forced by the evidence: distillation and deeper post-training — the expensive levers, and the ones the literature says actually move small models.'
         ],
         linkLabel: 'the full adjudication »', linkHref: 'https://github.com/GarageLM/garagelm/blob/main/experiments/11-efficiency/README.md' },
-      { date: '2026-07-23', tag: 'META', exp: 'site', title: 'How this lab is built: Claude on both sides',
-        excerpt: 'One person, two AI collaborators: Claude in the design tool for the site and instruments, Claude Code in the terminal for the research repo and training runs.',
-        body: [
-          'garagelm runs lean by design, and part of that is treating AI assistance as lab equipment. Two tools cover the two sides of the lab.',
-          'The site you are reading, and the instruments in Learn, are built with Claude in a design environment: the raw blog styling, the forward-pass explorer with its lineage tracing and live training loop, the model cards, all of it iterated conversationally and rendered as plain HTML that computes everything client-side.',
-          'The research side runs on Claude Code in the terminal, working directly in the experiments repo: scaffolding milestone harnesses, writing attention variants, wiring evaluation gates, babysitting 127-hour training runs with resumable checkpoints. The fair-comparison discipline (change one thing, gate every lane) is exactly the kind of structure an agent is good at enforcing.',
-          'The division of labor is consistent: humans pick the questions, set the gates, and read the loss curves; the tools write the code and keep the notebooks. Every result still has to pass its pre-registered gate before it ships, no matter who typed it.',
-          'It is also honest to say the failure modes are real. Agents will cheerfully produce a plausible benchmark harness that measures the wrong thing, which is why milestone 03\u2019s sliding-window artifact got caught by discipline, not by cleverness. Trust the gates, not the vibes.'
-        ],
-        linkLabel: 'the research ledger \u00bb', linkHref: 'index.html#research' },
-      { date: '2026-07-22', tag: 'TRAINING', exp: 'toy-188', title: 'Training 188 parameters with finite differences',
-        excerpt: 'No autograd, no GPU: nudge every weight and measure the loss. At toy scale, the dumbest gradient estimator is a feature.',
-        body: [
-          'The Training tab in the Forward-Pass Explorer does something real: it minimizes cross-entropy on the sentence you give it, live, in your browser. There is no autograd library behind it. The gradient is estimated the honest, brute-force way: nudge a weight by a tiny ε, run the forward pass again, and see how the loss moves.',
-          '∂L/∂w ≈ ( L(w+ε) − L(w) ) / ε — one extra forward pass per parameter.',
-          'With 188 parameters, one training step costs 189 forward passes. At d=4 that is microseconds, so the browser can afford it. The same trick on GPT-2 would take 124 million forward passes per step — which is exactly why backpropagation exists: one forward plus one backward pass, roughly 2–3× the cost of inference, computes every gradient at once.',
-          'Watching the loop run teaches more than the formula. The loss falls fast, then grinds: early steps fix the big misses, late steps trade tiny improvements between competing examples. The weight heatmaps flash amber where the gradient is doing work: mostly the output projection early on, then attention, as the model discovers which context token matters.',
-          'The best part is breaking it. Train until the model nails your sentence, then edit one token. The distribution collapses into confident garbage. That is overfitting: 188 parameters memorized one sentence and learned nothing transferable. Real models escape this only because their data is too large to memorize.',
-          'Try it yourself: give the explorer your own five tokens, step the optimizer, and watch which weights move first.'
-        ],
-        linkLabel: 'open the training tab »', linkHref: 'learn.html#v=training' },
       { date: '2026-07-21', tag: 'RESEARCH', exp: 'exp 07+09', page: 'note-600x-tokens.html', title: '600× fewer tokens: tying Pythia-160M on one Mac',
         excerpt: 'The lab\u2019s flagship: a 232M hybrid-attention model, 1B refined tokens, one Apple M4 Pro, with published weights that match a 300B-token baseline within eval resolution.',
         body: [
@@ -187,26 +166,7 @@ class Component extends DCLogic {
           'The moral for small-scale work: a benchmark measures your corpus as much as your architecture. The fair-comparison discipline made the artifact findable; upgrading the data made it undeniable. Negative results like this are why every milestone gets written up, win or lose.'
         ],
         linkLabel: 'read the hybrid result that followed »', linkHref: '#p=3' },
-      { date: '2026-07-14', tag: 'INFERENCE', exp: 'toy-188', title: 'Generation is a memory problem, not a math problem',
-        excerpt: 'Prefill saturates the chips; decode starves them. The KV-cache arithmetic that decides how fast your tokens stream.',
-        body: [
-          'Generating text has two very different phases. Prefill processes your whole prompt at once: big matrix multiplies, thousands of operations per byte fetched from memory, exactly what GPUs are built for. Decode produces one token at a time, and every step must re-read essentially all of the model\u2019s weights to do a comparatively tiny amount of math.',
-          'The ratio of compute to memory traffic is called arithmetic intensity. Prefill runs at hundreds of FLOPs per byte; decode runs near one. Below the hardware\u2019s balance point the chip idles waiting on memory, so decode speed is set by memory bandwidth, not by FLOPS. This is why token streams tick like a metronome: each token is one full read of the weights.',
-          'The KV cache is the trick that keeps decode from going quadratic: store every past token\u2019s keys and values, so each new token attends over history without recomputing it. The price is memory that grows linearly with context. At frontier scale, a long chat carries gigabytes of cache per user.',
-          'The Generate tab\u2019s cost panel runs these numbers live, for the toy and for real model sizes side by side. The toy\u2019s whole cache is 40 numbers; the mechanism is identical.'
-        ],
-        linkLabel: 'see the cost panel »', linkHref: 'learn.html#v=generate' },
-      { date: '2026-07-22', tag: 'DRAFT', draft: true, exp: 'toy-188', title: 'Sinusoidal positions you can read by hand',
-        excerpt: 'At d=4 the positional encoding is four sine waves you can tabulate on paper. Notes toward a post on why frequencies beat indices.',
-        body: [
-          'Outline — to be written up:',
-          '· At d=4 there are two frequency pairs; positions 0–4 give a 5×4 table you can verify by hand.',
-          '· Why not just the integer index: magnitudes explode, and relative offsets are not linearly recoverable from one number.',
-          '· Sinusoids make relative position a rotation — a fixed linear map sends PE(pos) to PE(pos+k).',
-          '· What replaced them: learned position embeddings (GPT-2), then RoPE rotating Q and K directly.'
-        ],
-        linkLabel: 'see the PE matrix in the math tab »', linkHref: 'learn.html#v=math' }
-    ];
+      ];
   }
 
   renderVals() {
