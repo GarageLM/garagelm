@@ -173,8 +173,8 @@ class HybridGPTForCausalLM(PreTrainedModel, GenerationMixin):
         B, T = input_ids.size()
         assert T <= self.config.block_size, "sequence longer than block_size"
         x = self.drop(self.tok_emb(input_ids))
-        cos = self.rope_cos[:T].to(x.device)
-        sin = self.rope_sin[:T].to(x.device)
+        cos = self.rope_cos[:T].to(device=x.device, dtype=x.dtype)
+        sin = self.rope_sin[:T].to(device=x.device, dtype=x.dtype)
         mask = self.window_mask.to(x.device)
         for block in self.blocks:
             x = block(x, cos, sin, mask)
