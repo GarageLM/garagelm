@@ -82,6 +82,28 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.
 
+## Talk to the models
+
+One command starts a local chat server + web UI over the published chat
+model, running entirely on this machine (MLX, real rotating KV cache):
+
+```
+cd ~/Desktop/llm-arch-explore && ./serve.sh
+```
+
+It opens the browser at `localhost:8080`, converts the checkpoint on
+first use (logit-parity-gated), and — if a training run owns the GPU —
+automatically starts in polite CPU mode so research is never disturbed.
+Variants: `MODEL=09-flagship-2 ./serve.sh` serves the raw base model;
+`PORT=9000` moves the port. Stop with Ctrl-C.
+
+The server is OpenAI-compatible (`http://localhost:8080/v1`), so any
+client library or chat UI can talk to it — which also makes it the lab's
+standard tool for qualitative testing and scripted batch probes of any
+checkpoint. Terminal alternatives: `experiments/10-sft/chat.py` (REPL)
+and each experiment's `sample.py` (one-shot generation from any
+`out/ckpt.pt`).
+
 ## Layout
 
 - `docs/literature/` — notes and summaries on existing attention architectures and
