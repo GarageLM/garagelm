@@ -59,7 +59,9 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--experiment-dir", required=True)
     p.add_argument("--val-bin", required=True)
-    p.add_argument("--micro", type=int, default=8)
+    # default 4: at block 1024, micro x block x 50257 fp32 logits must stay
+    # under the documented ~1GB MPS envelope (8 x 1024 would be ~1.65GB)
+    p.add_argument("--micro", type=int, default=4)
     args = p.parse_args()
 
     exp_dir = os.path.abspath(args.experiment_dir)

@@ -24,6 +24,12 @@ built for much larger models.
   via a `TemplateLM` subclass; `benchmarks/run_quality_eval.py` runs it
   against any experiment's checkpoint and writes
   `benchmarks/results/<experiment>.json`).
+- **Deterministic full-pass validation loss**
+  (`benchmarks/full_pass_val.py`) — the standard adjudication evaluator
+  since milestone 11: non-overlapping block-size windows, stride = block,
+  fp32, tail dropped, every predicted token counted exactly once. One
+  number per checkpoint; no verdict in this repo is decided by the
+  training loop's stochastic in-run estimates.
 - **Per-position validation loss** (`benchmarks/long_range_probe.py`) —
   the long-range diagnostic added for milestone 05: mean val loss bucketed
   by token position over a fixed, seeded set of windows. If a long-range

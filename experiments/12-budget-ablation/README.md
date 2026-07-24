@@ -24,6 +24,16 @@ shows hybrid ahead. This measures the trend.
   six checkpoints, including re-evaluating the two 05 finals under the
   identical protocol. In-run estimates decide nothing.
 - **Expected cost**: 2×~3.5h + 2×~14h ≈ 35h sequential.
+- **Noise yardstick (pre-registered, per design-review B1)**: this
+  ablation runs one seed per point; `08-solidify`'s replication measured
+  the single-seed paired gap at range −0.028 to −0.059 (SD ≈ 0.018)
+  under identical conditions. Therefore: (a) an individual budget's gap
+  is called *present* only if ≤ −0.02 nats, *absent* only if ≥ −0.01,
+  and *unresolved* between; (b) a **trend** across budgets is claimed
+  only if |gap(200M) − gap(50M)| ≥ 0.02 nats AND the 50M→100M→200M
+  sequence is monotone; (c) anything smaller is reported verbatim as
+  "no resolvable trend at single-seed resolution." The paper reports the
+  three gaps with this yardstick stated, whatever they show.
 
 ## Results
 
