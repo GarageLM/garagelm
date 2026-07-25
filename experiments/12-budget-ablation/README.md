@@ -35,12 +35,27 @@ shows hybrid ahead. This measures the trend.
   "no resolvable trend at single-seed resolution." The paper reports the
   three gaps with this yardstick stated, whatever they show.
 
-## Results
-
-*(pending: design-review audit → runs → full-pass evals)*
+## Results (adjudicated: `full_pass_val.py`, shared 05 val, all six checkpoints)
 
 | Budget | GQA (full) | hybrid | gap (hybrid−GQA) |
 |---|---|---|---|
-| 50M | – | – | – |
-| 100M (from 05) | – | – | – |
-| 200M | – | – | – |
+| 50M | 4.2985 | 4.2261 | **−0.072** |
+| 100M (05 runs, re-evaluated) | 3.8966 | 3.8398 | **−0.057** |
+| 200M | 3.6131 | 3.5718 | **−0.041** |
+
+**Both pre-registered calls fire.** The gap is *present* at every budget
+(each ≤ −0.02), and the *trend is monotone closing* (total movement
+0.031 ≥ 0.02). Decay ≈ 0.016 nats per doubling; linear-in-log
+extrapolation puts the crossover near ~1.3B tokens for this 114M
+configuration — ~6x the largest budget tested, and a single-seed,
+three-point extrapolation to be treated as such.
+
+**Verdict**: the two competing readings reconcile. Restricted attention
+is a favorable *inductive bias whose advantage decays with training* —
+the hybrid wins across the entire practical local-training regime, and
+the decay rate is consistent with the convergence view (arXiv:2606.15378)
+as the asymptote. This upgrades the paper's central claim from a
+tension datum to a measured decay curve. Runs: 3.4h + 3.4h + 13.8h +
+14.0h, stall-free; in-run finals track the full-pass numbers within
+0.06 nats (protocol difference: full-pass covers all positions and the
+whole val set).
