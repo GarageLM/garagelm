@@ -1,4 +1,4 @@
-# llm-arch-explore (GarageLM)
+# garagelm (Garage Language Models)
 
 **Mission: optimize frontier training and inference until they run on
 minimal hardware.** Frontier labs scale techniques up; this lab compresses
@@ -88,7 +88,7 @@ One command starts a local chat server + web UI over the published chat
 model, running entirely on this machine (MLX, real rotating KV cache):
 
 ```
-cd ~/Desktop/llm-arch-explore && ./serve.sh
+cd ~/Desktop/garagelm && ./serve.sh
 ```
 
 It opens the browser at `localhost:8080`, converts the checkpoint on
