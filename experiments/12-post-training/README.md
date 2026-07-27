@@ -69,6 +69,10 @@ step 4000, ≤1h lost). Adjudicated by the pinned evaluator
   had preserved (10-sft ARC-E was −1.7, within noise).
 - **Fail action honored: chat-v2 does not ship from this stage.**
 - Follow-up measurement (not gate revision; the verdict stands):
-  full-set ARC-Easy (2,376 items) on both checkpoints to resolve
-  whether −4.0 at 1.4×SE is a real regression or slice noise —
-  `benchmarks/results/12-post-training-arc-fullset.json`.
+  full-set ARC-Easy (2,376 items, SE ±1.0): base .520 vs sft-full .498
+  (acc, −2.2) and .471 vs .447 (acc_norm, −2.4) — **the regression is
+  real but roughly half the slice estimate**. The measured alignment
+  tax at 310M SFT tokens: ~2.2 ARC-Easy points for 0.238 nats of chat
+  quality; the 60M-token SFT paid ~none. Remedy candidates: replay-mix
+  Stage-1b (5–10% pretraining data in the SFT stream) and/or shorter
+  SFT. `benchmarks/results/12-post-training-arc-fullset.json`.

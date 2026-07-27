@@ -1,0 +1,20 @@
+{
+  "sft-full": {
+    "name": "arc_easy",
+    "alias": "arc_easy",
+    "sample_len": 2376,
+    "acc,none": 0.4978956228956229,
+    "acc_stderr,none": 0.01025969265153694,
+    "acc_norm,none": 0.44654882154882153,
+    "acc_norm_stderr,none": 0.010200990076245286
+  },
+  "09-base": {
+    "name": "arc_easy",
+    "alias": "arc_easy",
+    "sample_len": 2376,
+    "acc,none": 0.5202020202020202,
+    "acc_stderr,none": 0.010251405621305271,
+    "acc_norm,none": 0.47095959595959597,
+    "acc_norm_stderr,none": 0.010242463826395433
+  }
+}

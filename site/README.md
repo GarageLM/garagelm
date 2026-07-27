@@ -27,4 +27,4 @@ No build step. Options:
 - **GitHub Pages**: put this folder at repo root or `/docs`, enable Pages, point garagelm.org via CNAME.
 - **Cloudflare Pages / Netlify**: deploy the folder as-is.
 
-Notes: theme + visitor counter persist in localStorage (client-only, no tracking). All demos compute in the browser; there is no backend.
+Notes: theme persists in localStorage (client-only, no tracking). All demos compute in the browser; there is no backend.

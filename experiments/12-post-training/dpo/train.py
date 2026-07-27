@@ -34,8 +34,8 @@ STATE_EVERY = 200
 BETA = 0.1
 LR = 1e-6
 WARMUP = 50
-MICRO_PAIRS = 2   # sequences per forward = 2*MICRO_PAIRS
-ACCUM = 8         # 16 pairs per optimizer step
+MICRO_PAIRS = 1   # sequences per forward = 2*MICRO_PAIRS (memory envelope)
+ACCUM = 16        # 16 pairs per optimizer step (unchanged effective batch)
 SEED = 1337
 
 
@@ -65,7 +65,11 @@ class PairData:
                 l = int(self.idx[pre + "_len"][i])
                 seqs.append(self.stream[s:s + l].astype(np.int64))
                 resps.append(int(self.idx[pre + "_resp"][i]))
+        # bucket lengths to multiples of 128: bounded shape diversity keeps
+        # the MPS allocator from fragmenting across thousands of unique
+        # tensor shapes (the OOM cause on the first launch)
         L = max(len(s) for s in seqs)
+        L = ((L + 127) // 128) * 128
         x = np.zeros((len(seqs), L), dtype=np.int64)
         mask = np.zeros((len(seqs), L), dtype=np.float32)
         for j, (s, r) in enumerate(zip(seqs, resps)):
@@ -76,13 +80,18 @@ class PairData:
 
 
 def response_logprobs(model, x, resp_mask):
-    """Summed logprob of response tokens for each sequence."""
+    """Summed logprob of response tokens for each sequence.
+
+    gather + logsumexp instead of materializing a full-vocab log_softmax:
+    halves the number of retained (B, L, 50257) tensors on the policy
+    side, which is what blew the memory envelope at probe time."""
     logits, _ = model(x[:, :-1])
-    logp = F.log_softmax(logits.float(), dim=-1)
+    logits = logits.float()
     tgt = x[:, 1:]
-    tok_lp = logp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)   # (B, L-1)
+    picked = logits.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)   # (B, L-1)
+    lse = torch.logsumexp(logits, dim=-1)                        # (B, L-1)
     m = resp_mask[:, 1:]
-    return (tok_lp * m).sum(dim=1)
+    return ((picked - lse) * m).sum(dim=1)
 
 
 def dpo_step_stats(policy, ref, x, mask, device):
@@ -232,7 +241,7 @@ def main():
                         "rng_cpu": torch.get_rng_state()},
                        state_path + ".tmp")
             os.replace(state_path + ".tmp", state_path)
-        if device == "mps" and step % 25 == 0:
+        if device == "mps" and step % 2 == 0:
             torch.mps.empty_cache()
 
     acc = pref_accuracy(policy, ref, data, data.val_ids, device)
