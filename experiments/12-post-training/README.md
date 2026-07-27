@@ -51,4 +51,24 @@ epoch, from the Stage-1 checkpoint):**
 
 ## Results
 
-*(pending: design-review audit → data prep → runs)*
+**Stage 1 (sft-full)**: trained 38.2h (one external kill, resumed from
+step 4000, ≤1h lost). Adjudicated by the pinned evaluator
+(`full_pass_val.py --mask-bin`, identical invocation, new shared val):
+
+| Checkpoint | Masked full-pass val |
+|---|---|
+| 09 base | 2.0732 |
+| 10-sft (60M tokens) | 1.6847 |
+| **sft-full (310M tokens)** | **1.4470** |
+
+- **G1: PASS** — 0.238 nats better than 10-sft (gate ≥ 0.05).
+- **G2: FAIL** — vs 09 base (acc): HellaSwag +0.6 ✓, PIQA −0.3 ✓,
+  WinoGrande +0.3 ✓, **ARC-Easy −4.0 ✗** (.437 vs .477, tolerance
+  ±2.8). The alignment tax, measured: 10x chat SFT bought 0.24 nats of
+  chat quality at the price of science-question capability the 60M SFT
+  had preserved (10-sft ARC-E was −1.7, within noise).
+- **Fail action honored: chat-v2 does not ship from this stage.**
+- Follow-up measurement (not gate revision; the verdict stands):
+  full-set ARC-Easy (2,376 items) on both checkpoints to resolve
+  whether −4.0 at 1.4×SE is a real regression or slice noise —
+  `benchmarks/results/12-post-training-arc-fullset.json`.

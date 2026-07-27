@@ -1,0 +1,9 @@
+{
+  "experiment": "09-flagship-2",
+  "full_pass_val_loss": 2.0732,
+  "masked": true,
+  "block_size": 1024,
+  "val_bin": "/Users/anthonytrevino/Desktop/llm-arch-explore/experiments/12-post-training/sft-full/data/val_tokens.bin",
+  "val_tokens": 461099,
+  "protocol": "non-overlapping windows, stride=block, fp32, tail dropped"
+}
