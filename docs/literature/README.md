@@ -6,7 +6,8 @@ solves, what it costs (compute, memory, quality), and where it breaks down at
 scale or at the small model sizes this repo actually trains (see
 `CLAUDE.md`).
 
-Write-ups so far: topic 7 → `data-quality-frontier.md`.
+Write-ups so far: topic 7 → `data-quality-frontier.md`; topic 8 →
+`kimi-k3.md`.
 
 1. **Attention foundations: MHA → MQA → GQA.** Why multi-query and
    grouped-query attention exist (KV-cache size at inference), and what
@@ -60,3 +61,14 @@ Write-ups so far: topic 7 → `data-quality-frontier.md`.
    - [SmolLM corpus](https://huggingface.co/datasets/HuggingFaceTB/smollm-corpus)
    - [SmolLM2 paper](https://arxiv.org/pdf/2502.02737)
    - [DCLM paper](https://arxiv.org/abs/2406.11794)
+
+8. **Frontier recipes as replication targets.** Full-stack technical reports
+   from open frontier labs, read for which ingredients survive
+   miniaturization. Write-up: `kimi-k3.md` — triage of the Kimi K3 report
+   (`k3_tech_report.pdf`: hybrid KDA–MLA attention, Attention Residuals,
+   LatentMoE + Quantile Balancing, per-head Muon, MTP/EAGLE, QAT) into
+   what is replicable on this repo's hardware and what a 13-milestone
+   would run.
+   - [Kimi Linear / KDA](https://arxiv.org/abs/2510.26692)
+   - [Gated DeltaNet](https://openreview.net/forum?id=r8H7xhYPwz)
+   - [flash-linear-attention](https://github.com/fla-org/flash-linear-attention)

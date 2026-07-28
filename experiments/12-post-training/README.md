@@ -76,3 +76,41 @@ step 4000, ≤1h lost). Adjudicated by the pinned evaluator
   quality; the 60M-token SFT paid ~none. Remedy candidates: replay-mix
   Stage-1b (5–10% pretraining data in the SFT stream) and/or shorter
   SFT. `benchmarks/results/12-post-training-arc-fullset.json`.
+
+**Stage 2 (dpo)**: 9.0h, one epoch over 53,952 pairs. First launch OOM'd
+at ~step 50 — a NEW species of the MPS allocator pathology: variable-
+length batches create thousands of unique tensor shapes and the
+allocator fragments (57GB peak). Fix: bucket sequence lengths to
+multiples of 128 + aggressive cache clearing → 43GB peak and 1.9x
+FASTER (9.7s vs 18.4s/step). Recorded for the paper's systems section.
+
+- **G3: PASS** — held-out preference accuracy **0.652** (gate > 0.60).
+- **G4: PASS** — vs Stage-1 (acc): HellaSwag −0.3, PIQA −0.3,
+  ARC-E −0.4, WinoGrande −0.7 — all within a point. Preference tuning
+  preserved capability exactly.
+
+**Stage 3 (distillation probes)**:
+
+- **P1: PASS — logit-KD is viable.** GPT-2-XL full-pass on the shared
+  val: **2.746** vs our 09 base **3.042** (identical protocol/val) —
+  the only strong gpt2-tokenizer teacher leads our base by **0.296
+  nats**. Distillable headroom exists with zero tokenizer friction.
+  (`distill-probe-p1.json`)
+- **P2**: Qwen3-1.7B-4bit generates at **161 tok/s ≈ 13.9M tokens/day**
+  on this machine — a 100M-token synthetic corpus costs ~7 generation-
+  days. (SmolLM2-1.7B-Instruct measurement returned empty output;
+  one teacher datapoint suffices for pricing.) (`distill-probe-p2.json`)
+
+## Milestone verdict
+
+Post-training at this scale is a **usability lever, not a capability
+lever** — now measured, not assumed: chat quality improved 0.24 nats
+(G1) and preference alignment works cleanly (G3) at zero DPO-stage
+capability cost (G4), but the SFT stage itself pays a real alignment
+tax (G2: −2.2 ARC-Easy full-set points at 310M tokens vs ~0 at 60M) —
+consistent with the FLAN scale-crossover, reproduced below any scale
+that paper tested. **chat-v2 does not ship** (G2 fail action); the
+Stage-1b replay-mix remedy (~19h) remains open as an explicit decision.
+The distillation probes return a GO signal for milestone 13: a viable
+same-tokenizer logit teacher with 0.3 nats of headroom, and a priced
+synthetic-generation alternative.

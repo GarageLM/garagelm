@@ -1,0 +1,10 @@
+{
+  "mlx-community/Qwen3-1.7B-4bit": {
+    "tok_per_s": 161.3,
+    "tokens_per_day_M": 13.94
+  },
+  "mlx-community/SmolLM2-1.7B-Instruct": {
+    "tok_per_s": 0.0,
+    "tokens_per_day_M": 0.0
+  }
+}
