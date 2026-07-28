@@ -110,7 +110,37 @@ capability cost (G4), but the SFT stage itself pays a real alignment
 tax (G2: −2.2 ARC-Easy full-set points at 310M tokens vs ~0 at 60M) —
 consistent with the FLAN scale-crossover, reproduced below any scale
 that paper tested. **chat-v2 does not ship** (G2 fail action); the
-Stage-1b replay-mix remedy (~19h) remains open as an explicit decision.
+Stage-1b replay-mix remedy was considered and **shelved by decision**
+(2026-07-27): milestone 12 stands as pure science, v1 chat remains the
+public model, and the tax curve stays at two measured points.
 The distillation probes return a GO signal for milestone 13: a viable
 same-tokenizer logit teacher with 0.3 nats of headroom, and a priced
 synthetic-generation alternative.
+
+## Chat benchmarks (added post-milestone; matched harness throughout)
+
+**IFEval** (rule-verifiable instruction following; generation via the
+MLX server for our no-cache checkpoints, HF backend for the reference;
+`--apply_chat_template` everywhere):
+
+| Model | prompt-strict | inst-strict |
+|---|---|---|
+| SmolLM2-135M-Instruct (2T pretrain + full post-train stack) | 21.4% | 35.6% |
+| **sft-full (ours)** | **15.2%** | **26.7%** |
+| dpo (ours) | 13.9% | 25.1% |
+
+Readings: real instruction-following exists at 232M (~1/4 of atomic
+constraints satisfied); our SFT model reaches ~71% of the reference's
+prompt-strict score at ~2000x fewer pretraining tokens; and DPO
+*slightly hurt* constraint-following (−1.3 prompt-strict) —
+UltraFeedback optimizes preferred-sounding answers, not rule
+compliance, a tension now measured at this scale. (SmolLM2-Instruct's
+model card reports IFEval 29.9 under its own setup vs 21.4 on our
+harness — the re-run-references-locally rule earning its keep again.)
+
+**Extended loglikelihood suite** (n=300, acc): BoolQ .623/.637/.643 and
+TruthfulQA-mc2 .393/.418/.416 (base/sft/dpo) — both real signal, both
+slightly favoring the chat models. ARC-Challenge, OpenBookQA, and
+CommonsenseQA sit at chance at this scale, consistent with the repo's
+benchmark guidance. Full JSONs: `benchmarks/results/*-ext.json`,
+`benchmarks/results/ifeval-*`.

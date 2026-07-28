@@ -15,4 +15,7 @@ dependencies = [
     "accelerate>=1.14.0",
     "fastapi>=0.139.2",
     "uvicorn>=0.51.0",
+    "tenacity>=9.1.4",
+    "langdetect>=1.0.9",
+    "immutabledict>=4.3.1",
 ]

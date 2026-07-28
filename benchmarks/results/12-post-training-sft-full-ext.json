@@ -1,0 +1,51 @@
+{
+  "experiment": "12-post-training-sft-full",
+  "params": 231852032,
+  "device": "mps",
+  "block_size": 1024,
+  "tokens_per_sec_decode": 48.34414014727297,
+  "num_fewshot": 0,
+  "limit_main_tasks": 300,
+  "limit_mmlu_per_subject": 5,
+  "quality": {
+    "boolq": {
+      "name": "boolq",
+      "alias": "boolq",
+      "sample_len": 300,
+      "acc,none": 0.6366666666666667,
+      "acc_stderr,none": 0.027814616968981933
+    },
+    "openbookqa": {
+      "name": "openbookqa",
+      "alias": "openbookqa",
+      "sample_len": 300,
+      "acc,none": 0.15666666666666668,
+      "acc_stderr,none": 0.02102095007083033,
+      "acc_norm,none": 0.2866666666666667,
+      "acc_norm_stderr,none": 0.02615166012679861
+    },
+    "commonsense_qa": {
+      "name": "commonsense_qa",
+      "alias": "commonsense_qa",
+      "sample_len": 300,
+      "acc,none": 0.19,
+      "acc_stderr,none": 0.02268734711383297
+    },
+    "arc_challenge": {
+      "name": "arc_challenge",
+      "alias": "arc_challenge",
+      "sample_len": 300,
+      "acc,none": 0.22666666666666666,
+      "acc_stderr,none": 0.024212609617951835,
+      "acc_norm,none": 0.24,
+      "acc_norm_stderr,none": 0.02469885513168684
+    },
+    "truthfulqa_mc2": {
+      "name": "truthfulqa_mc2",
+      "alias": "truthfulqa_mc2",
+      "sample_len": 300,
+      "acc,none": 0.4184437402133473,
+      "acc_stderr,none": 0.02541733207738518
+    }
+  }
+}

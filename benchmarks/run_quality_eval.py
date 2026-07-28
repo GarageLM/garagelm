@@ -15,6 +15,9 @@ MAIN_TASKS = ["hellaswag", "piqa", "arc_easy", "winogrande"]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--experiment-dir", default="experiments/02-baseline-small-lm")
+    parser.add_argument("--tasks", default=None,
+                         help="comma-separated task override (skips the MMLU stage); "
+                              "default keeps the standard suite")
     parser.add_argument("--limit", type=int, default=300,
                          help="examples per task, for hellaswag/piqa/arc_easy/winogrande")
     parser.add_argument("--mmlu-limit", type=int, default=5,
@@ -54,19 +57,22 @@ def main():
     adapter = GPTLMEvalAdapter(model, model_cfg.block_size, device)
     print(f"evaluating {exp_name}: params={n_params:,} device={device} block_size={model_cfg.block_size}")
 
-    print(f"running {MAIN_TASKS} with limit={args.limit}/task")
+    main_tasks = args.tasks.split(",") if args.tasks else MAIN_TASKS
+    print(f"running {main_tasks} with limit={args.limit}/task")
     main_results = lm_eval.simple_evaluate(
-        model=adapter, tasks=MAIN_TASKS, num_fewshot=args.num_fewshot,
+        model=adapter, tasks=main_tasks, num_fewshot=args.num_fewshot,
         limit=args.limit, log_samples=False,
     )
 
-    print(f"running mmlu (57 subjects) with limit={args.mmlu_limit}/subject")
-    mmlu_results = lm_eval.simple_evaluate(
-        model=adapter, tasks=["mmlu"], num_fewshot=args.num_fewshot,
-        limit=args.mmlu_limit, log_samples=False,
-    )
-
-    quality = {**main_results["results"], **mmlu_results["results"]}
+    if args.tasks is None:
+        print(f"running mmlu (57 subjects) with limit={args.mmlu_limit}/subject")
+        mmlu_results = lm_eval.simple_evaluate(
+            model=adapter, tasks=["mmlu"], num_fewshot=args.num_fewshot,
+            limit=args.mmlu_limit, log_samples=False,
+        )
+        quality = {**main_results["results"], **mmlu_results["results"]}
+    else:
+        quality = dict(main_results["results"])
 
     # lightweight tokens/sec (decode) measurement -- NOT the rigorous MLX
     # prefill/decode/TTFT/KV-cache benchmark benchmarks/README.md scopes
@@ -91,13 +97,14 @@ def main():
     }
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, f"{exp_name}.json")
+    suffix = "-ext" if args.tasks else ""
+    out_path = os.path.join(RESULTS_DIR, f"{exp_name}{suffix}.json")
     with open(out_path, "w") as f:
         json.dump(summary, f, indent=2, default=str)
 
     print(f"\nresults written to {out_path}")
     print(f"tokens/sec (decode): {tokens_per_sec:.1f}")
-    for name in [*MAIN_TASKS, "mmlu"]:
+    for name in [*main_tasks] + ([] if args.tasks else ["mmlu"]):
         res = quality.get(name, {})
         acc_keys = {k: v for k, v in res.items() if "acc" in k and "stderr" not in k}
         print(f"  {name}: {acc_keys}")

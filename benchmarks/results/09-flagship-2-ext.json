@@ -1,0 +1,51 @@
+{
+  "experiment": "09-flagship-2",
+  "params": 231852032,
+  "device": "mps",
+  "block_size": 1024,
+  "tokens_per_sec_decode": 48.30398671909392,
+  "num_fewshot": 0,
+  "limit_main_tasks": 300,
+  "limit_mmlu_per_subject": 5,
+  "quality": {
+    "boolq": {
+      "name": "boolq",
+      "alias": "boolq",
+      "sample_len": 300,
+      "acc,none": 0.6233333333333333,
+      "acc_stderr,none": 0.02802226115126559
+    },
+    "openbookqa": {
+      "name": "openbookqa",
+      "alias": "openbookqa",
+      "sample_len": 300,
+      "acc,none": 0.17333333333333334,
+      "acc_stderr,none": 0.021891255175071542,
+      "acc_norm,none": 0.30666666666666664,
+      "acc_norm_stderr,none": 0.026666666666666665
+    },
+    "commonsense_qa": {
+      "name": "commonsense_qa",
+      "alias": "commonsense_qa",
+      "sample_len": 300,
+      "acc,none": 0.19,
+      "acc_stderr,none": 0.02268734711383297
+    },
+    "arc_challenge": {
+      "name": "arc_challenge",
+      "alias": "arc_challenge",
+      "sample_len": 300,
+      "acc,none": 0.21666666666666667,
+      "acc_stderr,none": 0.023825046699671875,
+      "acc_norm,none": 0.22,
+      "acc_norm_stderr,none": 0.02395648228514071
+    },
+    "truthfulqa_mc2": {
+      "name": "truthfulqa_mc2",
+      "alias": "truthfulqa_mc2",
+      "sample_len": 300,
+      "acc,none": 0.3932946342669816,
+      "acc_stderr,none": 0.024282041438402225
+    }
+  }
+}
