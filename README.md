@@ -23,7 +23,8 @@ pushes the frontier itself.
 [`garagelm/hybrid-gpt-232m`](https://huggingface.co/garagelm/hybrid-gpt-232m)
 (base, 1B tokens) and
 [`garagelm/hybrid-gpt-232m-chat`](https://huggingface.co/garagelm/hybrid-gpt-232m-chat)
-(SmolTalk SFT) — both load via `transformers` with `trust_remote_code=True`.
+(chat v2: SmolTalk SFT + UltraFeedback DPO; v1 stays fetchable at HF
+revision `v1`) — both load via `transformers` with `trust_remote_code=True`.
 
 **Headline result so far** (full synthesis:
 [`docs/writeup-hybrid-attention.md`](docs/writeup-hybrid-attention.md)):
@@ -52,7 +53,9 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
 
 1. **Literature review** (`docs/literature/`) — attention foundations
    (MHA→MQA→GQA), MLA, sparse/sliding-window lineage, the data-quality
-   frontier (phi, FineWeb-Edu, SmolLM2, DCLM).
+   frontier (phi, FineWeb-Edu, SmolLM2, DCLM), and a replication triage
+   of the Kimi K3 tech report (`docs/literature/kimi-k3.md`) into a
+   candidate milestone-13 program.
 2. **00–02: pipeline + baseline** — char-level smoke test, then a 114M
    GQA/RoPE/RMSNorm/SwiGLU control model.
 3. **03–04: attention shootout + scaling check** (TinyStories) — GQA vs MHA
@@ -84,7 +87,19 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     −2.2 full-set ARC-Easy pts at 310M SFT tokens vs ~0 at 60M. IFEval
     vs SmolLM2-135M-Instruct under one matched harness (13.9% vs 21.4%
     prompt-strict). The DPO endpoint ships as **chat v2** (tax disclosed
-    on the card; v1 remains at HF revision `v1`).
+    on the card; v1 remains at HF revision `v1`). Distillation probes
+    return a **GO** for a milestone-13 program: GPT-2-XL leads our base
+    by 0.296 nats on the shared val as a same-tokenizer logit teacher,
+    and local synthetic generation prices at ~13.9M tokens/day.
+12. **12b: budget ablation** — the review-requested decisive experiment
+    for the paper's central architecture claim: hybrid vs full attention
+    at 50M / 100M / 200M tokens, byte-identical code, pre-registered
+    noise yardstick. The hybrid's edge is **present at every budget**
+    (−0.072 / −0.057 / −0.041 nats) and **decays monotonically** (~0.016
+    nats per token doubling; single-seed extrapolated crossover near
+    1.3B tokens). Reading: restricted attention is a favorable inductive
+    bias whose advantage shrinks as training grows; the claim is now a
+    measured decay curve, not a tension datum.
 
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.

@@ -9,6 +9,7 @@ Static site for garagelm.org: home, models, notes (+ dedicated note pages), lear
 - `notes.html` — lab notes + experiment roadmap
 - `note-600x-tokens.html` — dedicated write-up (milestones 07+09)
 - `learn.html` — forward-pass explorer (learn/01)
+- `learn-02-dpo.html` — preference-training lesson: e2e DPO + eval (learn/02)
 - `team.html` — purpose, team, hardware, outputs
 - `support.js` — page runtime (required, same directory)
 - `llm-engine.js` — the 188-param transformer + training loop (used by learn)

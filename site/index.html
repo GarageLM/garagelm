@@ -89,6 +89,8 @@
       <div>09 &nbsp;&nbsp;&nbsp;flagship-2 — 1B tokens; the token axis saturates <span style="color:var(--warm)">[saturating]</span></div>
       <div>10 &nbsp;&nbsp;&nbsp;sft + release — chat tuning, zero regression, weights published <span style="color:var(--ok)">[shipped]</span></div>
       <div>11 &nbsp;&nbsp;&nbsp;efficiency — four levers, four gated negatives; the recipe stands <span style="color:var(--warm)">[0-for-4]</span></div>
+      <div>12 &nbsp;&nbsp;&nbsp;post-training — alignment tax measured; dpo passes at zero tax; chat v2 ships <span style="color:var(--ok)">[v2]</span></div>
+      <div>12b &nbsp;&nbsp;budget ablation — hybrid ahead at every budget; the edge decays as training grows <span style="color:var(--ok)">[curve]</span></div>
     </div>
     <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:10px"><a href="notes.html#roadmap">full experiment roadmap »</a></div>
 
@@ -101,8 +103,8 @@
       <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">A complete decoder-only transformer at d=4 · 2 heads · 188 parameters, all of them visible. Trace embeddings → attention → logits, hover any cell for its lineage, then step gradient descent and watch it overfit your sentence. Seven views: about, architecture, pipeline, math, residual stream, generate, training.</div>
     </div>
     <div style="margin-bottom:14px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700;color:var(--ink2)">tokenizer workbench</span> <span style="color:var(--mute);font-size:12px">(planned)</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--mute)">Paste text, watch it split: merges, byte fallbacks, vocabulary pressure.</div>
+      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <a href="learn-02-dpo.html" style="font-weight:700">preference training (dpo)</a> <span style="color:var(--ok);font-size:12px">&#9679; live</span></div>
+      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">The second act of training, end to end on real numbers: sft, preference pairs, the dpo loss with an interactive gradient explorer, pre-registered gates, and the honest eval where "preferred" and "obedient" part ways.</div>
     </div>
     <div style="margin-bottom:14px">
       <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[03]</span> <span style="font-weight:700;color:var(--ink2)">kv-cache visualizer</span> <span style="color:var(--mute);font-size:12px">(planned)</span></div>
