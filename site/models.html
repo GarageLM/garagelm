@@ -184,23 +184,23 @@ class Component extends DCLogic {
     const els = [];
     [.3, .4, .5, .6, .7].forEach(t => {
       els.push(el('line', { key: 'g' + t, x1: x0, y1: Y(t), x2: W - 10, y2: Y(t), stroke: 'var(--line)', 'stroke-width': t === .3 ? 1 : 0.5, 'stroke-dasharray': t === .3 ? '' : '2,4' }));
-      els.push(el('text', { key: 'gl' + t, x: x0 - 5, y: Y(t) + 3, 'text-anchor': 'end', fontSize: 9.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, t.toFixed(1)));
+      els.push(el('text', { key: 'gl' + t, x: x0 - 5, y: Y(t) + 3, 'text-anchor': 'end', fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, t.toFixed(1)));
     });
     tasks.forEach((task, ti) => {
       const cx = x0 + ti * groupW + groupW / 2;
       series.forEach((s, si) => {
         const x = cx - (series.length * (barW + gap) - gap) / 2 + si * (barW + gap);
         els.push(el('rect', { key: 'b' + ti + si, x, y: Y(s.v[ti]), width: barW, height: y0 - Y(s.v[ti]), fill: s.color, 'fill-opacity': s.solid ? 0.95 : (s.color === 'var(--ok)' ? 0.55 : 0.4) }));
-        els.push(el('text', { key: 'v' + ti + si, x: x + barW / 2, y: Y(s.v[ti]) - 3, 'text-anchor': 'middle', fontSize: 8.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, s.v[ti].toFixed(2).slice(1)));
+        els.push(el('text', { key: 'v' + ti + si, x: x + barW / 2, y: Y(s.v[ti]) - 4, 'text-anchor': 'middle', fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, s.v[ti].toFixed(2).slice(1)));
       });
-      els.push(el('text', { key: 't' + ti, x: cx, y: y0 + 14, 'text-anchor': 'middle', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, task));
+      els.push(el('text', { key: 't' + ti, x: cx, y: y0 + 16, 'text-anchor': 'middle', fontSize: 13, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, task));
     });
     series.forEach((s, si) => {
       const lx = x0 + si * 160;
-      els.push(el('rect', { key: 'lg' + si, x: lx, y: 196, width: 9, height: 9, fill: s.color, 'fill-opacity': s.solid ? 0.95 : (s.color === 'var(--ok)' ? 0.55 : 0.4) }));
-      els.push(el('text', { key: 'lt' + si, x: lx + 13, y: 204, fontSize: 9.5, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, s.name));
+      els.push(el('rect', { key: 'lg' + si, x: lx, y: 202, width: 9, height: 9, fill: s.color, 'fill-opacity': s.solid ? 0.95 : (s.color === 'var(--ok)' ? 0.55 : 0.4) }));
+      els.push(el('text', { key: 'lt' + si, x: lx + 13, y: 211, fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, s.name));
     });
-    return el('svg', { viewBox: `0 0 ${W} 214`, style: { width: '100%', display: 'block' } }, ...els);
+    return el('svg', { viewBox: `0 0 ${W} 222`, style: { width: '100%', display: 'block' } }, ...els);
   }
 
   renderVals() {
