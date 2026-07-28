@@ -21,6 +21,16 @@
     --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
     --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
   }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
   ::selection { background: #3355bb; color:#fff; }
   a:link { color: var(--accent); }
   a:visited { color: var(--visited); }
@@ -29,27 +39,27 @@
   @keyframes blink { 0%,55% { opacity:1; } 56%,100% { opacity:0; } }
 </style>
 </helmet>
-<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
-  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
 
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
       <div style="flex:1"></div>
-      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
-      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
       <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
     </div>
-    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
-    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <b>notes</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <b>notes</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> lab notes</div>
-    <p style="margin:0 0 8px;color:var(--ink2)">Write-ups from both sides of the lab, the browser instruments and the training runs on one Mac: the math that surprised us, the numbers behind the demos, and the results that didn't survive replication.</p>
-    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-bottom:22px">{{ postCount }} notes · the research ledger, curated · full history in git</div>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> lab notes</h2>
+    <p style="margin:0 0 12px">Write-ups from both sides of the lab, the browser instruments and the training runs on one Mac: the math that surprised us, the numbers behind the demos, and the results that didn't survive replication.</p>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-bottom:22px">{{ postCount }} notes · the research ledger, curated · full history in git</div>
 
     <div style="border-top:1px solid var(--line)">
-    <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">
+    <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink2)">
       <span style="min-width:78px">date</span>
       <span style="min-width:74px;text-align:center">category</span>
       <span style="min-width:66px;text-align:center">experiment</span>
@@ -59,27 +69,27 @@
     <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
       <div style="border-bottom:1px solid var(--line)">
         <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:9px 2px">
-          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:78px">{{ p.date }}</span>
+          <span style="font-family:var(--mono);font-size:13px;color:var(--mute);min-width:78px">{{ p.date }}</span>
           <span style="{{ p.tagStyle }}">{{ p.tagText }}</span>
           <span style="{{ p.expStyle }}">{{ p.expText }}</span>
-          <a href="{{ p.href }}" style="font-size:14.5px;font-weight:700;letter-spacing:-0.1px;line-height:1.4;flex:1;min-width:200px">{{ p.title }}</a>
+          <a href="{{ p.href }}" style="font-size:18px;font-weight:700;letter-spacing:-0.2px;line-height:1.4;flex:1;min-width:200px">{{ p.title }}</a>
           <button onClick="{{ p.onToggle }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
         </div>
         <sc-if value="{{ p.open }}" hint-placeholder-val="{{ false }}">
           <div style="padding:6px 2px 16px 90px">
-            <div style="font-size:13.5px;color:var(--ink2);font-style:italic;margin-bottom:12px">{{ p.excerpt }}</div>
+            <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:12px">{{ p.excerpt }}</div>
             <sc-for list="{{ p.paras }}" as="pp" hint-placeholder-count="4"><div style="{{ pp.style }}">{{ pp.text }}</div></sc-for>
-            <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:4px"><a href="{{ p.linkHref }}">{{ p.linkLabel }}</a></div>
+            <div style="font-family:var(--mono);font-size:13px;margin-top:4px"><a href="{{ p.linkHref }}">{{ p.linkLabel }}</a></div>
           </div>
         </sc-if>
       </div>
     </sc-for>
     </div>
 
-    <div id="roadmap" style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:28px 0 8px"><span style="color:var(--warm)">$</span> experiment roadmap</div>
-    <p style="margin:0 0 14px;color:var(--ink2);font-size:14px">Where the research program has been and where it goes next. Every milestone runs under the fair-comparison rule — change one thing, gate every lane — and gets a note here, win or lose.</p>
+    <h2 id="roadmap" class="sec-head"><span style="color:var(--warm)">$</span> experiment roadmap</h2>
+    <p style="margin:0 0 18px">Where the research program has been and where it goes next. Every milestone runs under the fair-comparison rule — change one thing, gate every lane — and gets a note here, win or lose.</p>
     <div style="border-top:1px solid var(--line)">
-      <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:'Courier New',monospace;font-size:10px;letter-spacing:1px;color:var(--mute)">
+      <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink2)">
         <span style="min-width:52px">exp</span>
         <span style="min-width:64px">date</span>
         <span style="min-width:150px">milestone</span>
@@ -88,21 +98,21 @@
       </div>
       <sc-for list="{{ roadmap }}" as="r" hint-placeholder-count="5">
         <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:8px 2px;border-bottom:1px solid var(--line)">
-          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:52px">{{ r.id }}</span>
-          <span style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);min-width:64px">{{ r.date }}</span>
-          <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:700;min-width:150px">{{ r.name }}</span>
-          <span style="font-size:13px;color:var(--ink2);flex:1;min-width:200px">{{ r.what }}</span>
+          <span style="font-family:var(--mono);font-size:13px;color:var(--mute);min-width:52px">{{ r.id }}</span>
+          <span style="font-family:var(--mono);font-size:13px;color:var(--mute);min-width:64px">{{ r.date }}</span>
+          <span style="font-family:var(--mono);font-size:13px;font-weight:700;min-width:150px">{{ r.name }}</span>
+          <span style="font-size:15px;color:var(--ink2);flex:1;min-width:200px">{{ r.what }}</span>
           <span style="{{ r.stampStyle }}">{{ r.stamp }}</span>
         </div>
       </sc-for>
     </div>
-    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut — 1.01×] · muon [fail — −0.22 nats at default LR] · epoch4 [fail — −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail — −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. next lever class: distillation + post-training.</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut — 1.01×] · muon [fail — −0.22 nats at default LR] · epoch4 [fail — −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail — −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. next lever class: distillation + post-training.</div>
 
-    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
       <div><a href="index.html">home</a> · <a href="models.html">models</a> · <b>notes</b> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
       <div>real models · cheap hardware · honest numbers</div>
-      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
       <div>© 2026 garagelm.org</div>
     </div>
   </div>
@@ -168,30 +178,30 @@ class Component extends DCLogic {
     let dark = st.dark;
     if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
     if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
-    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:var(--mono);font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
     const raw = this.posts();
     const posts = raw.map((p, i) => {
       const open = st.open === i;
       return {
         ...p, open: open && !p.page, href: p.page || ('#p=' + i),
         tagText: p.tag.toLowerCase(),
-        tagStyle: `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;font-weight:700;border:1px solid ${p.draft ? 'var(--line)' : 'var(--warm)'};padding:0 6px;color:${p.draft ? 'var(--mute)' : 'var(--warm)'};min-width:74px;text-align:center`,
+        tagStyle: `font-family:var(--mono);font-size:11px;letter-spacing:.5px;font-weight:700;border:1px solid ${p.draft ? 'var(--line)' : 'var(--warm)'};padding:0 6px;color:${p.draft ? 'var(--mute)' : 'var(--warm)'};min-width:74px;text-align:center`,
         expText: p.exp || '—',
-        expStyle: `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;border:1px solid var(--line);padding:0 6px;color:var(--mute);min-width:66px;text-align:center`,
+        expStyle: `font-family:var(--mono);font-size:11px;letter-spacing:.5px;border:1px solid var(--line);padding:0 6px;color:var(--mute);min-width:66px;text-align:center`,
         paras: p.body.map(text => ({
           text,
           style: text.startsWith('·') || text.startsWith('Outline') || text.startsWith('∂')
-            ? `font-family:'Courier New',monospace;font-size:13px;line-height:1.8;margin-bottom:10px;${text.startsWith('∂') ? 'color:var(--ink);background:var(--code);border:1px solid var(--line);padding:9px 12px;margin:4px 0 14px' : 'color:var(--ink2)'}`
-            : 'font-size:14.5px;color:var(--ink2);line-height:1.75;margin-bottom:13px'
+            ? `font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:12px;${text.startsWith('∂') ? 'color:var(--ink);background:var(--code);border:1px solid var(--line);padding:9px 12px;margin:4px 0 14px' : 'color:var(--ink2)'}`
+            : 'font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:14px'
         })),
         onToggle: () => { if (p.page) { location.href = p.page; return; } this.setState({ open: open ? -1 : i }); },
         btnLabel: p.page ? 'full note »' : (open ? 'close ↑' : 'expand ↓'),
-        btnStyle: `cursor:pointer;background:none;border:none;padding:0;font-family:'Courier New',monospace;font-size:11.5px;color:var(--accent);text-decoration:underline;white-space:nowrap`
+        btnStyle: `cursor:pointer;background:none;border:none;padding:0;font-family:var(--mono);font-size:13px;color:var(--accent);text-decoration:underline;white-space:nowrap`
       };
     });
     const stamp = kind => {
       const c = kind === 'done' ? 'var(--ok)' : kind === 'active' ? 'var(--warm)' : kind === 'cut' ? 'var(--mute)' : 'var(--mute)';
-      return `font-family:'Courier New',monospace;font-size:10px;letter-spacing:.5px;font-weight:700;border:1px solid ${c};padding:0 6px;color:${c};min-width:66px;text-align:center${kind === 'planned' ? ';border-style:dashed;font-weight:400' : ''}`;
+      return `font-family:var(--mono);font-size:11px;letter-spacing:.5px;font-weight:700;border:1px solid ${c};padding:0 6px;color:${c};min-width:66px;text-align:center${kind === 'planned' ? ';border-style:dashed;font-weight:400' : ''}`;
     };
     const roadmap = [
       { id: '01\u201302', date: '2026-05', name: 'baselines', what: 'smoke test, then a 114M GQA/RoPE/SwiGLU control everything else is measured against', stamp: 'done', k: 'done' },

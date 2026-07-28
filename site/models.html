@@ -21,6 +21,16 @@
     --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
     --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
   }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
   ::selection { background: #3355bb; color:#fff; }
   a:link { color: var(--accent); }
   a:visited { color: var(--visited); }
@@ -28,59 +38,59 @@
   [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
 </style>
 </helmet>
-<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
-  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
 
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
       <div style="flex:1"></div>
-      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
-      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
       <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
     </div>
-    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
-    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <b>models</b> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <b>models</b> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> models</div>
-    <p style="margin:0 0 8px;color:var(--ink2)">Weights that came out of the research program, plus the toy that powers Learn. Click a name for the full write-up.</p>
-    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute);margin-bottom:22px">{{ modelCount }} models · 2 on hugging face, 1 in your browser</div>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> models</h2>
+    <p style="margin:0 0 12px">Weights that came out of the research program, plus the toy that powers Learn. Click a name for the full write-up.</p>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-bottom:22px">{{ modelCount }} models · 2 on hugging face, 1 in your browser</div>
 
     <sc-for list="{{ models }}" as="m" hint-placeholder-count="3">
       <div style="border:1px solid var(--line);padding:11px 14px;margin-bottom:12px">
         <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
-          <a href="{{ m.href }}" style="font-size:15px;font-weight:700;letter-spacing:-0.2px;font-family:'Courier New',monospace">{{ m.name }}</a>
+          <a href="{{ m.href }}" style="font-size:15px;font-weight:700;letter-spacing:-0.2px;font-family:var(--mono)">{{ m.name }}</a>
           <span style="{{ m.tagStyle }}">{{ m.tag }}</span>
-          <span style="font-family:'Courier New',monospace;font-size:12px;color:var(--ink2);flex:1;min-width:140px">{{ m.meta }}</span>
+          <span style="font-family:var(--mono);font-size:13px;color:var(--ink2);flex:1;min-width:140px">{{ m.meta }}</span>
           <button onClick="{{ m.onToggle }}" style="{{ m.btnStyle }}">{{ m.btnLabel }}</button>
         </div>
         <div style="font-size:13px;color:var(--ink2);margin-top:4px">{{ m.excerpt }}</div>
-        <div style="font-family:'Courier New',monospace;font-size:12.5px;color:var(--ink2);margin-top:6px">{{ m.specLine }}</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--ink2);margin-top:6px">{{ m.specLine }}</div>
         <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:12px;border-top:1px dashed var(--line);padding-top:12px">
-            <div style="background:var(--code);border:1px solid var(--line);padding:9px 14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin-bottom:12px">
+            <div style="background:var(--code);border:1px solid var(--line);padding:9px 14px;font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:12px">
               <sc-for list="{{ m.specs }}" as="s" hint-placeholder-count="4"><div>{{ s.text }}</div></sc-for>
             </div>
             <sc-for list="{{ m.paras }}" as="pp" hint-placeholder-count="4"><div style="{{ pp.style }}">{{ pp.text }}</div></sc-for>
-            <div style="font-family:'Courier New',monospace;font-size:12.5px;margin-top:4px"><sc-for list="{{ m.links }}" as="lk" hint-placeholder-count="2"><span><a href="{{ lk.href }}" target="{{ lk.target }}">{{ lk.label }}</a><span style="color:var(--mute)">{{ lk.sep }}</span></span></sc-for></div>
+            <div style="font-family:var(--mono);font-size:13px;margin-top:4px"><sc-for list="{{ m.links }}" as="lk" hint-placeholder-count="2"><span><a href="{{ lk.href }}" target="{{ lk.target }}">{{ lk.label }}</a><span style="color:var(--mute)">{{ lk.sep }}</span></span></sc-for></div>
           </div>
         </sc-if>
       </div>
     </sc-for>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:26px 0 8px"><span style="color:var(--warm)">$</span> benchmarks</div>
-    <p style="margin:0 0 10px;color:var(--ink2);font-size:14px">0-shot accuracy, n=300/task, every model re-run through the identical local lm-eval harness. Tokens seen in parentheses.</p>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> benchmarks</h2>
+    <p style="margin:0 0 14px;font-size:15px">0-shot accuracy, n=300/task, every model re-run through the identical local lm-eval harness. Tokens seen in parentheses.</p>
     <div style="border:1px solid var(--line);padding:12px 14px 8px;margin-bottom:10px">{{ benchChart }}</div>
-    <p style="margin:0 0 22px;font-size:12.5px;color:var(--mute);font-family:'Courier New',monospace">source: milestone 09 eval table · smollm2 (2T tokens) leads everywhere, as pre-registered · full table in <a href="note-600x-tokens.html">the 600× note</a></p>
+    <p style="margin:0 0 22px;font-size:13px;color:var(--mute);font-family:var(--mono)">source: milestone 09 eval table · smollm2 (2T tokens) leads everywhere, as pre-registered · full table in <a href="note-600x-tokens.html">the 600× note</a></p>
 
-    <div style="font-family:'Courier New',monospace;font-size:12.5px;color:var(--mute)">milestone 11 tested four training-efficiency levers against this recipe; all four failed their pre-registered gates — the recipe stands. next lever class: distillation + post-training.</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)">milestone 11 tested four training-efficiency levers against this recipe; all four failed their pre-registered gates — the recipe stands. next lever class: distillation + post-training.</div>
 
-    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
       <div><a href="index.html">home</a> · <b>models</b> · <a href="notes.html">notes</a> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
       <div>real models · cheap hardware · honest numbers</div>
-      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
       <div>© 2026 garagelm.org</div>
     </div>
   </div>
@@ -174,21 +184,21 @@ class Component extends DCLogic {
     const els = [];
     [.3, .4, .5, .6, .7].forEach(t => {
       els.push(el('line', { key: 'g' + t, x1: x0, y1: Y(t), x2: W - 10, y2: Y(t), stroke: 'var(--line)', 'stroke-width': t === .3 ? 1 : 0.5, 'stroke-dasharray': t === .3 ? '' : '2,4' }));
-      els.push(el('text', { key: 'gl' + t, x: x0 - 5, y: Y(t) + 3, 'text-anchor': 'end', fontSize: 9.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, t.toFixed(1)));
+      els.push(el('text', { key: 'gl' + t, x: x0 - 5, y: Y(t) + 3, 'text-anchor': 'end', fontSize: 9.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, t.toFixed(1)));
     });
     tasks.forEach((task, ti) => {
       const cx = x0 + ti * groupW + groupW / 2;
       series.forEach((s, si) => {
         const x = cx - (series.length * (barW + gap) - gap) / 2 + si * (barW + gap);
         els.push(el('rect', { key: 'b' + ti + si, x, y: Y(s.v[ti]), width: barW, height: y0 - Y(s.v[ti]), fill: s.color, 'fill-opacity': s.solid ? 0.95 : (s.color === 'var(--ok)' ? 0.55 : 0.4) }));
-        els.push(el('text', { key: 'v' + ti + si, x: x + barW / 2, y: Y(s.v[ti]) - 3, 'text-anchor': 'middle', fontSize: 8.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, s.v[ti].toFixed(2).slice(1)));
+        els.push(el('text', { key: 'v' + ti + si, x: x + barW / 2, y: Y(s.v[ti]) - 3, 'text-anchor': 'middle', fontSize: 8.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, s.v[ti].toFixed(2).slice(1)));
       });
-      els.push(el('text', { key: 't' + ti, x: cx, y: y0 + 14, 'text-anchor': 'middle', fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--ink2)' }, task));
+      els.push(el('text', { key: 't' + ti, x: cx, y: y0 + 14, 'text-anchor': 'middle', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, task));
     });
     series.forEach((s, si) => {
       const lx = x0 + si * 160;
       els.push(el('rect', { key: 'lg' + si, x: lx, y: 196, width: 9, height: 9, fill: s.color, 'fill-opacity': s.solid ? 0.95 : (s.color === 'var(--ok)' ? 0.55 : 0.4) }));
-      els.push(el('text', { key: 'lt' + si, x: lx + 13, y: 204, fontSize: 9.5, fontFamily: "'Courier New',monospace", fill: 'var(--ink2)' }, s.name));
+      els.push(el('text', { key: 'lt' + si, x: lx + 13, y: 204, fontSize: 9.5, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, s.name));
     });
     return el('svg', { viewBox: `0 0 ${W} 214`, style: { width: '100%', display: 'block' } }, ...els);
   }
@@ -198,7 +208,7 @@ class Component extends DCLogic {
     let dark = st.dark;
     if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
     if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
-    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:var(--mono);font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
     const raw = this.models();
     const models = raw.map((m, i) => {
       const open = st.open === i;
@@ -210,13 +220,13 @@ class Component extends DCLogic {
         paras: m.paras.map(text => ({
           text,
           style: text.startsWith('AutoModel')
-            ? `font-family:'Courier New',monospace;font-size:12px;color:var(--ink);background:var(--code);border:1px solid var(--line);padding:9px 12px;margin:4px 0 14px;overflow-x:auto;white-space:nowrap`
-            : 'font-size:14.5px;color:var(--ink2);line-height:1.75;margin-bottom:13px'
+            ? `font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--code);border:1px solid var(--line);padding:9px 12px;margin:4px 0 14px;overflow-x:auto;white-space:nowrap`
+            : 'font-size:15px;color:var(--ink2);line-height:1.65;margin-bottom:14px'
         })),
         links: m.links.map((lk, j) => ({ ...lk, sep: j < m.links.length - 1 ? ' \u00b7 ' : '' })),
         onToggle: () => this.setState({ open: open ? -1 : i }),
         btnLabel: open ? '\u00ab close' : 'full write-up \u00bb',
-        btnStyle: `cursor:pointer;background:none;border:none;padding:0;font-family:'Courier New',monospace;font-size:12.5px;color:var(--accent);text-decoration:underline`
+        btnStyle: `cursor:pointer;background:none;border:none;padding:0;font-family:var(--mono);font-size:13px;color:var(--accent);text-decoration:underline`
       };
     });
     return {

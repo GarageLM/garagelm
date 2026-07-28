@@ -23,6 +23,16 @@
     --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
     --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18; --bad:#e07a8a;
   }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
   ::selection { background: #3355bb; color:#fff; }
   a:link { color: var(--accent); }
   a:visited { color: var(--visited); }
@@ -30,31 +40,31 @@
   [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
 </style>
 </helmet>
-<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
-  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
 
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
       <div style="flex:1"></div>
-      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
-      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
       <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
     </div>
-    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
-    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <b>learn</b> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <b>learn</b> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:12.5px;line-height:2;margin-bottom:6px">
+    <div style="font-family:var(--mono);font-size:13px;line-height:1.55;margin-bottom:6px">
       <span style="color:var(--mute)"><a href="learn.html">01 forward-pass explorer</a></span> &nbsp;·&nbsp;
-      <span style="font-weight:700"><span style="color:var(--warm)">02</span> preference training (dpo) <span style="color:var(--ok);font-size:10.5px">&#9679; you are here</span></span> &nbsp;·&nbsp;
-      <span style="color:var(--mute)">03 kv-cache visualizer <span style="font-size:10.5px">(tbd)</span></span>
+      <span style="font-weight:700"><span style="color:var(--warm)">02</span> preference training (dpo) <span style="color:var(--ok);font-size:11px">&#9679; you are here</span></span> &nbsp;·&nbsp;
+      <span style="color:var(--mute)">03 kv-cache visualizer <span style="font-size:11px">(tbd)</span></span>
     </div>
 
-    <h1 style="font-size:27px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,serif">learn/02 · teaching a model what to prefer</h1>
+    <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,'Times New Roman',serif">learn/02 · teaching a model what to prefer</h1>
     <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:18px">Lesson 01 showed a forward pass: tokens in, next-token probabilities out. This lesson is the whole second act: how a base model that merely continues text becomes a chat model with preferences, via supervised fine-tuning and Direct Preference Optimization. Every number below is from a real run on one consumer machine, gates written before results, failures included.</div>
 
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin-bottom:22px">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:22px">
       <div style="font-weight:700;margin-bottom:4px">methods box · milestone 12, stage 2</div>
       <div>init ......... policy AND reference = the 310M-token SFT checkpoint</div>
       <div>data ......... ultrafeedback_binarized train_prefs · 53,952 pairs · 1 epoch</div>
@@ -65,49 +75,49 @@
       <div>eval ......... pref-accuracy gate + benchmark non-regression + IFEval</div>
     </div>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">1.</span> the problem: next-token prediction has no opinion</div>
+    <h2 class="sec-head" style="margin:0 0 12px"><span style="color:var(--warm)">1.</span> the problem: next-token prediction has no opinion</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">A pretrained base model is a text continuer. Ask it a question and it may answer, or it may continue with three more questions, because both are plausible ways for the internet to continue. Post-training installs behavior in two stages. Stage one, supervised fine-tuning (SFT): show it conversations and train the same next-token loss, but only on the assistant tokens, so it learns the shape of answering. Stage two, preference tuning: show it two answers to the same prompt, one preferred by humans, one not, and shift probability mass toward the preferred kind. This lesson is stage two, with stage one summarized just enough to follow the pipeline.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">2.</span> stage one in one paragraph, tax included</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">2.</span> stage one in one paragraph, tax included</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Our SFT run trained the 232M base on 310M tokens of SmolTalk conversations (38h). Chat quality, measured as masked validation loss on held-out conversations, improved from 2.073 (base) to 1.447. But the pre-registered capability gate <b>failed</b>: ARC-Easy dropped 2.2 points on the full test set. That is the alignment tax, measured: chat formatting was bought with a slice of science-question capability, while a smaller 60M-token SFT had paid roughly nothing. Rule of this lab: the failed gate is published next to the passed one.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">3.</span> the ingredients: two models, one dataset of arguments</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">3.</span> the ingredients: two models, one dataset of arguments</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">DPO needs three things. First, a <b>policy</b>: the model being trained, initialized from the SFT checkpoint. Second, a frozen <b>reference</b>: an identical copy of the same checkpoint that never updates. Third, <b>preference pairs</b>: a prompt plus two responses, one marked chosen, one rejected. We used UltraFeedback (binarized), 53,952 training pairs of the form:</p>
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin:0 0 13px">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:0 0 13px">
       <div><span style="color:var(--mute)">prompt:</span> "Explain why the sky is blue to a 10-year-old."</div>
       <div><span style="color:var(--ok)">chosen:</span> a clear, correct, well-structured answer</div>
       <div><span style="color:var(--bad)">rejected:</span> a vaguer, wrong, or evasive answer</div>
     </div>
     <p style="margin:0 0 13px;color:var(--ink2)">No new text is ever generated during training. Each step just scores existing responses: run all four combinations (policy and reference, each on chosen and rejected), and for each one sum the log-probability of the response tokens given the prompt. Four numbers per pair. Everything else is arithmetic on those four numbers.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">4.</span> the loss: rank the pair better than your past self</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">4.</span> the loss: rank the pair better than your past self</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Write &pi;_c and &pi;_r for the policy log-probs of chosen and rejected, ref_c and ref_r for the reference log-probs. DPO computes a single logit per pair:</p>
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:13px;line-height:2;margin:0 0 13px;overflow-x:auto">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:2;margin:0 0 13px;overflow-x:auto">
       z &nbsp;= &beta; &middot; [ (&pi;_c &minus; &pi;_r) &minus; (ref_c &minus; ref_r) ]<br>
       loss &nbsp;= &minus;log &sigma;(z)
     </div>
     <p style="margin:0 0 13px;color:var(--ink2)">Read it as a question: <i>does the policy separate chosen from rejected by MORE than the reference already did?</i> If yes, z is positive and the loss is small. If the policy still ranks the pair exactly like its frozen past self, z = 0 and the loss is exactly ln 2 &asymp; 0.693, which is why every DPO run starts at 0.693: at step zero the policy IS the reference. The quantity &beta;(&pi; &minus; ref) per response acts as an <b>implicit reward</b>, which is the paper's point: the language model is secretly its own reward model, and the RL loop of RLHF collapses into one classification-style loss. The frozen reference is the anchor that stops the policy from wandering into gibberish that happens to score well: it is only rewarded for <i>reordering</i> its preferences relative to where it started, and &beta; sets how hard it is pushed.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">5.</span> play with the loss</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">5.</span> play with the loss</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Two knobs below stand in for the four log-probs: the policy gap (&pi;_c &minus; &pi;_r) and the reference gap (ref_c &minus; ref_r), in nats. Move them and watch z, the loss, and the gradient pressure respond. The presets replay the life of a training run.</p>
 
-    <div style="border:1px solid var(--line);padding:14px 16px;margin:0 0 13px;font-family:'Courier New',monospace;font-size:12.5px">
+    <div style="border:1px solid var(--line);padding:14px 16px;margin:0 0 13px;font-family:var(--mono);font-size:13px">
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-        <button onClick="{{ onPreset0 }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">step 0: policy = reference</button>
-        <button onClick="{{ onPresetLearn }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">mid-training: learning</button>
-        <button onClick="{{ onPresetBad }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--ink)">ranks the pair backwards</button>
+        <button onClick="{{ onPreset0 }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">step 0: policy = reference</button>
+        <button onClick="{{ onPresetLearn }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">mid-training: learning</button>
+        <button onClick="{{ onPresetBad }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:2px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">ranks the pair backwards</button>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
         <span style="min-width:220px">policy gap &nbsp;(&pi;_c &minus; &pi;_r)</span>
-        <button onClick="{{ onPcMinus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">&minus;</button>
+        <button onClick="{{ onPcMinus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">&minus;</button>
         <span style="font-weight:700;min-width:70px;text-align:center">{{ pcGapDisp }} nats</span>
-        <button onClick="{{ onPcPlus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">+</button>
+        <button onClick="{{ onPcPlus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">+</button>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
         <span style="min-width:220px">reference gap (ref_c &minus; ref_r)</span>
-        <button onClick="{{ onRefMinus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">&minus;</button>
+        <button onClick="{{ onRefMinus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">&minus;</button>
         <span style="font-weight:700;min-width:70px;text-align:center">{{ refGapDisp }} nats</span>
-        <button onClick="{{ onRefPlus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">+</button>
+        <button onClick="{{ onRefPlus }}" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:var(--mono);font-size:13px;color:var(--ink)">+</button>
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
         <span style="min-width:220px">&beta; (anchor strength)</span>
@@ -127,19 +137,19 @@
           <span style="font-weight:700;min-width:60px">{{ gradDisp }}</span>
           <span style="flex:1;max-width:260px;height:10px;border:1px solid var(--line);display:inline-block"><span style="{{ gradBarStyle }}"></span></span>
         </div>
-        <div style="color:var(--mute);font-size:11.5px;margin-top:4px">{{ verdict }}</div>
+        <div style="color:var(--mute);font-size:13px;margin-top:4px">{{ verdict }}</div>
       </div>
     </div>
     <p style="margin:0 0 13px;color:var(--ink2)">The gradient-pressure row is the mechanism worth remembering: the update on each pair is scaled by &sigma;(&minus;z). Pairs the policy already ranks confidently right get almost no push; pairs it still ranks backwards get the full push. DPO spends its budget on its own mistakes. (In the real run these gaps are summed over whole responses, so they reach tens of nats; the shape of the loss is identical.)</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">6.</span> running it on garage hardware</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">6.</span> running it on garage hardware</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Lab rule: no multi-hour run launches without a sanity check written down first. For DPO the pre-registered gate was <b>overfit 10 pairs</b>: cycling them 12 times must drive the loss from 0.693 to below 0.1 with the reward margin strictly increasing every cycle. If a trainer cannot memorize 10 preferences, it will not learn 54k. It passed; the run launched.</p>
     <p style="margin:0 0 13px;color:var(--ink2)">Then the machine taught us something. The first launch ran out of memory at step 50 with a 57GB peak on a 43GB budget. The cause was new to us: preference pairs have wildly variable lengths, and thousands of unique tensor shapes fragment the MPS allocator until it hoards the whole machine. The fix was one idea: <b>bucket every batch length to a multiple of 128</b>, collapsing thousands of shapes into a few dozen. Memory fell to 43GB and, unexpectedly, training ran 1.9&times; faster (9.7s vs 18.4s per step), because the allocator stopped thrashing. One epoch over 53,952 pairs then took 9.0 hours, checkpointing every 200 steps. Constraints are not just obstacles; sometimes they are profilers.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">7.</span> eval: gates first, then the honest chat numbers</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">7.</span> eval: gates first, then the honest chat numbers</h2>
     <p style="margin:0 0 10px;color:var(--ink2)">Two gates were pre-registered. <b>G3, did it learn preferences?</b> On 1,000 held-out pairs, the trained policy ranks chosen above rejected (by implicit reward) <b>65.2%</b> of the time, past the 60% gate. <b>G4, did it forget anything?</b> Benchmarks vs the SFT model it started from:</p>
     <div style="overflow-x:auto;margin-bottom:10px">
-      <table style="border-collapse:collapse;font-family:'Courier New',monospace;font-size:12px;width:100%">
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:13px;width:100%">
         <tr style="border-bottom:1px solid var(--line);text-align:left"><th style="padding:4px 8px 4px 0">gate</th><th style="padding:4px 8px">metric</th><th style="padding:4px 8px">result</th><th style="padding:4px 8px">verdict</th></tr>
         <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px 8px 4px 0">G3 preference accuracy</td><td style="padding:4px 8px">held-out ranking, 1k pairs</td><td style="padding:4px 8px">.652 (gate &gt; .60)</td><td style="padding:4px 8px;color:var(--ok);font-weight:700">PASS</td></tr>
         <tr><td style="padding:4px 8px 4px 0">G4 capability non-regression</td><td style="padding:4px 8px">HS / PIQA / ARC-E / WG vs SFT</td><td style="padding:4px 8px">&minus;0.3 / &minus;0.3 / &minus;0.4 / &minus;0.7</td><td style="padding:4px 8px;color:var(--ok);font-weight:700">PASS</td></tr>
@@ -147,7 +157,7 @@
     </div>
     <p style="margin:0 0 10px;color:var(--ink2)">Unlike the SFT stage, DPO paid <b>zero</b> measurable capability tax. But gates are minimums, not the whole story. On the chat axes themselves, measured with the same harness for every model:</p>
     <div style="overflow-x:auto;margin-bottom:10px">
-      <table style="border-collapse:collapse;font-family:'Courier New',monospace;font-size:12px;width:100%">
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:13px;width:100%">
         <tr style="border-bottom:1px solid var(--line);text-align:left"><th style="padding:4px 8px 4px 0">model</th><th style="padding:4px 8px">IFEval prompt-strict</th><th style="padding:4px 8px">BoolQ</th><th style="padding:4px 8px">TruthfulQA-mc2</th></tr>
         <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px 8px 4px 0">09 base</td><td style="padding:4px 8px">&mdash;</td><td style="padding:4px 8px">.623</td><td style="padding:4px 8px">.393</td></tr>
         <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px 8px 4px 0">sft-full</td><td style="padding:4px 8px">15.2%</td><td style="padding:4px 8px">.637</td><td style="padding:4px 8px">.418</td></tr>
@@ -155,16 +165,16 @@
         <tr><td style="padding:4px 8px 4px 0">SmolLM2-135M-Instruct (2T tokens)</td><td style="padding:4px 8px">21.4%</td><td style="padding:4px 8px">&mdash;</td><td style="padding:4px 8px">&mdash;</td></tr>
       </table>
     </div>
-    <p style="margin:0 0 13px;color:var(--ink2)">The uncomfortable row is IFEval: DPO <b>slightly hurt</b> rule-verifiable instruction following (13.9% vs 15.2% prompt-strict). That is not a bug in the run; it is a lesson about the objective. UltraFeedback teaches "sound like the answer people prefer," and IFEval scores "obey the literal constraint," and at 232M those pull in slightly different directions. A preference model is not automatically a more obedient model. Meanwhile TruthfulQA and BoolQ tilt gently toward the chat models, and preference ranking clearly works. The trade was judged worth shipping: this DPO endpoint is the published <a href="https://huggingface.co/garagelm/hybrid-gpt-232m-chat" target="_blank">hybrid-gpt-232m-chat</a> v2, with the regression disclosed on the model card and v1 still fetchable at revision <span style="font-family:'Courier New',monospace;font-size:13px">v1</span>.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">The uncomfortable row is IFEval: DPO <b>slightly hurt</b> rule-verifiable instruction following (13.9% vs 15.2% prompt-strict). That is not a bug in the run; it is a lesson about the objective. UltraFeedback teaches "sound like the answer people prefer," and IFEval scores "obey the literal constraint," and at 232M those pull in slightly different directions. A preference model is not automatically a more obedient model. Meanwhile TruthfulQA and BoolQ tilt gently toward the chat models, and preference ranking clearly works. The trade was judged worth shipping: this DPO endpoint is the published <a href="https://huggingface.co/garagelm/hybrid-gpt-232m-chat" target="_blank">hybrid-gpt-232m-chat</a> v2, with the regression disclosed on the model card and v1 still fetchable at revision <span style="font-family:var(--mono);font-size:13px">v1</span>.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">8.</span> what to take away</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">8.</span> what to take away</h2>
     <p style="margin:0 0 6px;color:var(--ink2)">&bull; Post-training at this scale is a <b>usability lever, not a capability lever</b>: chat quality moved a lot, benchmarks barely moved, in both directions.</p>
     <p style="margin:0 0 6px;color:var(--ink2)">&bull; DPO is four log-probs and a sigmoid. The reference model, not RL machinery, is what keeps it stable, and every run starts at loss 0.693.</p>
     <p style="margin:0 0 6px;color:var(--ink2)">&bull; The gradient concentrates on pairs the policy still ranks backwards; &beta; sets how far from the anchor it may drift.</p>
     <p style="margin:0 0 6px;color:var(--ink2)">&bull; Write the gates before the run. Publish the failed ones (SFT alignment tax) next to the passed ones (DPO's zero-tax pass).</p>
     <p style="margin:0 0 13px;color:var(--ink2)">&bull; "Preferred" and "obedient" are different objectives. If you only remember one number from this page, make it 13.9 vs 15.2.</p>
 
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin:18px 0">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:18px 0">
       <div style="font-weight:700;margin-bottom:4px">reproduce this</div>
       <div>uv run python experiments/12-post-training/dpo/data.py</div>
       <div>uv run python experiments/12-post-training/dpo/train.py --sanity &nbsp;<span style="color:var(--mute)"># the 10-pair gate</span></div>
@@ -173,14 +183,14 @@
       <div style="margin-top:6px;color:var(--mute)">weights: <a href="https://huggingface.co/garagelm/hybrid-gpt-232m-chat" target="_blank">garagelm/hybrid-gpt-232m-chat &#8599;</a> · full gates and results: <a href="https://github.com/garagelm" target="_blank">experiments/12-post-training/README.md &#8599;</a></div>
     </div>
 
-    <div style="border-top:1px dashed var(--line);margin:22px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px"><span><a href="learn.html">&laquo; learn/01: forward-pass explorer</a></span><span style="flex:1"></span><span style="color:var(--mute)">next: kv-cache visualizer (tbd)</span></div>
+    <div style="border-top:1px dashed var(--line);margin:40px 0 14px"></div>
+    <div style="font-family:var(--mono);font-size:13px;display:flex;flex-wrap:wrap;gap:6px"><span><a href="learn.html">&laquo; learn/01: forward-pass explorer</a></span><span style="flex:1"></span><span style="color:var(--mute)">next: kv-cache visualizer (tbd)</span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
       <div><a href="index.html">home</a> · <a href="models.html">models</a> · <a href="notes.html">notes</a> · <b>learn</b> · <a href="team.html">team</a></div>
       <div>real models · cheap hardware · honest numbers</div>
-      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
       <div>© 2026 garagelm.org</div>
     </div>
   </div>
@@ -204,7 +214,7 @@ class Component extends DCLogic {
     const clampGap = v => Math.max(-4, Math.min(4, Math.round(v * 2) / 2));
     const stepPc = d => this.setState({ pcGap: clampGap(this.state.pcGap + d) });
     const stepRf = d => this.setState({ refGap: clampGap(this.state.refGap + d) });
-    const betaBtn = i => `cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:'Courier New',monospace;font-size:11.5px;color:${i === this.state.betaIdx ? 'var(--warm)' : 'var(--ink)'};font-weight:${i === this.state.betaIdx ? 700 : 400}`;
+    const betaBtn = i => `cursor:pointer;background:none;border:1px solid var(--line);padding:1px 8px;font-family:var(--mono);font-size:13px;color:${i === this.state.betaIdx ? 'var(--warm)' : 'var(--ink)'};font-weight:${i === this.state.betaIdx ? 700 : 400}`;
     const bar = (frac, color) => `display:block;height:100%;width:${Math.max(0, Math.min(100, frac * 100)).toFixed(1)}%;background:${color}`;
 
     let verdict;

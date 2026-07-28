@@ -21,6 +21,16 @@
     --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
     --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
   }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
   ::selection { background: #3355bb; color:#fff; }
   a:link { color: var(--accent); }
   a:visited { color: var(--visited); }
@@ -28,26 +38,26 @@
   [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
 </style>
 </helmet>
-<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
-  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
 
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
       <div style="flex:1"></div>
-      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
-      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
       <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
     </div>
-    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
-    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <b>notes</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <b>notes</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:12px;color:var(--mute)"><a href="notes.html">« all notes</a> &nbsp;·&nbsp; 2026-07-21 · <span style="color:var(--warm);font-weight:700">[research]</span> · milestones 07 + 09</div>
-    <h1 style="font-size:27px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,serif">600× fewer tokens: tying Pythia-160M on one Mac</h1>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)"><a href="notes.html">« all notes</a> &nbsp;·&nbsp; 2026-07-21 · <span style="color:var(--warm);font-weight:700">[research]</span> · milestones 07 + 09</div>
+    <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,'Times New Roman',serif">600× fewer tokens: tying Pythia-160M on one Mac</h1>
     <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:18px">A 232M hybrid-attention model trained on 0.5–1.0B refined tokens on a single Apple M4 Pro matches a 300B-token baseline within eval resolution under a matched evaluation harness. The weights are published. This is the full account: setup, pre-registered gates, results, and where the lever stops working.</div>
 
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin-bottom:22px">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:22px">
       <div style="font-weight:700;margin-bottom:4px">methods box</div>
       <div>hardware ..... 1× Apple M4 Pro, 48GB unified, PyTorch/MPS, no CUDA</div>
       <div>model ........ 231,852,032 params · 16 layers · d=1024 · GQA (16h/4kv)</div>
@@ -58,17 +68,17 @@
       <div>eval ......... lm-eval 0-shot, n=300/task, references re-run locally</div>
     </div>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">1.</span> the gates, stated before the results</div>
+    <h2 class="sec-head" style="margin:0 0 12px"><span style="color:var(--warm)">1.</span> the gates, stated before the results</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Nothing here was decided after seeing the numbers. Before launch, the yardstick was written down: no 0.5B-token local run beats SmolLM2-135M (2T tokens), so the honest targets were (a) beat Cerebras-GPT-111M everywhere — if refined data can't beat unfiltered Pile data at 4× our tokens, the data thesis fails — and (b) approach Pythia-160M and OPT-125M on HellaSwag and PIQA at 360–600× fewer tokens. Reference models are re-run through the identical harness and example slices rather than trusting published full-set numbers.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">2.</span> the recipe</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">2.</span> the recipe</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">The architecture came out of milestones 03–05: a 232M decoder with RoPE, RMSNorm, SwiGLU, grouped-query attention, and the hybrid pattern — a 64-token sliding window in most layers, full attention every 4th (layers 3/7/11/15). That keeps the KV cache at ~30% of a full-attention twin while beating it on val loss (replicated 3/3 seeds in milestone 08). Data is the milestone 05 refined pool. Training ran resumable, state saved every 500 steps; run 09 survived two external process kills with zero lost steps.</p>
     <div style="margin:0 0 13px">{{ archFigure }}</div>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">3.</span> results, identical harness</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">3.</span> results, identical harness</h2>
     <p style="margin:0 0 10px;color:var(--ink2)">Val loss 3.1246 (PPL 22.7) at 0.5B tokens; 3.0700 (PPL 21.5) at 1.0B. Head-to-head, acc/acc_norm, all models run through the same local pipeline:</p>
     <div style="overflow-x:auto;margin-bottom:8px">
-      <table style="border-collapse:collapse;font-family:'Courier New',monospace;font-size:12px;width:100%">
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:13px;width:100%">
         <tr style="border-bottom:1px solid var(--line);text-align:left"><th style="padding:4px 8px 4px 0">model</th><th style="padding:4px 8px">tokens</th><th style="padding:4px 8px">hellaswag</th><th style="padding:4px 8px">piqa</th><th style="padding:4px 8px">arc-e</th><th style="padding:4px 8px">winogrande</th></tr>
         <tr style="border-bottom:1px solid var(--line);color:var(--ink);font-weight:700"><td style="padding:4px 8px 4px 0">hybrid-232m @ 1.0B</td><td style="padding:4px 8px">1.0B</td><td style="padding:4px 8px">.357/.397</td><td style="padding:4px 8px">.633/.610</td><td style="padding:4px 8px">.477/.450</td><td style="padding:4px 8px">.517</td></tr>
         <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px 8px 4px 0">hybrid-232m @ 0.5B</td><td style="padding:4px 8px">0.5B</td><td style="padding:4px 8px">.353/.393</td><td style="padding:4px 8px">.617/.593</td><td style="padding:4px 8px">.447/.433</td><td style="padding:4px 8px">.533</td></tr>
@@ -81,17 +91,17 @@
     <p style="margin:0 0 13px;color:var(--ink2)">Reading the table: against Pythia-160M (600× the tokens at 0.5B; 300× at 1.0B) the result is a statistical tie at 0.5B and ahead-or-tied everywhere at 1.0B, clearly ahead on ARC-Easy. Against gpt2, one clear win (ARC-E, the only gap beyond 2×SE), PIQA leaning our way inside the noise, and two ties. Against Cerebras-GPT-111M's published numbers, ahead across the board — gate (a) met. Against SmolLM2, clearly behind, exactly as pre-registered: that gap is 2T refined tokens, not architecture.</p>
     <div style="margin:0 0 13px">{{ benchFigure }}</div>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">4.</span> long-range behavior</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">4.</span> long-range behavior</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">The risk with windowed attention is going blind past the window edge. The per-position probe says otherwise at 232M: val loss improves from 3.67 over positions 0–63 to ~3.12 by position 256 and holds through position 1000. The four global layers keep earning deep context; the cheap local layers handle the rest.</p>
     <div style="margin:0 0 13px">{{ posFigure }}</div>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">5.</span> where the lever saturates</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">5.</span> where the lever saturates</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">Run 09's clearest contribution is negative-shaped: doubling tokens from 0.5B to 1.0B bought 0.055 nats of val loss, +3.0 ARC-E, +1.6 PIQA, and ~0 HellaSwag. Refined data bought a 600× token-efficiency tie at 0.5B; the second 0.5B bought low-single-digit points. The steep part of the curve is behind. Next capability jumps need a different axis — bigger model, longer context, distillation, or post-training — which is what milestone 11 (intelligence per training hour) is now chasing.</p>
 
-    <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:700;margin:20px 0 8px"><span style="color:var(--warm)">6.</span> deployment</div>
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">6.</span> deployment</h2>
     <p style="margin:0 0 13px;color:var(--ink2)">The MLX port passes logit parity and decodes at ~310 tok/s in fp16 with 72ms time-to-first-token on 896-token prompts; the KV cache is 4.97MB at full context, ~30% of a full-attention equivalent. 4-bit quantization costs +0.016 nats and runs ~530–550 tok/s. (The published weights are the 1.0B, 300× run.) Samples read as fluent encyclopedic prose with 232M-grade factual reliability — confidently wrong astronomy included.</p>
 
-    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;margin:18px 0">
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:18px 0">
       <div style="font-weight:700;margin-bottom:4px">reproduce this</div>
       <div>uv run python experiments/05-data-frontier/data.py</div>
       <div>uv run python experiments/07-flagship-slm/train.py --resume</div>
@@ -100,14 +110,14 @@
       <div style="margin-top:6px;color:var(--mute)">weights: <a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">garagelm/hybrid-gpt-232m ↗</a> · code: <a href="https://github.com/garagelm" target="_blank">github ↗</a></div>
     </div>
 
-    <div style="border-top:1px dashed var(--line);margin:22px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px"><span><a href="notes.html">« all notes</a></span><span style="flex:1"></span><span><a href="notes.html#p=3">next: hybrid attention beat full attention »</a></span></div>
+    <div style="border-top:1px dashed var(--line);margin:40px 0 14px"></div>
+    <div style="font-family:var(--mono);font-size:13px;display:flex;flex-wrap:wrap;gap:6px"><span><a href="notes.html">« all notes</a></span><span style="flex:1"></span><span><a href="notes.html#p=3">next: hybrid attention beat full attention »</a></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
       <div><a href="index.html">home</a> · <a href="models.html">models</a> · <b>notes</b> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
       <div>real models · cheap hardware · honest numbers</div>
-      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
       <div>© 2026 garagelm.org</div>
     </div>
   </div>
@@ -121,7 +131,7 @@ class Component extends DCLogic {
   figure(title, children, w, h) {
     return React.createElement('div', { style: { border: '1px solid var(--line)', padding: '12px 14px 8px' } },
       React.createElement('svg', { viewBox: `0 0 ${w} ${h}`, style: { width: '100%', display: 'block' } }, ...children),
-      React.createElement('div', { style: { fontFamily: "'Courier New',monospace", fontSize: '11px', color: 'var(--mute)', marginTop: '6px' } }, title));
+      React.createElement('div', { style: { fontFamily: "var(--mono)", fontSize: '11px', color: 'var(--mute)', marginTop: '6px' } }, title));
   }
 
   archFig() {
@@ -130,10 +140,10 @@ class Component extends DCLogic {
       const global = (i + 1) % 4 === 0;
       const x = 20 + i * 42;
       cells.push(el('rect', { key: 'r' + i, x, y: 18, width: 34, height: 44, fill: global ? 'var(--warm)' : 'none', stroke: 'var(--line)', 'fill-opacity': global ? 0.85 : 1 }));
-      cells.push(el('text', { key: 't' + i, x: x + 17, y: 44, 'text-anchor': 'middle', fontSize: 11, fontFamily: "'Courier New',monospace", fill: global ? 'var(--bg)' : 'var(--mute)' }, String(i)));
+      cells.push(el('text', { key: 't' + i, x: x + 17, y: 44, 'text-anchor': 'middle', fontSize: 11, fontFamily: "var(--mono)", fill: global ? 'var(--bg)' : 'var(--mute)' }, String(i)));
     }
-    cells.push(el('text', { key: 'l1', x: 20, y: 82, fontSize: 11, fontFamily: "'Courier New',monospace", fill: 'var(--ink2)' }, '\u25a1 sliding window w=64 (12 layers)'));
-    cells.push(el('text', { key: 'l2', x: 320, y: 82, fontSize: 11, fontFamily: "'Courier New',monospace", fill: 'var(--warm)' }, '\u25a0 full attention (layers 3/7/11/15)'));
+    cells.push(el('text', { key: 'l1', x: 20, y: 82, fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, '\u25a1 sliding window w=64 (12 layers)'));
+    cells.push(el('text', { key: 'l2', x: 320, y: 82, fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--warm)' }, '\u25a0 full attention (layers 3/7/11/15)'));
     return this.figure('fig 1 \u00b7 the hybrid pattern: 16 layers, global attention every 4th', cells, 700, 94);
   }
 
@@ -148,9 +158,9 @@ class Component extends DCLogic {
     ];
     data.forEach(([name, v, color, bold], i) => {
       const y = 16 + i * 26, w = (v - 0.3) / 0.35 * 480;
-      rows.push(el('text', { key: 'n' + i, x: 178, y: y + 12, 'text-anchor': 'end', fontSize: 11.5, fontFamily: "'Courier New',monospace", fill: bold ? 'var(--ink)' : 'var(--ink2)', fontWeight: bold ? 700 : 400 }, name));
+      rows.push(el('text', { key: 'n' + i, x: 178, y: y + 12, 'text-anchor': 'end', fontSize: 11.5, fontFamily: "var(--mono)", fill: bold ? 'var(--ink)' : 'var(--ink2)', fontWeight: bold ? 700 : 400 }, name));
       rows.push(el('rect', { key: 'b' + i, x: 186, y, width: w, height: 15, fill: color, 'fill-opacity': bold ? 0.95 : 0.45 }));
-      rows.push(el('text', { key: 'v' + i, x: 186 + w + 6, y: y + 12, fontSize: 11, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, v.toFixed(3)));
+      rows.push(el('text', { key: 'v' + i, x: 186 + w + 6, y: y + 12, fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--mute)' }, v.toFixed(3)));
     });
     rows.push(el('line', { key: 'ax', x1: 186, y1: 8, x2: 186, y2: 146, stroke: 'var(--line)' }));
     return this.figure('fig 2 \u00b7 arc-easy accuracy (0-shot, n=300, identical local harness) \u2014 tokens in parens', rows, 700, 158);
@@ -166,13 +176,13 @@ class Component extends DCLogic {
       el('line', { key: 'ax1', x1: 50, y1: 20, x2: 50, y2: 140, stroke: 'var(--line)' }),
       el('line', { key: 'ax2', x1: 50, y1: 140, x2: 670, y2: 140, stroke: 'var(--line)' }),
       el('line', { key: 'w', x1: X(64), y1: 20, x2: X(64), y2: 140, stroke: 'var(--line)', 'stroke-dasharray': '3,4' }),
-      el('text', { key: 'wl', x: X(64) + 5, y: 32, fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, 'window edge (64)'),
+      el('text', { key: 'wl', x: X(64) + 5, y: 32, fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, 'window edge (64)'),
       el('path', { key: 'p', d: path, fill: 'none', stroke: 'var(--warm)', 'stroke-width': 2 }),
-      el('text', { key: 'y1', x: 44, y: Y(3.67) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, '3.67'),
-      el('text', { key: 'y2', x: 44, y: Y(3.12) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, '3.12'),
-      el('text', { key: 'x1', x: 50, y: 154, fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, '0'),
-      el('text', { key: 'x2', x: X(256), y: 154, 'text-anchor': 'middle', fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, '256'),
-      el('text', { key: 'x3', x: X(1000), y: 154, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "'Courier New',monospace", fill: 'var(--mute)' }, '1000'),
+      el('text', { key: 'y1', x: 44, y: Y(3.67) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '3.67'),
+      el('text', { key: 'y2', x: 44, y: Y(3.12) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '3.12'),
+      el('text', { key: 'x1', x: 50, y: 154, fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '0'),
+      el('text', { key: 'x2', x: X(256), y: 154, 'text-anchor': 'middle', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '256'),
+      el('text', { key: 'x3', x: X(1000), y: 154, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '1000'),
     ];
     return this.figure('fig 3 \u00b7 per-position val loss at 232M: keeps improving far past the 64-token window', els, 700, 162);
   }
@@ -181,7 +191,7 @@ class Component extends DCLogic {
     let dark = this.state.dark;
     if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
     if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
-    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:var(--mono);font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
     return {
       theme: dark ? 'dark' : 'light',
       archFigure: this.archFig(), benchFigure: this.benchFig(), posFigure: this.posFig(),

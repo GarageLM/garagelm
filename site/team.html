@@ -21,6 +21,16 @@
     --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
     --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
   }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
   ::selection { background: #3355bb; color:#fff; }
   a:link { color: var(--accent); }
   a:visited { color: var(--visited); }
@@ -28,73 +38,73 @@
   [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
 </style>
 </helmet>
-<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:15.75px;line-height:1.7">
-  <div style="max-width:756px;margin:0 auto;padding:36px 20px 60px">
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
 
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-      <a href="index.html" style="font-family:'Courier New',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
       <div style="flex:1"></div>
-      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:'Courier New',monospace;font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
-      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
       <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
     </div>
-    <div style="color:var(--mute);margin-top:2px;font-size:14.5px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
-    <div style="font-family:'Courier New',monospace;font-size:14px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <b>team</b></span></div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <b>team</b></span></div>
 
-    <div style="border-top:1px dashed var(--line);margin:20px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> purpose</div>
-    <p style="margin:0 0 18px;color:var(--ink2)">Frontier model development is a recipe, not magic. garagelm exists to prove the whole recipe runs on hardware anyone can buy. We train the models, measure them honestly, release the weights, and publish every number.</p>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> purpose</h2>
+    <p style="margin:0 0 18px">Frontier model development is a recipe, not magic. garagelm exists to prove the whole recipe runs on hardware anyone can buy. We train the models, measure them honestly, release the weights, and publish every number.</p>
 
-    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:40px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> team</div>
-    <p style="margin:0 0 18px;color:var(--ink2)">The lab is small on purpose: one human, one Mac, and a mascot.</p>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> team</h2>
+    <p style="margin:0 0 18px">The lab is small on purpose: one human, one Mac, and a mascot.</p>
 
     <div style="margin-bottom:16px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[01]</span> <span style="font-weight:700">anthony trevino</span> <span style="color:var(--ink2);font-size:12.5px">founder</span> <a href="https://www.linkedin.com/in/anthony-trevinoo/" target="_blank" title="anthony on linkedin" style="color:var(--accent)"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">AI engineer at American Express and Georgia Tech M.S. (AI). Trains small LLMs on consumer hardware, including a 232M model to GPT-2-class benchmark scores in 127 hours on a Mac mini. Trains the models, breaks the toys, writes the notes.</div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[01]</span> <span style="font-weight:700">anthony trevino</span> <span style="color:var(--ink2);font-size:13px">founder</span> <a href="https://www.linkedin.com/in/anthony-trevinoo/" target="_blank" title="anthony on linkedin" style="color:var(--accent)"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">AI engineer at American Express and Georgia Tech M.S. (AI). Trains small LLMs on consumer hardware, including a 232M model to GPT-2-class benchmark scores in 127 hours on a Mac mini. Trains the models, breaks the toys, writes the notes.</div>
     </div>
     <div style="margin-bottom:18px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700">you, possibly</span> <span style="color:var(--ok);font-size:12px">&#9679; open — call for help</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">The lab is looking for collaborators. Bring a fair comparison, a replication, a good negative result — or compute, data pipelines, eval harnesses, and write-up reviews. Issues and pull requests all read.</div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700">you, possibly</span> <span style="color:var(--ok);font-size:13px">&#9679; open — call for help</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">The lab is looking for collaborators. Bring a fair comparison, a replication, a good negative result — or compute, data pipelines, eval harnesses, and write-up reviews. Issues and pull requests all read.</div>
     </div>
 
-    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:40px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> hardware</div>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> hardware</h2>
     <div style="margin-bottom:16px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[01]</span> <span style="font-weight:700">apple m4 pro</span> <span style="color:var(--ok);font-size:12px">&#9679; on duty</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">48GB unified memory, no CUDA, no complaints. Does the actual work: ~127 hours per flagship, resumable every 500 steps. Uptime is its whole personality.</div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[01]</span> <span style="font-weight:700">apple m4 pro</span> <span style="color:var(--ok);font-size:13px">&#9679; on duty</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">48GB unified memory, no CUDA, no complaints. Does the actual work: ~127 hours per flagship, resumable every 500 steps. Uptime is its whole personality.</div>
     </div>
     <div style="margin-bottom:16px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700;color:var(--ink2)">hyperscaler gpu</span> <span style="color:var(--ink2);font-size:12.5px">(placeholder — the garage has room)</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--mute)">Reserved for the day a sponsored H100 (or a very generous cloud credit) shows up. It will be held to the same rule as the Mac: fair comparisons, gates written before results.</div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[02]</span> <span style="font-weight:700;color:var(--ink2)">hyperscaler gpu</span> <span style="color:var(--ink2);font-size:13px">(placeholder — the garage has room)</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px;color:var(--mute)">Reserved for the day a sponsored H100 (or a very generous cloud credit) shows up. It will be held to the same rule as the Mac: fair comparisons, gates written before results.</div>
     </div>
 
-    <div style="border-top:1px dashed var(--line);margin:22px 0"></div>
+    <div style="border-top:1px dashed var(--line);margin:40px 0"></div>
 
-    <div style="font-family:'Courier New',monospace;font-size:15.75px;font-weight:700;margin:0 0 8px"><span style="color:var(--warm)">$</span> outputs</div>
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> outputs</h2>
     <div style="margin-bottom:16px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[01]</span> <a href="models.html#m=0" style="font-weight:700">hybrid-gpt-232m</a> <span style="color:var(--ok);font-size:12px">shipped</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">The flagship base model: matches Pythia-160M at 300&#215; fewer tokens (600&#215; at its 0.5B checkpoint). <a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">weights &#8599;</a></div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[01]</span> <a href="models.html#m=0" style="font-weight:700">hybrid-gpt-232m</a> <span style="color:var(--ok);font-size:13px">shipped</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">The flagship base model: matches Pythia-160M at 300&#215; fewer tokens (600&#215; at its 0.5B checkpoint). <a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">weights &#8599;</a></div>
     </div>
     <div style="margin-bottom:16px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[02]</span> <a href="models.html#m=1" style="font-weight:700">hybrid-gpt-232m-chat</a> <span style="color:var(--ok);font-size:12px">shipped</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">The SmolTalk SFT variant: chat formatting with zero benchmark regression. <a href="https://huggingface.co/garagelm/hybrid-gpt-232m-chat" target="_blank">weights &#8599;</a></div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[02]</span> <a href="models.html#m=1" style="font-weight:700">hybrid-gpt-232m-chat</a> <span style="color:var(--ok);font-size:13px">shipped</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">The SmolTalk SFT variant: chat formatting with zero benchmark regression. <a href="https://huggingface.co/garagelm/hybrid-gpt-232m-chat" target="_blank">weights &#8599;</a></div>
     </div>
     <div style="margin-bottom:18px">
-      <div style="font-family:'Courier New',monospace;font-size:13.5px"><span style="color:var(--mute)">[03]</span> <a href="learn.html" style="font-weight:700">toy-188</a> <span style="color:var(--ink2);font-size:12.5px">(mascot · runs in your tab)</span></div>
-      <div style="margin:2px 0 0 34px;font-size:14px;color:var(--ink2)">188 parameters of pure transparency. Lives in <a href="learn.html">learn</a>, gets overfit daily, has never once hidden a number.</div>
+      <div style="font-family:var(--mono);font-size:15px"><span style="color:var(--mute)">[03]</span> <a href="learn.html" style="font-weight:700">toy-188</a> <span style="color:var(--ink2);font-size:13px">(mascot · runs in your tab)</span></div>
+      <div style="margin:4px 0 0 34px;font-size:15px">188 parameters of pure transparency. Lives in <a href="learn.html">learn</a>, gets overfit daily, has never once hidden a number.</div>
     </div>
 
-    <div style="font-family:'Courier New',monospace;font-size:12.5px;color:var(--mute)">reach the lab: <a href="mailto:trevino293@gmail.com">trevino293@gmail.com</a> · <a href="https://github.com/garagelm" target="_blank">github issues preferred</a></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)">reach the lab: <a href="mailto:trevino293@gmail.com">trevino293@gmail.com</a> · <a href="https://github.com/garagelm" target="_blank">github issues preferred</a></div>
 
-    <div style="border-top:1px dashed var(--line);margin:24px 0 14px"></div>
-    <div style="font-family:'Courier New',monospace;font-size:11.5px;color:var(--mute);line-height:1.9;text-align:center">
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
       <div><a href="index.html">home</a> · <a href="models.html">models</a> · <a href="notes.html">notes</a> · <a href="learn.html">learn</a> · <b>team</b></div>
       <div>real models · cheap hardware · honest numbers</div>
-      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:'Courier New',monospace;font-size:10.5px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
       <div>© 2026 garagelm.org</div>
     </div>
   </div>
@@ -107,7 +117,7 @@ class Component extends DCLogic {
     let dark = this.state.dark;
     if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
     if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
-    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:'Courier New',monospace;font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
+    const seg = a => `cursor:pointer;background:none;border:none;padding:0 3px;font-family:var(--mono);font-size:13px;font-weight:${a ? 700 : 400};color:${a ? 'var(--warm)' : 'var(--mute)'};text-decoration:${a ? 'none' : 'underline'}`;
     return {
       theme: dark ? 'dark' : 'light',
       themeIcon: dark ? '☀' : '☾',
