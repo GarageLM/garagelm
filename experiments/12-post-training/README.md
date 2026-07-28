@@ -117,6 +117,18 @@ The distillation probes return a GO signal for milestone 13: a viable
 same-tokenizer logit teacher with 0.3 nats of headroom, and a priced
 synthetic-generation alternative.
 
+**Ship decision (2026-07-27, later the same day — partial reversal,
+recorded)**: once the chat-benchmark table below existed, the **DPO
+endpoint shipped as `hybrid-gpt-232m-chat` v2** (user decision). Two
+things make this consistent with the gates rather than a quiet
+override: (1) the pre-registered G2 fail action was scoped to Stage 1
+("chat-v2 does not ship *from this stage*"), and Stage 2 passed both
+its gates (G3/G4); (2) what changed was information — the chat axis,
+which is the card's entire purpose, gained measured wins (IFEval,
+BoolQ, TruthfulQA, preference accuracy) to weigh against the known
+−2.2-pt full-set ARC-Easy tax, which the v2 card discloses verbatim.
+v1 (60M-token SFT) remains fetchable at HF revision `v1`.
+
 ## Chat benchmarks (added post-milestone; matched harness throughout)
 
 **IFEval** (rule-verifiable instruction following; generation via the

@@ -5,6 +5,69 @@ datasets: [HuggingFaceFW/fineweb-edu, HuggingFaceTB/smollm-corpus]
 pipeline_tag: text-generation
 library_name: transformers
 tags: [hybrid-attention, sliding-window, small-model, research]
+model-index:
+- name: hybrid-gpt-232m
+  results:
+  - task:
+      type: text-generation
+      name: Commonsense inference
+    dataset:
+      type: hellaswag
+      name: HellaSwag (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 35.7
+    - type: acc_norm
+      value: 39.7
+  - task:
+      type: text-generation
+      name: Physical commonsense
+    dataset:
+      type: piqa
+      name: PIQA (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 63.3
+    - type: acc_norm
+      value: 61.0
+  - task:
+      type: text-generation
+      name: Science QA
+    dataset:
+      type: ai2_arc
+      name: ARC-Easy (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 47.7
+    - type: acc_norm
+      value: 45.0
+  - task:
+      type: text-generation
+      name: Coreference reasoning
+    dataset:
+      type: winogrande
+      name: WinoGrande (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 51.7
+  - task:
+      type: text-generation
+      name: Yes/no reading comprehension
+    dataset:
+      type: boolq
+      name: BoolQ (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 62.3
+  - task:
+      type: text-generation
+      name: Truthfulness
+    dataset:
+      type: truthful_qa
+      name: TruthfulQA-mc2 (0-shot, n=300, local lm-eval)
+    metrics:
+    - type: acc
+      value: 39.3
 ---
 
 # hybrid-gpt-232m
@@ -78,5 +141,7 @@ prefix each step).
 - Trained on FineWeb-Edu and Cosmopedia-v2 (both ODC-BY); inherits their
   biases and educational-web distribution.
 - MMLU-class benchmarks are at chance, as for all models this size.
-- The chat-tuned variant is `garagelm/hybrid-gpt-232m-chat` (SmolTalk SFT,
-  no benchmark regression).
+- The chat-tuned variant is `garagelm/hybrid-gpt-232m-chat` (v2: 310M-token
+  SmolTalk SFT + UltraFeedback DPO; IFEval 13.9% prompt-strict, at a
+  disclosed ~2-point full-set ARC-Easy cost vs this base — details on its
+  card).

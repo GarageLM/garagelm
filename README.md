@@ -78,6 +78,13 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     reuse: −0.32; elite filter: −0.045 on decontaminated val, after the
     design-reviewer agent caught 11.5% val contamination). The recipe
     stands; next lever class is distillation + post-training.
+11. **12: post-training** — SFT at 10x data (+0.24 nats chat quality) +
+    UltraFeedback DPO (65.2% held-out preference accuracy, zero
+    DPO-stage capability cost), with the SFT **alignment tax measured**:
+    −2.2 full-set ARC-Easy pts at 310M SFT tokens vs ~0 at 60M. IFEval
+    vs SmolLM2-135M-Instruct under one matched harness (13.9% vs 21.4%
+    prompt-strict). The DPO endpoint ships as **chat v2** (tax disclosed
+    on the card; v1 remains at HF revision `v1`).
 
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.
@@ -94,8 +101,10 @@ cd ~/Desktop/garagelm && ./serve.sh
 It opens the browser at `localhost:8080`, converts the checkpoint on
 first use (logit-parity-gated), and — if a training run owns the GPU —
 automatically starts in polite CPU mode so research is never disturbed.
-Variants: `MODEL=09-flagship-2 ./serve.sh` serves the raw base model;
-`PORT=9000` moves the port. Stop with Ctrl-C.
+The default is the published chat model (v2: SFT + DPO). Variants:
+`MODEL=09-flagship-2 ./serve.sh` serves the raw base model,
+`MODEL=10-sft ./serve.sh` serves chat v1; `PORT=9000` moves the port.
+Stop with Ctrl-C.
 
 The server is OpenAI-compatible (`http://localhost:8080/v1`), so any
 client library or chat UI can talk to it — which also makes it the lab's

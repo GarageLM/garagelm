@@ -121,17 +121,19 @@ class Component extends DCLogic {
           { label: 'weights on hugging face \u2197', href: 'https://huggingface.co/garagelm/hybrid-gpt-232m', target: '_blank' },
           { label: 'the training write-up \u00bb', href: 'note-600x-tokens.html', target: '_self' }
         ] },
-      { name: 'hybrid-gpt-232m-chat', tag: '[chat]', meta: 'hf: garagelm/hybrid-gpt-232m-chat · released 2026-07',
-        excerpt: 'The same weights after one epoch of SmolTalk SFT: a small chat model that kept every benchmark score.',
+      { name: 'hybrid-gpt-232m-chat', tag: '[chat]', meta: 'hf: garagelm/hybrid-gpt-232m-chat · v2 · released 2026-07',
+        excerpt: 'The base model after the full post-training pipeline: 310M tokens of SmolTalk SFT, then UltraFeedback DPO.',
         specs: [
           'base ......... hybrid-gpt-232m',
-          'tuning ....... SmolTalk SFT, 1 epoch, 7.6h',
-          'loss ......... assistant-only masking, masked val 2.54 \u2192 1.70',
-          'benchmarks ... zero regression vs base'
+          'sft .......... SmolTalk, ~310M formatted tokens, assistant-only loss',
+          'dpo .......... UltraFeedback, 53,952 pairs, \u03b2=0.1 \u00b7 pref acc 65.2%',
+          'ifeval ....... 13.9% prompt-strict \u00b7 25.1% inst-strict (n=541)',
+          'tax .......... \u22122.2 pts full-set ARC-Easy vs base, disclosed'
         ],
         paras: [
-          'Supervised fine-tuning on SmolTalk, with the loss masked to assistant turns only. One epoch, 7.6 hours, same machine as everything else.',
-          'The release gate was simple: chat formatting had to become reliable without giving back any base capability. Masked validation loss fell from 2.54 to 1.70, and every benchmark stayed within noise of the base model.',
+          'v2 replaces the original 60M-token SFT release (still fetchable as revision v1 on Hugging Face). The recipe is the standard two-stage pipeline at a fraction of the usual scale: supervised fine-tuning on SmolTalk with the loss masked to assistant turns, then direct preference optimization on UltraFeedback pairs \u2014 65.2% held-out preference accuracy.',
+          'Instruction following is measured, not claimed: on IFEval\u2019s full 541-prompt set under our matched harness it satisfies 13.9% of prompts strictly (25.1% of atomic instructions) \u2014 about 65% of the score of SmolLM2-135M-Instruct, a reference trained on ~2000x more pretraining tokens. BoolQ and TruthfulQA also tick up over the base.',
+          'The cost is disclosed rather than hidden: the SFT stage pays a measured alignment tax of about 2 full-set ARC-Easy points, and DPO adds no further regression. If you want maximum raw-benchmark capability, use the base model.',
           'Treat it as a demonstration of the recipe rather than a product. A 232M chat model holds a conversation and follows simple instructions; it is not a source of facts.',
           'AutoModelForCausalLM.from_pretrained("garagelm/hybrid-gpt-232m-chat", trust_remote_code=True)'
         ],

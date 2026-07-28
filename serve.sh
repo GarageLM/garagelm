@@ -1,9 +1,10 @@
 #!/bin/bash
 # GarageLM one-command chat: repo -> browser.
 #
-#   ./serve.sh                     # chat model, auto device, opens browser
+#   ./serve.sh                     # chat model (v2, SFT+DPO), auto device, opens browser
 #   PORT=9000 ./serve.sh           # custom port
 #   MODEL=09-flagship-2 ./serve.sh # serve the base model instead
+#   MODEL=10-sft ./serve.sh        # serve chat v1 (60M-token SFT)
 #
 # What it does, in order:
 #   1. sync the uv environment (no-op when already synced)
@@ -16,8 +17,8 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 PORT="${PORT:-8080}"
-MODEL="${MODEL:-10-sft}"
-MODEL_DIR="benchmarks/mlx/converted/$MODEL"
+MODEL="${MODEL:-12-post-training/dpo}"
+MODEL_DIR="benchmarks/mlx/converted/${MODEL//\//-}"
 CKPT_DIR="experiments/$MODEL"
 
 uv sync -q
