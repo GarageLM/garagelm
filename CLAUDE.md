@@ -23,12 +23,25 @@ latency reported together.
 
 ## Current state
 
-Milestones 00–04 are complete (see `experiments/README.md` for results);
-the current phase is 05–07: refined-corpus training (FineWeb-Edu +
-Cosmopedia-v2), the hybrid local+global attention variant, the MLX
-inference benchmark, and a ~500M-token flagship run. The decisions below
-are locked in; do not re-litigate them without a reason grounded in
-something that changed.
+Milestones 00–13 are complete (see `experiments/README.md` for results).
+Shipped: the hybrid local+global attention win (validated n=3 seeds, with
+its decay curve measured in 12b), a ~1B-token 232M flagship, the MLX
+inference stack, SFT+DPO post-training with the alignment tax measured,
+and 13's MoE verdict. The decisions below are locked in; do not
+re-litigate them without a reason grounded in something that changed.
+
+**Next lever**: distillation is the priced, unspent one — 12's probes
+returned a GO (GPT-2-XL leads our base by 0.296 nats as a same-tokenizer
+logit teacher; local synthetic generation prices at ~13.9M tokens/day).
+
+**Open blocker on every future comparison**: the standing quality suite
+runs at `--limit 300`, where the standard error on a proportion is ~2.9
+points and ~2.05 points on a difference of two 4-task averages. Milestone
+13 could not distinguish a 114M model from a 284M one on it. Any milestone
+whose claim rests on downstream tasks needs a larger `--limit` first, or it
+can only report validation loss. 13 also showed loss and downstream
+capability coming apart outright, so validation loss alone is not a
+sufficient proxy.
 
 **Hardware**: all work runs locally on a single Apple M4 Pro, 48GB unified
 memory, no CUDA. No multi-GPU runs, no billion-parameter models. Target

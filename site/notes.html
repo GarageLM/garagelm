@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="logo.png">
-<title>garagelm.org — notes</title>
+<title>garagelm.org · notes</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -87,7 +87,7 @@
     </div>
 
     <h2 id="roadmap" class="sec-head" style="margin-top:48px"><span style="color:var(--warm)">$</span> experiment roadmap</h2>
-    <p style="margin:0 0 18px">Where the research program has been and where it goes next. Every milestone runs under the fair-comparison rule — change one thing, gate every lane — and gets a note here, win or lose.</p>
+    <p style="margin:0 0 18px">Where the research program has been and where it goes next. Every milestone runs under the fair-comparison rule (change one thing, gate every lane) and gets a note here, win or lose.</p>
     <div style="border-top:1px solid var(--line)">
       <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:7px 2px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink2)">
         <span style="min-width:52px">exp</span>
@@ -106,7 +106,7 @@
         </div>
       </sc-for>
     </div>
-    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut — 1.01×] · muon [fail — −0.22 nats at default LR] · epoch4 [fail — −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail — −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. post-training has since been run (exp 12); distillation is the remaining priced lever.</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut: 1.01×] · muon [fail: −0.22 nats at default LR] · epoch4 [fail: −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail: −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. post-training has since been run (exp 12); distillation is the remaining priced lever.</div>
 
     <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
     <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
@@ -131,13 +131,13 @@ class Component extends DCLogic {
   posts() {
     return [
       { date: '2026-07-23', tag: 'RESEARCH', exp: 'exp 11', title: 'Four negatives and a caught contamination',
-        excerpt: 'Milestone 11 tested four efficiency levers under pre-registered gates. All four failed — and an adversarial review caught 11.5% of the validation set hiding in a training pool before it could fake a win.',
+        excerpt: 'Milestone 11 tested four efficiency levers under pre-registered gates. All four failed, and an adversarial review caught 11.5% of the validation set hiding in a training pool before it could fake a win.',
         body: [
           'With the token axis saturating, milestone 11 chased intelligence per training hour: four lanes, each changing exactly one training-cycle lever against the frozen milestone-05 control, each with a pass/fail gate written down before the run. The levers: bf16 autocast, the Muon optimizer at its speedrun-standard settings, 4× reuse of a 25M-token pool, and truncating FineWeb-Edu to its top-scored 13%.',
-          'All four failed. bf16 was cut at the probe: 1.01× throughput on Apple’s MPS backend — as far as we can tell, the first formal measurement of that null. Muon at its default learning rate lost 0.22 nats to plain AdamW. Four-epoch reuse of a small pool lost 0.32 nats and opened a 0.90-nat train/val gap: memorization, on display. And the elite filter lost 0.045 nats — at a 100M-token budget, the diversity you lose truncating an already-filtered corpus outweighs the quality you gain.',
-          'The elite-filter lane nearly got away with something. A design-review agent, auditing the milestone while that lane was still training, found that the validation set’s source-shard tail had survived the score filter into the lane’s training pool: 11.5% of val, verbatim, in the training data — biased in the lane’s own favor by roughly the entire win margin. The gate was re-pinned to a decontaminated, deterministic protocol before the run finished. The tell in the final numbers: removing the leaked documents made the control score better and the lane score worse. It had memorized exactly the answers it would be graded on.',
-          'The verdict: the incumbent recipe — AdamW in fp32, fresh sub-epoch data, the broad score≥3 corpus — survived every cheap challenger. Flagship-3 as originally specified (same quality, half the wall-clock, via adopted levers) is cancelled: there are no adopted levers. Roughly 28 hours of compute bought four citable negatives and one methodology story, which is a better trade than one lucky positive.',
-          'Next lever class, forced by the evidence: distillation and deeper post-training — the expensive levers, and the ones the literature says actually move small models.'
+          'All four failed. bf16 was cut at the probe: 1.01× throughput on Apple’s MPS backend, as far as we can tell the first formal measurement of that null. Muon at its default learning rate lost 0.22 nats to plain AdamW. Four-epoch reuse of a small pool lost 0.32 nats and opened a 0.90-nat train/val gap: memorization, on display. And the elite filter lost 0.045 nats: at a 100M-token budget, the diversity you lose truncating an already-filtered corpus outweighs the quality you gain.',
+          'The elite-filter lane nearly got away with something. A design-review agent, auditing the milestone while that lane was still training, found that the validation set’s source-shard tail had survived the score filter into the lane’s training pool: 11.5% of val, verbatim, in the training data: biased in the lane’s own favor by roughly the entire win margin. The gate was re-pinned to a decontaminated, deterministic protocol before the run finished. The tell in the final numbers: removing the leaked documents made the control score better and the lane score worse. It had memorized exactly the answers it would be graded on.',
+          'The verdict: the incumbent recipe (AdamW in fp32, fresh sub-epoch data, the broad score≥3 corpus) survived every cheap challenger. Flagship-3 as originally specified (same quality, half the wall-clock, via adopted levers) is cancelled: there are no adopted levers. Roughly 28 hours of compute bought four citable negatives and one methodology story, which is a better trade than one lucky positive.',
+          'Next lever class, forced by the evidence: distillation and deeper post-training: the expensive levers, and the ones the literature says actually move small models.'
         ],
         linkLabel: 'the full adjudication »', linkHref: 'https://github.com/GarageLM/garagelm/blob/main/experiments/11-efficiency/README.md' },
       { date: '2026-07-21', tag: 'RESEARCH', exp: 'exp 07+09', page: 'note-600x-tokens.html', title: '600× fewer tokens: tying Pythia-160M on one Mac',
@@ -145,8 +145,8 @@ class Component extends DCLogic {
         body: [
           'The research half of garagelm runs on one machine: an Apple M4 Pro with 48GB of unified memory. No CUDA, no cluster, no cloud burst. The mission is capability-per-dollar: how intelligent a model can you train when the hardware budget is one consumer desktop?',
           'The flagship recipe: 232M parameters, hybrid local+global attention (64-token windows, a full-attention layer every 4th), trained on a refined FineWeb-Edu + Cosmopedia-v2 pool. At 0.5B tokens (63 hours of training) it matches Pythia-160M (within the ±2.8-pt resolution of n=300 eval slices) on HellaSwag, PIQA, ARC-Easy and WinoGrande under a matched evaluation harness. Pythia saw 300B tokens: 600× more.',
-          'Flagship-2 pushed to 1.0B tokens: perplexity dropped to 21.5, the model is now ahead-or-tied against Pythia everywhere, and it passes gpt2 on ARC-Easy — the one gap beyond 2× the slice error — and sits ahead-or-even elsewhere. Refined tokens are worth more than raw ones; data quality is doing most of the work.',
-          'The fine print: doubling tokens bought just 0.055 nats. The token axis is saturating at this scale, so milestone 11 chased intelligence per training hour instead — Muon, multi-epoch reuse, elite filtering, bf16 — and all four levers failed their pre-registered gates. The recipe survived its challengers; the story of that 0-for-4, including a caught val-set contamination, has its own note.',
+          'Flagship-2 pushed to 1.0B tokens: perplexity dropped to 21.5, the model is now ahead-or-tied against Pythia everywhere, and it passes gpt2 on ARC-Easy (the one gap beyond 2× the slice error) and sits ahead-or-even elsewhere. Refined tokens are worth more than raw ones; data quality is doing most of the work.',
+          'The fine print: doubling tokens bought just 0.055 nats. The token axis is saturating at this scale, so milestone 11 chased intelligence per training hour instead (Muon, multi-epoch reuse, elite filtering, bf16) and all four levers failed their pre-registered gates. The recipe survived its challengers; the story of that 0-for-4, including a caught val-set contamination, has its own note.',
           'Both checkpoints are published, a base model and a SmolTalk-SFT chat variant, and load with transformers.'
         ],
         linkLabel: 'weights on hugging face ↗', linkHref: 'https://huggingface.co/garagelm/hybrid-gpt-232m' },
@@ -154,7 +154,7 @@ class Component extends DCLogic {
         excerpt: 'Local windows plus a global layer every 4th: lower loss than full attention at equal parameters, replicated in 3/3 seeds.',
         body: [
           'The cleanest result in the lab so far. Three 114M models, identical except the attention module (same tokenizer, data, token budget, optimizer, seed), trained on 100M refined tokens at 1024 context.',
-          '· val loss — hybrid 3.809 · full attention (GQA) 3.868 · sliding-window 3.928',
+          '· val loss: hybrid 3.809 · full attention (GQA) 3.868 · sliding-window 3.928',
           'The hybrid is sliding-window attention (w=64) with a full-attention layer every 4th, the Gemma-2/3 pattern. It beats full attention outright at equal parameters, while carrying ~30% of its KV cache.',
           'The per-position loss curves explain it: pure sliding-window goes flat past position ~64, its window edge, while the hybrid keeps improving deep into the context. A few global layers do all the long-range work; cheap local layers handle everything else.',
           'It replicates: three seeds, hybrid ahead in all three (mean gap −0.038 nats). The sweep also said w=128 is worse than w=64, and a 2-global-layer variant ties the champion at ~15% cache, flagged as future work. On-device the saving is exactly analytic: the MLX port decodes at ~510–530 tok/s fp16 (114M model) with the 30% cache.',
@@ -206,16 +206,16 @@ class Component extends DCLogic {
     const REPO = 'https://github.com/GarageLM/garagelm/tree/main/experiments';
     const roadmap = [
       { id: '01\u201302', date: '2026-05', name: 'baselines', dir: '02-baseline-small-lm', what: 'smoke test, then a 114M GQA/RoPE/SwiGLU control everything else is measured against', stamp: 'done', k: 'done' },
-      { id: '03\u201304', date: '2026-06', name: 'attention shootout', dir: '03-attention-variants', what: 'five variants under fair comparison; sliding-window "wins" — later shown to be a corpus artifact', stamp: 'artifact', k: 'done' },
+      { id: '03\u201304', date: '2026-06', name: 'attention shootout', dir: '03-attention-variants', what: 'five variants under fair comparison; sliding-window "wins", later shown to be a corpus artifact', stamp: 'artifact', k: 'done' },
       { id: '05', date: '2026-06', name: 'data frontier', dir: '05-data-frontier', what: 'refined corpus (FineWeb-Edu + Cosmopedia); hybrid attention takes the lead for real', stamp: 'done', k: 'done' },
       { id: '07', date: '2026-07', name: 'flagship', dir: '07-flagship-slm', what: '232M hybrid on 0.5B refined tokens; matches Pythia-160M at 600\u00d7 fewer tokens', stamp: 'done', k: 'done' },
       { id: '08', date: '2026-07', name: 'solidify', dir: '08-solidify', what: 'seed replication (3/3) and window sweep; the recipe is real, w=64 confirmed', stamp: 'done', k: 'done' },
       { id: '09', date: '2026-07', name: 'flagship-2', dir: '09-flagship-2', what: '1.0B tokens; best model yet, and the token axis visibly saturates', stamp: 'done', k: 'done' },
       { id: '10', date: '2026-07', name: 'sft + release', dir: '10-sft', what: 'SmolTalk chat tuning, zero benchmark regression; both checkpoints published', stamp: 'shipped', k: 'done' },
-      { id: '11', date: '2026-07', name: 'efficiency', dir: '11-efficiency', what: 'four levers vs the 05 control, four gated negatives (bf16, muon@default, 4\u00d7 reuse, elite filter) \u2014 the recipe stands', stamp: 'done', k: 'done' },
+      { id: '11', date: '2026-07', name: 'efficiency', dir: '11-efficiency', what: 'four levers vs the 05 control, four gated negatives (bf16, muon@default, 4\u00d7 reuse, elite filter); the recipe stands', stamp: 'done', k: 'done' },
       { id: '12', date: '2026-07', name: 'post-training', dir: '12-post-training', what: 'SmolTalk SFT then DPO on UltraFeedback. The alignment tax measured for the first time here (\u22122.2 ARC-Easy points at 310M SFT tokens, ~0 at 60M); DPO passes both gates at zero further cost. Chat v2 shipped; distillation probes return a GO.', stamp: 'v2', k: 'done' },
-      { id: '12b', date: '2026-07', name: 'budget ablation', dir: '12-budget-ablation', what: 'does the hybrid-vs-full gap move with training budget? Hybrid ahead at 50M/100M/200M tokens, but the edge decays as training grows \u2014 a measured decay curve, not a fixed gap', stamp: 'curve', k: 'done' },
-      { id: '13', date: '2026-07\u2013', name: 'moe', dir: '13-moe', what: 'at a hard memory budget, is a sparse model worth its bytes? 8 experts \u00d7 top-2 against both an active-matched and a memory-matched dense control. Pre-registered, not yet run', stamp: 'pre-reg', k: 'planned' },
+      { id: '12b', date: '2026-07', name: 'budget ablation', dir: '12-budget-ablation', what: 'does the hybrid-vs-full gap move with training budget? Hybrid ahead at 50M/100M/200M tokens, but the edge decays as training grows: a measured decay curve, not a fixed gap', stamp: 'curve', k: 'done' },
+      { id: '13', date: '2026-07', name: 'moe', dir: '13-moe', what: 'at a hard memory budget, is a sparse model worth its bytes? 8 experts \u00d7 top-2 against both an active-matched and a memory-matched dense control. 2.5\u00d7 the parameters bought validation loss and nothing else measurable: neither large arm gained a downstream point, and both decode slower. loss and capability came apart', stamp: 'flat', k: 'done' },
       { id: '\u2014', date: '2026-q4', name: 'beyond tokens', what: 'the lever 12\u2019s probes priced: distillation from a same-tokenizer teacher with 0.3 nats of headroom, plus longer context', stamp: 'planned', k: 'planned' },
     ].map(r => ({
       ...r, stampStyle: stamp(r.k),

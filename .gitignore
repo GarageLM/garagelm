@@ -10,3 +10,7 @@ benchmarks/mlx/converted/
 .DS_Store
 release/hf/
 experiments/10-sft/data/
+
+# MLX release build outputs (weights + tokenizer copies); regenerate with
+# release/mlx/export.py, which is deterministic and re-gates parity.
+release/mlx/repos/

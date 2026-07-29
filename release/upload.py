@@ -22,6 +22,7 @@ def main():
     print(f"authenticated as: {who['name']}")
     api.create_repo(args.repo, repo_type="model", private=args.private, exist_ok=True)
     api.upload_folder(folder_path=args.hf_dir, repo_id=args.repo, repo_type="model",
+                      ignore_patterns=["__pycache__/*", "*.pyc", ".DS_Store"],
                       commit_message="upload from llm-arch-explore release tooling")
     print(f"uploaded -> https://huggingface.co/{args.repo}")
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="logo.png">
-<title>garagelm.org — models</title>
+<title>garagelm.org · models</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -84,7 +84,7 @@
     <div style="border:1px solid var(--line);padding:12px 14px 8px;margin-bottom:10px">{{ benchChart }}</div>
     <p style="margin:0 0 22px;font-size:13px;color:var(--mute);font-family:var(--mono)">source: milestone 09 eval table · smollm2 (2T tokens) leads everywhere, as pre-registered · full table in <a href="note-600x-tokens.html">the 600× note</a></p>
 
-    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)">milestone 11 tested four training-efficiency levers against this recipe; all four failed their pre-registered gates — the recipe stands. next lever class: distillation + post-training.</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)">milestone 11 tested four training-efficiency levers against this recipe; all four failed their pre-registered gates; the recipe stands. post-training has since run (milestone 12). milestone 13 then tested capacity at a fixed memory budget: 2.5&#215; the parameters bought validation loss but no measurable downstream gain, and slower decode. distillation is the remaining priced lever.</div>
 
     <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
     <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
@@ -121,7 +121,7 @@ class Component extends DCLogic {
           'decode ....... ~310 tok/s fp16 · 530+ q4 (MLX), KV cache ~30% of full'
         ],
         paras: [
-          'The architecture is a modern decoder-only transformer: RoPE positions, RMSNorm, SwiGLU, grouped-query attention. The one unusual choice is the attention pattern. Most layers see a 64-token sliding window, and every 4th layer sees the full context. That pattern beat full attention at equal parameters in milestone 05, replicated in 3/3 seeds — in our under-trained regime; whether the gap survives bigger budgets is what the running budget ablation measures.',
+          'The architecture is a modern decoder-only transformer: RoPE positions, RMSNorm, SwiGLU, grouped-query attention. The one unusual choice is the attention pattern. Most layers see a 64-token sliding window, and every 4th layer sees the full context. That pattern beat full attention at equal parameters in milestone 05, replicated in 3/3 seeds, in our under-trained regime. The budget ablation has since measured how that gap moves: the hybrid is ahead at 50M, 100M and 200M tokens, but the edge decays as training grows, so the advantage is a curve rather than a fixed gap.',
           'Data is the other half of the recipe. The pool is FineWeb-Edu plus Cosmopedia-v2, refined web and synthetic text, and the model saw 1.0B tokens of it. Under a matched evaluation harness it is ahead-or-tied against Pythia-160M (trained on 300B tokens) on HellaSwag, PIQA, ARC-Easy and WinoGrande, and passes gpt2 on ARC-Easy (the one gap beyond 2× the slice standard error), with PIQA leaning our way inside the noise. It stays clearly behind SmolLM2-135M (2T tokens), as pre-registered.',
           'On-device inference is measured, not estimated: the MLX port decodes at ~310 tok/s in fp16 (530+ at 4-bit) with a KV cache at ~30% of full attention\u2019s size. 4-bit quantization costs +0.016 nats and buys another ~70% of speed.',
           'Limitations: this is a base model, not an assistant. It completes text rather than following instructions, and at 232M parameters it is factually unreliable. English web text only.',
@@ -141,8 +141,8 @@ class Component extends DCLogic {
           'tax .......... \u22122.2 pts full-set ARC-Easy vs base, disclosed'
         ],
         paras: [
-          'v2 replaces the original 60M-token SFT release (still fetchable as revision v1 on Hugging Face). The recipe is the standard two-stage pipeline at a fraction of the usual scale: supervised fine-tuning on SmolTalk with the loss masked to assistant turns, then direct preference optimization on UltraFeedback pairs \u2014 65.2% held-out preference accuracy.',
-          'Instruction following is measured, not claimed: on IFEval\u2019s full 541-prompt set under our matched harness it satisfies 13.9% of prompts strictly (25.1% of atomic instructions) \u2014 about 65% of the score of SmolLM2-135M-Instruct, a reference trained on ~2000x more pretraining tokens. BoolQ and TruthfulQA also tick up over the base.',
+          'v2 replaces the original 60M-token SFT release (still fetchable as revision v1 on Hugging Face). The recipe is the standard two-stage pipeline at a fraction of the usual scale: supervised fine-tuning on SmolTalk with the loss masked to assistant turns, then direct preference optimization on UltraFeedback pairs. 65.2% held-out preference accuracy.',
+          'Instruction following is measured, not claimed: on IFEval\u2019s full 541-prompt set under our matched harness it satisfies 13.9% of prompts strictly (25.1% of atomic instructions), about 65% of the score of SmolLM2-135M-Instruct, a reference trained on ~2000x more pretraining tokens. BoolQ and TruthfulQA also tick up over the base.',
           'The cost is disclosed rather than hidden: the SFT stage pays a measured alignment tax of about 2 full-set ARC-Easy points, and DPO adds no further regression. If you want maximum raw-benchmark capability, use the base model.',
           'Treat it as a demonstration of the recipe rather than a product. A 232M chat model holds a conversation and follows simple instructions; it is not a source of facts.',
           'AutoModelForCausalLM.from_pretrained("garagelm/hybrid-gpt-232m-chat", trust_remote_code=True)'

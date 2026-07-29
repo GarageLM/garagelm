@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="logo.png">
-<title>garagelm.org — 600× fewer tokens: tying Pythia-160M on one Mac</title>
+<title>garagelm.org · 600× fewer tokens: tying Pythia-160M on one Mac</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -69,10 +69,10 @@
     </div>
 
     <h2 class="sec-head" style="margin:0 0 12px"><span style="color:var(--warm)">1.</span> the gates, stated before the results</h2>
-    <p style="margin:0 0 13px;color:var(--ink2)">Nothing here was decided after seeing the numbers. Before launch, the yardstick was written down: no 0.5B-token local run beats SmolLM2-135M (2T tokens), so the honest targets were (a) beat Cerebras-GPT-111M everywhere — if refined data can't beat unfiltered Pile data at 4× our tokens, the data thesis fails — and (b) approach Pythia-160M and OPT-125M on HellaSwag and PIQA at 360–600× fewer tokens. Reference models are re-run through the identical harness and example slices rather than trusting published full-set numbers.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Nothing here was decided after seeing the numbers. Before launch, the yardstick was written down: no 0.5B-token local run beats SmolLM2-135M (2T tokens), so the honest targets were (a) beat Cerebras-GPT-111M everywhere (if refined data can't beat unfiltered Pile data at 4× our tokens, the data thesis fails), and (b) approach Pythia-160M and OPT-125M on HellaSwag and PIQA at 360–600× fewer tokens. Reference models are re-run through the identical harness and example slices rather than trusting published full-set numbers.</p>
 
     <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">2.</span> the recipe</h2>
-    <p style="margin:0 0 13px;color:var(--ink2)">The architecture came out of milestones 03–05: a 232M decoder with RoPE, RMSNorm, SwiGLU, grouped-query attention, and the hybrid pattern — a 64-token sliding window in most layers, full attention every 4th (layers 3/7/11/15). That keeps the KV cache at ~30% of a full-attention twin while beating it on val loss (replicated 3/3 seeds in milestone 08). Data is the milestone 05 refined pool. Training ran resumable, state saved every 500 steps; run 09 survived two external process kills with zero lost steps.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">The architecture came out of milestones 03–05: a 232M decoder with RoPE, RMSNorm, SwiGLU, grouped-query attention, and the hybrid pattern: a 64-token sliding window in most layers, full attention every 4th (layers 3/7/11/15). That keeps the KV cache at ~30% of a full-attention twin while beating it on val loss (replicated 3/3 seeds in milestone 08). Data is the milestone 05 refined pool. Training ran resumable, state saved every 500 steps; run 09 survived two external process kills with zero lost steps.</p>
     <div style="margin:0 0 13px">{{ archFigure }}</div>
 
     <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">3.</span> results, identical harness</h2>
@@ -88,7 +88,7 @@
       </table>
     </div>
     <p style="margin:0 0 13px;font-size:13px;color:var(--mute)">MMLU is at chance (.267) for every model at this scale, SmolLM2 included, and is omitted. Local re-run numbers are deliberately not comparable to published full-set numbers.</p>
-    <p style="margin:0 0 13px;color:var(--ink2)">Reading the table: against Pythia-160M (600× the tokens at 0.5B; 300× at 1.0B) the result is a statistical tie at 0.5B and ahead-or-tied everywhere at 1.0B, clearly ahead on ARC-Easy. Against gpt2, one clear win (ARC-E, the only gap beyond 2×SE), PIQA leaning our way inside the noise, and two ties. Against Cerebras-GPT-111M's published numbers, ahead across the board — gate (a) met. Against SmolLM2, clearly behind, exactly as pre-registered: that gap is 2T refined tokens, not architecture.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Reading the table: against Pythia-160M (600× the tokens at 0.5B; 300× at 1.0B) the result is a statistical tie at 0.5B and ahead-or-tied everywhere at 1.0B, clearly ahead on ARC-Easy. Against gpt2, one clear win (ARC-E, the only gap beyond 2×SE), PIQA leaning our way inside the noise, and two ties. Against Cerebras-GPT-111M's published numbers, ahead across the board: gate (a) met. Against SmolLM2, clearly behind, exactly as pre-registered: that gap is 2T refined tokens, not architecture.</p>
     <div style="margin:0 0 13px">{{ benchFigure }}</div>
 
     <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">4.</span> long-range behavior</h2>
@@ -96,10 +96,10 @@
     <div style="margin:0 0 13px">{{ posFigure }}</div>
 
     <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">5.</span> where the lever saturates</h2>
-    <p style="margin:0 0 13px;color:var(--ink2)">Run 09's clearest contribution is negative-shaped: doubling tokens from 0.5B to 1.0B bought 0.055 nats of val loss, +3.0 ARC-E, +1.6 PIQA, and ~0 HellaSwag. Refined data bought a 600× token-efficiency tie at 0.5B; the second 0.5B bought low-single-digit points. The steep part of the curve is behind. Next capability jumps need a different axis — bigger model, longer context, distillation, or post-training — which is what milestone 11 (intelligence per training hour) is now chasing.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Run 09's clearest contribution is negative-shaped: doubling tokens from 0.5B to 1.0B bought 0.055 nats of val loss, +3.0 ARC-E, +1.6 PIQA, and ~0 HellaSwag. Refined data bought a 600× token-efficiency tie at 0.5B; the second 0.5B bought low-single-digit points. The steep part of the curve is behind. Next capability jumps need a different axis: bigger model, longer context, distillation, or post-training. That is what milestone 11 (intelligence per training hour) took on next.</p>
 
     <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">6.</span> deployment</h2>
-    <p style="margin:0 0 13px;color:var(--ink2)">The MLX port passes logit parity and decodes at ~310 tok/s in fp16 with 72ms time-to-first-token on 896-token prompts; the KV cache is 4.97MB at full context, ~30% of a full-attention equivalent. 4-bit quantization costs +0.016 nats and runs ~530–550 tok/s. (The published weights are the 1.0B, 300× run.) Samples read as fluent encyclopedic prose with 232M-grade factual reliability — confidently wrong astronomy included.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">The MLX port passes logit parity and decodes at ~310 tok/s in fp16 with 72ms time-to-first-token on 896-token prompts; the KV cache is 4.97MB at full context, ~30% of a full-attention equivalent. 4-bit quantization costs +0.016 nats and runs ~530–550 tok/s. (The published weights are the 1.0B, 300× run.) Samples read as fluent encyclopedic prose with 232M-grade factual reliability, confidently wrong astronomy included.</p>
 
     <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:18px 0">
       <div style="font-weight:700;margin-bottom:4px">reproduce this</div>
@@ -163,7 +163,7 @@ class Component extends DCLogic {
       rows.push(el('text', { key: 'v' + i, x: 186 + w + 6, y: y + 12, fontSize: 11, fontFamily: "var(--mono)", fill: 'var(--mute)' }, v.toFixed(3)));
     });
     rows.push(el('line', { key: 'ax', x1: 186, y1: 8, x2: 186, y2: 146, stroke: 'var(--line)' }));
-    return this.figure('fig 2 \u00b7 arc-easy accuracy (0-shot, n=300, identical local harness) \u2014 tokens in parens', rows, 700, 158);
+    return this.figure('fig 2 \u00b7 arc-easy accuracy (0-shot, n=300, identical local harness) \u00b7 tokens in parens', rows, 700, 158);
   }
 
   posFig() {

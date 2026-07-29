@@ -55,7 +55,7 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
    (MHA→MQA→GQA), MLA, sparse/sliding-window lineage, the data-quality
    frontier (phi, FineWeb-Edu, SmolLM2, DCLM), and a replication triage
    of the Kimi K3 tech report (`docs/literature/kimi-k3.md`) into a
-   candidate milestone-13 program.
+   candidate next-lever program.
 2. **00–02: pipeline + baseline** — char-level smoke test, then a 114M
    GQA/RoPE/RMSNorm/SwiGLU control model.
 3. **03–04: attention shootout + scaling check** (TinyStories) — GQA vs MHA
@@ -88,9 +88,10 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     vs SmolLM2-135M-Instruct under one matched harness (13.9% vs 21.4%
     prompt-strict). The DPO endpoint ships as **chat v2** (tax disclosed
     on the card; v1 remains at HF revision `v1`). Distillation probes
-    return a **GO** for a milestone-13 program: GPT-2-XL leads our base
+    return a **GO** for a future program: GPT-2-XL leads our base
     by 0.296 nats on the shared val as a same-tokenizer logit teacher,
-    and local synthetic generation prices at ~13.9M tokens/day.
+    and local synthetic generation prices at ~13.9M tokens/day. (That
+    lever is still unspent — 13 went to MoE instead.)
 12. **12b: budget ablation** — the review-requested decisive experiment
     for the paper's central architecture claim: hybrid vs full attention
     at 50M / 100M / 200M tokens, byte-identical code, pre-registered
@@ -100,6 +101,23 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     1.3B tokens). Reading: restricted attention is a favorable inductive
     bias whose advantage shrinks as training grows; the claim is now a
     measured decay curve, not a tension datum.
+13. **13: MoE at the memory floor** — frontier MoE comparisons match
+    *active* parameters and treat memory as free; at a hardware floor
+    memory **is** the budget, so both controls ran: 8 experts x top-2
+    (~284M total / ~114M active) against the active-matched 114M hybrid
+    and a memory-matched 284M dense. **2.5x the parameters bought
+    validation loss and nothing else measurable.** Dense took the loss
+    (3.7711 vs 3.8398, −0.069 nats) and converted none of it into
+    downstream capability; MoE cleared its pre-registered loss gate by
+    **0.0004 nats** (1/50th of the seed-noise yardstick, n=1 seed) and
+    lost on every other axis. No downstream difference between any of the
+    three arms is resolvable at n=300 — the spread is ~1σ. Decode:
+    control 54.3 tok/s, dense 41.8, MoE 8.9 (the last is
+    implementation-bound, 96 `nonzero()` host syncs per forward, exactly
+    as the design review predicted — not an architectural verdict). Two
+    lessons outrank the verdict: validation loss and downstream
+    capability came apart, and the standing eval suite cannot separate
+    models at this scale.
 
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.

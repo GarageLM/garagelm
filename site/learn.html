@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="logo.png">
-<title>garagelm.org — learn: explore how an LLM works, live in your browser</title>
-<meta name="description" content="Learn how large language models work by exploring a real 188-parameter transformer running live in your browser — watch embeddings, attention, and logits update as it trains and predicts.">
+<title>garagelm.org · learn: explore how an LLM works, live in your browser</title>
+<meta name="description" content="Learn how large language models work by exploring a real 188-parameter transformer running live in your browser. watch embeddings, attention, and logits update as it trains and predicts.">
 <meta name="keywords" content="LLM learning, learn how LLMs work, large language model explained, transformer explained, interactive LLM explorer, LLM exploration, forward pass visualization, attention mechanism, embeddings, train a tiny GPT in the browser, machine learning education, neural network visualization">
 <script src="./support.js"></script>
 </head>
@@ -175,7 +175,7 @@
 
   <!-- ============ PIPELINE ============ -->
   <sc-if value="{{ isPipeline }}" hint-placeholder-val="{{ false }}">
-    <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink2);margin-bottom:8px">PIPELINE — CLICK A STAGE</div>
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink2);margin-bottom:8px">PIPELINE · CLICK A STAGE</div>
     <div style="display:flex;align-items:stretch;flex-wrap:wrap;margin-bottom:6px">
       <sc-for list="{{ stages }}" as="s" hint-placeholder-count="6">
         <div style="display:flex;align-items:center">
@@ -188,7 +188,7 @@
         </div>
       </sc-for>
     </div>
-    <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-bottom:22px">└ stages 2–5 form one transformer block — real models stack N identical blocks ┘</div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-bottom:22px">└ stages 2–5 form one transformer block · real models stack N identical blocks ┘</div>
 
     <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;overflow:hidden">
       <div style="background:var(--head-bg);color:#fff;padding:13px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
@@ -233,15 +233,15 @@
             <div><div style="{{ capStyle }}">head output</div><dc-import name="Matrix" values="{{ hd.out }}" rowlabels="{{ words }}" collabels="{{ headColLabels }}" heat="signed" compact="{{ true }}" highlightrow="{{ qHl }}" dark="{{ dark }}" hint-size="150px,180px"></dc-import></div>
             <sc-if value="{{ maskCmp }}" hint-placeholder-val="{{ false }}">
               <span style="font-size:19px;color:var(--mute)">vs</span>
-              <div><div style="{{ capStyle }}"><span style="color:#c2673f">without causal mask — hypothetical</span></div><dc-import name="Matrix" values="{{ noMaskW }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" highlightrow="{{ wHlRow }}" dark="{{ dark }}" hint-size="300px,180px"></dc-import></div>
+              <div><div style="{{ capStyle }}"><span style="color:#c2673f">without causal mask · hypothetical</span></div><dc-import name="Matrix" values="{{ noMaskW }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" highlightrow="{{ wHlRow }}" dark="{{ dark }}" hint-size="300px,180px"></dc-import></div>
             </sc-if>
           </div>
           <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:8px">hover a score to trace its Q · K rows above · click a visible cell to open that exact derivation in Math · keys: ←/→ query row · H head</div>
-          <sc-if value="{{ maskCmp }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--mono);font-size:10px;color:#c2673f;margin-top:4px">without the mask, every token would also average over FUTURE positions — the model could cheat by reading the answer it is meant to predict</div></sc-if>
+          <sc-if value="{{ maskCmp }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--mono);font-size:10px;color:#c2673f;margin-top:4px">without the mask, every token would also average over FUTURE positions: the model could cheat by reading the answer it is meant to predict</div></sc-if>
           </sc-if>
           <sc-if value="{{ showArcs }}" hint-placeholder-val="{{ false }}">
           <div style="background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:16px 16px 6px;overflow-x:auto">
-            <div style="{{ capStyle }}">where "{{ qWord }}" (q{{ qpos }}) looks — head {{ headNo }} <span style="color:var(--mute2)">· arc width ∝ weight · click a token to move the query · ▨ = masked</span></div>
+            <div style="{{ capStyle }}">where "{{ qWord }}" (q{{ qpos }}) looks · head {{ headNo }} <span style="color:var(--mute2)">· arc width ∝ weight · click a token to move the query · ▨ = masked</span></div>
             <div style="width:{{ arcW }}px">
               <svg width="{{ arcW }}" height="110" style="overflow:visible;display:block">
                 <sc-for list="{{ arcs }}" as="a" hint-placeholder-count="3"><path d="{{ a.d }}" style="{{ a.style }}"></path></sc-for>
@@ -283,7 +283,7 @@
         </sc-if>
 
         <sc-if value="{{ isFfn }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:800px;line-height:1.6">Position-wise MLP: project each row up to <b>d_ff=8</b>, apply <b>GELU</b>, project back to 4. Same weights at every position — where most parameters live.</div>
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:800px;line-height:1.6">Position-wise MLP: project each row up to <b>d_ff=8</b>, apply <b>GELU</b>, project back to 4. Same weights at every position, where most parameters live.</div>
           <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
             <div><div style="{{ capStyle }}">ln1 [{{ seqDim }}]</div><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,160px"></dc-import></div>
             <span style="font-size:15px;color:var(--mute);font-family:var(--mono)">W₁+b₁→</span>
@@ -298,7 +298,7 @@
         </sc-if>
 
         <sc-if value="{{ isAdd2 }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:780px;line-height:1.6">Second residual add + LayerNorm gives the block output. In a real model this feeds the next of <b>N</b> identical blocks — the residual stream flows straight through.</div>
+          <div style="font-size:13px;color:var(--ink2);margin-bottom:18px;max-width:780px;line-height:1.6">Second residual add + LayerNorm gives the block output. In a real model this feeds the next of <b>N</b> identical blocks: the residual stream flows straight through.</div>
           <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
             <div><div style="{{ capStyle }}">ln1</div><dc-import name="Matrix" values="{{ f.ln1 }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,160px"></dc-import></div>
             <span style="font-size:20px;color:var(--mute)">+</span>
@@ -315,7 +315,7 @@
             <span style="font-size:15px;color:var(--mute);font-family:var(--mono);padding-top:26px">·Eᵀ→</span>
             <div><div style="{{ capStyle }}">logits [vocab=8]</div><dc-import name="Matrix" values="{{ logitsRow }}" collabels="{{ vocab }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="360px,70px"></dc-import></div>
           </div>
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--ink2);margin-bottom:10px">softmax(logits) — NEXT-TOKEN DISTRIBUTION</div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--ink2);margin-bottom:10px">softmax(logits) · NEXT-TOKEN DISTRIBUTION</div>
           <div style="display:flex;flex-direction:column;gap:6px;max-width:560px">
             <sc-for list="{{ bars }}" as="bar" hint-placeholder-count="8">
               <div style="display:flex;align-items:center;gap:12px">
@@ -326,7 +326,7 @@
               </div>
             </sc-for>
           </div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--mute2);margin-top:16px;max-width:620px;line-height:1.6">Hand-set toy weights — the distribution shows the <i>mechanism</i>, not linguistic accuracy. Greedy decoding takes the argmax, appends it, and runs the whole pass again.</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--mute2);margin-top:16px;max-width:620px;line-height:1.6">Hand-set toy weights: the distribution shows the <i>mechanism</i>, not linguistic accuracy. Greedy decoding takes the argmax, appends it, and runs the whole pass again.</div>
         </sc-if>
       </div>
     </div>
@@ -337,8 +337,8 @@
     <div style="max-width:940px">
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:20px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">THE MATH, BY HAND</div>
-        <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:660px">The same numbers as the Pipeline — expanded to every scalar operation.</div>
-        <div style="font-size:15px;line-height:1.7;max-width:700px">Pick a query, key, token and activation below; every derivation recomputes live from your input. These are the exact values the matrices in the other tabs are built from — here nothing is collapsed into a matmul.</div>
+        <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:660px">The same numbers as the Pipeline, expanded to every scalar operation.</div>
+        <div style="font-size:15px;line-height:1.7;max-width:700px">Pick a query, key, token and activation below; every derivation recomputes live from your input. These are the exact values the matrices in the other tabs are built from: nothing here is collapsed into a matmul.</div>
       </div>
 
       <!-- selectors -->
@@ -350,8 +350,8 @@
 
       <!-- 1. attention score -->
       <div style="{{ mCard }}">
-        <div style="{{ mHead }}"><span style="{{ mNum }}">1</span> One attention score — scalar by scalar</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Query <b>"{{ mathQword }}"</b> (q{{ mQi }}) scored against key <b>"{{ mathKword }}"</b> (k{{ mKj }}) in head {{ mHeadi }} — a dot product over the head's 2 dimensions, scaled by √dₖ.</div>
+        <div style="{{ mHead }}"><span style="{{ mNum }}">1</span> One attention score · scalar by scalar</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">Query <b>"{{ mathQword }}"</b> (q{{ mQi }}) scored against key <b>"{{ mathKword }}"</b> (k{{ mKj }}) in head {{ mHeadi }}: a dot product over the head's 2 dimensions, scaled by √dₖ.</div>
         <div style="{{ mBox }}"><sc-for list="{{ scoreLines }}" as="l" hint-placeholder-count="6"><div style="{{ l.hi }}">{{ l.t }}</div></sc-for></div>
       </div>
 
@@ -399,14 +399,14 @@
       <!-- 5. gelu -->
       <div style="{{ mCard }}">
         <div style="{{ mHead }}"><span style="{{ mNum }}">5</span> GELU on FFN unit {{ mFFi }} of "{{ mathTokWord }}"</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The feed-forward non-linearity — a smooth gate that lets small negatives leak through and passes positives almost unchanged.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The feed-forward non-linearity: a smooth gate that lets small negatives leak through and passes positives almost unchanged.</div>
         <div style="{{ mBox }}"><sc-for list="{{ geluLines }}" as="l" hint-placeholder-count="4"><div style="{{ l.hi }}">{{ l.t }}</div></sc-for></div>
       </div>
 
       <!-- 6. temperature -->
       <div style="{{ mCard }}">
         <div style="{{ mHead }}"><span style="{{ mNum }}">6</span> Temperature reshapes the final softmax</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The same eight next-token logits <b>z</b>, divided by <b>T</b> before the exponent: pⱼ = e^(zⱼ/T) / Σₖ e^(zₖ/T). Small T stretches the gaps between logits apart (sharper), large T shrinks them (flatter) — the ranking never changes, only the confidence. This is the knob on the Generate tab.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px">The same eight next-token logits <b>z</b>, divided by <b>T</b> before the exponent: pⱼ = e^(zⱼ/T) / Σₖ e^(zₖ/T). Small T stretches the gaps between logits apart (sharper), large T shrinks them (flatter): the ranking never changes, only the confidence. This is the knob on the Generate tab.</div>
         <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px"><sc-for list="{{ tempBtns }}" as="b" hint-placeholder-count="6"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
         <div style="font-family:var(--mono);font-size:13px">
           <div style="{{ tempHeadRow }}"><span>token</span><span>z</span><span>z / {{ mTLabel }}</span><span>e^(z−max)/T</span><span>p at T</span><span>p at 1</span><span></span></div>
@@ -445,8 +445,8 @@
         <div style="{{ bandStyle }}">
           <div style="{{ bandHead }}"><span style="{{ bandNum }}">2</span> Multi-Head Self-Attention<span style="{{ bandForm }}">softmax(QKᵀ/√dₖ)·V · causal</span></div>
           <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start">
-            <div><div style="{{ capStyle }}">head 0 — attention weights</div><dc-import name="Matrix" values="{{ w0 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
-            <div><div style="{{ capStyle }}">head 1 — attention weights</div><dc-import name="Matrix" values="{{ w1 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
+            <div><div style="{{ capStyle }}">head 0 · attention weights</div><dc-import name="Matrix" values="{{ w0 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
+            <div><div style="{{ capStyle }}">head 1 · attention weights</div><dc-import name="Matrix" values="{{ w1 }}" rowlabels="{{ words }}" collabels="{{ words }}" heat="attn" compact="{{ true }}" dark="{{ dark }}" hint-size="240px,150px"></dc-import></div>
             <div><div style="{{ capStyle }}"><span style="color:var(--accent)">→ writes to stream</span></div><dc-import name="Matrix" values="{{ f.attnOut }}" rowlabels="{{ words }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="200px,150px"></dc-import></div>
           </div>
           <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:9px">each row (a query) is a probability distribution over ≤ its own position · lower-triangular by the causal mask</div>
@@ -478,7 +478,7 @@
       </div>
 
       <div style="position:relative;padding-left:66px;margin-bottom:20px">
-        <div style="font-family:var(--mono);font-size:11px;color:var(--ink2);border:1px dashed var(--bracket);border-radius:0;padding:8px 13px;display:inline-block">↻ real models stack N identical blocks — the stream flows straight through, each block reading &amp; writing it</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--ink2);border:1px dashed var(--bracket);border-radius:0;padding:8px 13px;display:inline-block">↻ real models stack N identical blocks · the stream flows straight through, each block reading &amp; writing it</div>
       </div>
 
       <div style="position:relative;padding-left:66px">
@@ -505,7 +505,7 @@
     <div style="max-width:940px">
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">AUTOREGRESSIVE GENERATION</div>
-        <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:640px">Predict one token, append it, feed the whole thing back in — repeat.</div>
+        <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:640px">Predict one token, append it, feed the whole thing back in. repeat.</div>
         <div style="font-size:15px;line-height:1.7;max-width:700px">A single forward pass predicts <i>one</i> token. Generation is the outer loop: sample from that distribution, stick the token on the end of the sequence, and run the entire pass again on the longer input. Everything you saw in the other tabs runs once per generated token.</div>
         <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--ink2)">
           <span style="background:var(--panel3);border:1px solid var(--line2);border-radius:0;padding:5px 10px">sequence</span><span>→</span>
@@ -577,7 +577,7 @@
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:22px 24px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink2);margin-bottom:14px">ROLL-OUT TRACE</div>
         <sc-if value="{{ genEmpty }}" hint-placeholder-val="{{ true }}">
-          <div style="font-family:var(--mono);font-size:13px;color:var(--mute2);padding:8px 0">Press <b style="color:var(--accent)">Generate</b> (or Step) to roll out tokens — each row records the token that was sampled and the top candidates it was drawn from.</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--mute2);padding:8px 0">Press <b style="color:var(--accent)">Generate</b> (or Step) to roll out tokens: each row records the token that was sampled and the top candidates it was drawn from.</div>
         </sc-if>
         <sc-if value="{{ hasGenSteps }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;flex-direction:column;gap:6px">
@@ -594,14 +594,14 @@
               </div>
             </sc-for>
           </div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:10px">ln p uses the model's untempered (T=1) probability — the running total is the log-likelihood the model assigns its own output</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:10px">ln p uses the model's untempered (T=1) probability · the running total is the log-likelihood the model assigns its own output</div>
         </sc-if>
       </div>
 
       <!-- serving compute -->
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-top:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">COMPUTE · WHAT GENERATION COSTS</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:14px">You've now seen both phases of inference. <b>Prefill</b>: all prompt positions computed in parallel — one pass, like the all-position pass on the Training tab. <b>Decode</b>: this loop — strictly one token at a time, because each token's input includes the last output. This toy recomputes every position on every step; real models keep a <b>KV-cache</b> (the K and V rows you saw in attention, stored per layer) so each new token only computes its own row.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:14px">You've now seen both phases of inference. <b>Prefill</b>: all prompt positions computed in parallel, one pass, like the all-position pass on the Training tab. <b>Decode</b>: this loop, strictly one token at a time, because each token's input includes the last output. This toy recomputes every position on every step; real models keep a <b>KV-cache</b> (the K and V rows you saw in attention, stored per layer) so each new token only computes its own row.</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
           <sc-for list="{{ srvCells }}" as="c" hint-placeholder-count="5">
             <div style="flex:1;min-width:128px;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:10px 12px">
@@ -611,8 +611,8 @@
             </div>
           </sc-for>
         </div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:8px">Decode speed is <b>memory-bound, not FLOP-bound</b>: every single token streams all N weights through the chip once, so bandwidth sets the single-stream ceiling and the arithmetic units mostly idle. Serving stacks many users into one batch to share each weight-read — that's why inference is priced per token.</div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">reference numbers for an 8-B-param model in fp16 on one H100-class GPU (~3.4 TB/s memory) · this toy: ~2 kFLOP per token, no cache — your browser tab is a supercomputer for it</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:8px">Decode speed is <b>memory-bound, not FLOP-bound</b>: every single token streams all N weights through the chip once, so bandwidth sets the single-stream ceiling and the arithmetic units mostly idle. Serving stacks many users into one batch to share each weight-read: that's why inference is priced per token.</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">reference numbers for an 8-B-param model in fp16 on one H100-class GPU (~3.4 TB/s memory) · this toy: ~2 kFLOP per token, no cache · your browser tab is a supercomputer for it</div>
       </div>
     </div>
   </sc-if>
@@ -624,7 +624,7 @@
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 28px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">TRAINING PIPELINE</div>
         <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:660px">Everything you've seen is inference. Training is the loop that <i>sets the weights</i>.</div>
-        <div style="font-size:15px;line-height:1.7;max-width:700px">The forward pass in the other tabs runs a <b>fixed</b> set of weights. Training is the outer loop that produced them: run the forward pass, measure how wrong the prediction was, push every weight a little in the direction that reduces the error, and repeat. Crucially — the <b>operations never change</b>. Attention, LayerNorm, the FFN shapes are all fixed. Training only nudges the ≈188 numbers inside them.</div>
+        <div style="font-size:15px;line-height:1.7;max-width:700px">The forward pass in the other tabs runs a <b>fixed</b> set of weights. Training is the outer loop that produced them: run the forward pass, measure how wrong the prediction was, push every weight a little in the direction that reduces the error, and repeat. Crucially, the <b>operations never change</b>. Attention, LayerNorm, the FFN shapes are all fixed. Training only nudges the ≈188 numbers inside them.</div>
       </div>
 
       <!-- the loop -->
@@ -674,7 +674,7 @@
             <div style="font-family:var(--mono);font-size:21px;font-weight:600;color:var(--ink)">{{ perplexity }}</div>
           </div>
           <div style="flex:2;min-width:220px;background:var(--panel3);border:1px dashed var(--accent-line);border-radius:0;padding:13px 15px;display:flex;align-items:center">
-            <div style="font-family:var(--mono);font-size:11px;color:var(--ink2);line-height:1.6">Random-guess baseline = ln(8) = <b>{{ randomLoss }}</b>. These untrained weights sit near it — <b>training is the process of driving this number down</b> across billions of examples.</div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--ink2);line-height:1.6">Random-guess baseline = ln(8) = <b>{{ randomLoss }}</b>. These untrained weights sit near it: <b>training is the process of driving this number down</b> across billions of examples.</div>
           </div>
         </div>
       </div>
@@ -682,7 +682,7 @@
       <!-- what the training data IS -->
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">THE TRAINING DATA</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">A dataset is just text — no labels, no answers. Teacher forcing slices every sentence into one example per position: <b>everything so far → the actual next word</b>. Your 5-token sentence is the entire corpus here, so it yields exactly these {{ tdCount }} examples:</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">A dataset is just text: no labels, no answers. Teacher forcing slices every sentence into one example per position: <b>everything so far → the actual next word</b>. Your 5-token sentence is the entire corpus here, so it yields exactly these {{ tdCount }} examples:</div>
         <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
           <sc-for list="{{ tdPairs }}" as="p" hint-placeholder-count="4">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line2);border-radius:0;padding:8px 12px">
@@ -695,16 +695,16 @@
             </div>
           </sc-for>
         </div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">real models do exactly this — but over web text, books and code: ~15 trillion tokens ≈ 15 trillion (context → next word) examples, batched millions at a time. same loss, same update rule; only the scale changes.</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">real models do exactly this, but over web text, books and code: ~15 trillion tokens ≈ 15 trillion (context → next word) examples, batched millions at a time. same loss, same update rule; only the scale changes.</div>
       </div>
 
       <!-- LIVE gradient-descent exercise -->
       <div style="background:var(--panel);border:1.5px solid var(--accent);border-radius:0;padding:24px 26px;margin-bottom:22px">
         <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent)">EXERCISE · TRAIN IT — REAL GRADIENT DESCENT</div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent)">EXERCISE · TRAIN IT · REAL GRADIENT DESCENT</div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--mute2)">{{ trainedNote }}</div>
         </div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">Run <b>W ← W − η·∂L/∂W</b> for real, on all 172 trainable weights, against the loss above. Every tab reads the same weights — watch the prediction chip in the top bar, the ✓ column, and the attention heatmaps reorganize as the loss falls.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:730px;margin-bottom:16px">Run <b>W ← W − η·∂L/∂W</b> for real, on all 172 trainable weights, against the loss above. Every tab reads the same weights: watch the prediction chip in the top bar, the ✓ column, and the attention heatmaps reorganize as the loss falls.</div>
         <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
           <div style="display:flex;gap:8px">
             <button onClick="{{ onStep1 }}" style="{{ stepBtn }}">Step ×1</button>
@@ -739,14 +739,14 @@
           </div>
         </div>
         <sc-if value="{{ overfit }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:16px;background:var(--accent-soft);border:1px dashed var(--accent-line);border-radius:0;padding:12px 15px;font-size:13px;color:var(--ink2);line-height:1.6"><b style="color:var(--accent)">Loss ≈ 0 — it memorized your sentence.</b> Now edit one input token in the top bar: the loss jumps right back up. That's memorization, not language — real training drives loss down across billions of <i>different</i> sentences so the model generalizes.</div>
+          <div style="margin-top:16px;background:var(--accent-soft);border:1px dashed var(--accent-line);border-radius:0;padding:12px 15px;font-size:13px;color:var(--ink2);line-height:1.6"><b style="color:var(--accent)">Loss ≈ 0: it memorized your sentence.</b> Now edit one input token in the top bar: the loss jumps right back up. That's memorization, not language: real training drives loss down across billions of <i>different</i> sentences so the model generalizes.</div>
         </sc-if>
       </div>
 
       <!-- touch one weight -->
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">EXERCISE · TOUCH ONE WEIGHT</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:710px;margin-bottom:16px">Training is nothing more than search over these numbers. Drag one and watch the loss respond — the curve is the loss landscape along this single weight's axis. Gradient descent just rolls downhill on it, in 172 dimensions at once.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:710px;margin-bottom:16px">Training is nothing more than search over these numbers. Drag one and watch the loss respond: the curve is the loss landscape along this single weight's axis. Gradient descent just rolls downhill on it, in 172 dimensions at once.</div>
         <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
           <div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ twBtns }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
           <div style="display:flex;align-items:center;gap:10px">
@@ -771,7 +771,7 @@
         <div style="display:flex;gap:22px;flex-wrap:wrap">
           <div>
             <div style="{{ wGroupCap }}">EMBED · 32 params</div>
-            <div style="{{ capStyle }}">E — token embeddings <span style="color:var(--mute2)">(8×4 · unembed is Eᵀ, tied)</span></div>
+            <div style="{{ capStyle }}">E · token embeddings <span style="color:var(--mute2)">(8×4 · unembed is Eᵀ, tied)</span></div>
             <dc-import name="Matrix" values="{{ wE }}" rowlabels="{{ vocabLabels }}" collabels="{{ dims }}" heat="signed" compact="{{ true }}" dark="{{ dark }}" hint-size="220px,240px"></dc-import>
           </div>
           <div>
@@ -795,7 +795,7 @@
             </div>
           </div>
         </div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:14px;line-height:1.8">this is the whole model — there is nothing else for training to touch. the 16 LayerNorm params (γ, β) are fixed at 1, 0 in this toy. GPT-scale models are the same picture with bigger rectangles: more dims per matrix, more heads, N stacked blocks.</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);margin-top:14px;line-height:1.8">this is the whole model. there is nothing else for training to touch. the 16 LayerNorm params (γ, β) are fixed at 1, 0 in this toy. GPT-scale models are the same picture with bigger rectangles: more dims per matrix, more heads, N stacked blocks.</div>
       </div>
 
       <!-- training compute -->
@@ -805,7 +805,7 @@
           <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--mute2)">THE STEP BUTTON ABOVE</span>
           <span style="font-family:var(--mono);font-size:13px;color:var(--ink2)">172 weights · 345 forward passes per step (2 per weight, finite differences) · ≈0.7 MFLOP · ~7 ms in this tab</span>
         </div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:16px">Real training never brute-forces the gradient like that button does. <b>Backpropagation</b> reuses the forward pass's intermediate values to get <i>all N</i> gradients for roughly the cost of 2 extra forward passes — so one step costs ~3 forwards' compute regardless of N. At 8 B parameters, finite differences would need 16&nbsp;billion forward passes per step; backprop needs the equivalent of ~3. That algorithm is the only reason any of the rows below are possible. The totals follow one rule of thumb: <b>FLOPs ≈ 6 · N params · D tokens</b>.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:740px;margin-bottom:16px">Real training never brute-forces the gradient like that button does. <b>Backpropagation</b> reuses the forward pass's intermediate values to get <i>all N</i> gradients for roughly the cost of 2 extra forward passes, so one step costs ~3 forwards' compute regardless of N. At 8 B parameters, finite differences would need 16&nbsp;billion forward passes per step; backprop needs the equivalent of ~3. That algorithm is the only reason any of the rows below are possible. The totals follow one rule of thumb: <b>FLOPs ≈ 6 · N params · D tokens</b>.</div>
         <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px"><sc-for list="{{ scaleBtns }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.onClick }}" style="{{ b.btnStyle }}">{{ b.label }}</button></sc-for></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
           <sc-for list="{{ scaleCells }}" as="c" hint-placeholder-count="6">
@@ -817,11 +817,11 @@
           </sc-for>
         </div>
         <div style="font-size:13px;color:var(--ink2);line-height:1.6;max-width:740px;margin-bottom:8px">{{ scaleNote }}</div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">wall-clock = 6·N·D ÷ (GPUs × ~0.4 PFLOP/s sustained per H100-class GPU) — real runs add data pipelines, checkpoint restarts and node failures · architecture is unchanged across every row: same attention, same FFN, same loss as this page</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--mute2);line-height:1.8">wall-clock = 6·N·D ÷ (GPUs × ~0.4 PFLOP/s sustained per H100-class GPU) · real runs add data pipelines, checkpoint restarts and node failures · architecture is unchanged across every row: same attention, same FFN, same loss as this page</div>
       </div>
 
       <!-- post-training stages -->
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink2);margin-bottom:10px">PRODUCTION IS THREE STAGES — THIS TOY HAS NONE</div>
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink2);margin-bottom:10px">PRODUCTION IS THREE STAGES · THIS TOY HAS NONE</div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px">
         <sc-for list="{{ postCards }}" as="s" hint-placeholder-count="3">
           <div style="flex:1;min-width:250px;background:var(--panel);border:1px solid var(--line);border-radius:0;padding:20px 22px">
@@ -839,7 +839,7 @@
       <!-- compare table -->
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:10px">TRAINING: THIS TOY vs PRODUCTION-GRADE</div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:680px;margin-bottom:20px">The <i>objective</i> is the one thing that stays the same — everything about scale, data and machinery is where production lives.</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;max-width:680px;margin-bottom:20px">The <i>objective</i> is the one thing that stays the same. everything about scale, data and machinery is where production lives.</div>
         <div style="border:1px solid var(--line2);border-radius:0;overflow:hidden">
           <div style="display:grid;grid-template-columns:1fr 1.05fr 1.4fr;background:var(--head-bg);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1px">
             <div style="padding:11px 14px">ASPECT</div>
@@ -865,7 +865,7 @@
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:26px 28px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:10px">GARAGELM.ORG · ABOUT THIS PROJECT</div>
         <div style="font-size:21px;font-weight:700;letter-spacing:-0.3px;line-height:1.3;margin-bottom:14px;max-width:640px">A working transformer forward pass, small enough to read every number.</div>
-        <div style="font-size:15px;line-height:1.7;max-width:680px">This is a complete decoder-only transformer — the same architecture behind GPT-class models — shrunk to a size where nothing is hidden. Four dimensions, two heads, one block, an eight-word vocabulary. Type in five tokens and watch text turn into a next-token probability distribution, one matrix multiply at a time. Nothing is pre-baked: every value on screen is computed live in your browser from the input you choose.</div>
+        <div style="font-size:15px;line-height:1.7;max-width:680px">This is a complete decoder-only transformer, the same architecture behind GPT-class models, shrunk to a size where nothing is hidden. Four dimensions, two heads, one block, an eight-word vocabulary. Type in five tokens and watch text turn into a next-token probability distribution, one matrix multiply at a time. Nothing is pre-baked: every value on screen is computed live in your browser from the input you choose.</div>
       </div>
 
       <!-- usage + coverage -->
@@ -901,7 +901,7 @@
       <!-- complexity truth -->
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:0;padding:24px 26px;margin-bottom:22px">
         <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:10px">THE COMPLEXITY TRUTH</div>
-        <div style="font-size:15px;line-height:1.7;max-width:680px;margin-bottom:20px">What's <b>real</b> here is the <i>shape</i> of the computation — the operations, the data flow, the causal masking, the way dimensions transform stage to stage. What's <b>not</b> real is everything about scale and training. The numbers are illustrative, the weights are hand-chosen rather than learned, and a single four-dimensional block obviously cannot model language. Read this as a wiring diagram you can run, not a small language model.</div>
+        <div style="font-size:15px;line-height:1.7;max-width:680px;margin-bottom:20px">What's <b>real</b> here is the <i>shape</i> of the computation: the operations, the data flow, the causal masking, the way dimensions transform stage to stage. What's <b>not</b> real is everything about scale and training. The numbers are illustrative, the weights are hand-chosen rather than learned, and a single four-dimensional block obviously cannot model language. Read this as a wiring diagram you can run, not a small language model.</div>
 
         <div style="border:1px solid var(--line2);border-radius:0;overflow:hidden">
           <div style="display:grid;grid-template-columns:1.1fr 1fr 1.35fr;background:var(--head-bg);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1px">
@@ -1045,12 +1045,12 @@ class Component extends DCLogic {
 
   tourDefs() {
     return [
-      { t: 'Everything is live', d: 'The five chips in the top bar are the model input. Click one and pick a different word — amber flashes mark every downstream number that changed.', set: { view: 'pipeline', stage: 'embed' } },
-      { t: 'The shape of the model', d: 'The whole architecture, input at the bottom. Hover any block for its formula, output shape and parameter count — then jump in with “Open in Pipeline”.', set: { view: 'arch', sel: 'attn' } },
+      { t: 'Everything is live', d: 'The five chips in the top bar are the model input. Click one and pick a different word. Amber flashes mark every downstream number that changed.', set: { view: 'pipeline', stage: 'embed' } },
+      { t: 'The shape of the model', d: 'The whole architecture, input at the bottom. Hover any block for its formula, output shape and parameter count, then jump in with “Open in Pipeline”.', set: { view: 'arch', sel: 'attn' } },
       { t: 'Watch a token look around', d: 'Each row of the weights matrix is one token deciding where to look. Hover a score to trace the Q and K rows that made it, click it to see the arithmetic, or switch to Arcs.', set: { view: 'pipeline', stage: 'attn' } },
-      { t: 'Down to single scalars', d: 'The same numbers, expanded operation by operation. Pick a head, a query and a key — nothing is pre-baked.', set: { view: 'math' } },
+      { t: 'Down to single scalars', d: 'The same numbers, expanded operation by operation. Pick a head, a query and a key. Nothing is pre-baked.', set: { view: 'math' } },
       { t: 'Generation is a loop', d: 'Press Generate: predict → sample → append → run the whole pass again. The trace logs every pick and the running log-probability.', set: { view: 'generate' } },
-      { t: 'What training actually does', d: 'Cross-entropy on your own sentence — then train it for real: hit Step ×10 and watch the loss fall, the ✓s appear, and the prediction chip flip. Reset weights when done.', set: { view: 'training' } }
+      { t: 'What training actually does', d: 'Cross-entropy on your own sentence, then train it for real: hit Step ×10 and watch the loss fall, the ✓s appear, and the prediction chip flip. Reset weights when done.', set: { view: 'training' } }
     ];
   }
 
@@ -1199,9 +1199,9 @@ class Component extends DCLogic {
       output: { tag: 'OUT', name: 'Output distribution', formula: 'argmax / sample p', shape: 'vocab=8', params: '0', desc: 'The next-token probabilities. Greedy decoding takes the argmax; sampling draws from the distribution.' },
       softmax: { tag: 'σ', name: 'Softmax', formula: 'p = softmax(logits)', shape: 'vocab=8', params: '0', desc: 'Exponentiate and normalize the logits into a probability distribution over the vocabulary.' },
       linear: { tag: 'W', name: 'Linear (unembed)', formula: 'logits = h · Eᵀ', shape: 'vocab=8', params: '0 (tied)', desc: 'Project the final hidden vector onto every vocabulary token. Weight tied to the transpose of the embedding table.' },
-      addnorm2: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x + FFN(x))', shape: S, params: '8 (γ,β)', desc: 'Residual add of the FFN output, then LayerNorm. This is the block output. (γ=1, β=0 in this toy — counted, but not free.)' },
-      ffn: { tag: '3', name: 'Feed Forward', formula: 'GELU(x·W₁+b₁)·W₂+b₂', shape: S, params: '76', desc: 'Position-wise MLP: expand 4→8, non-linearity, project 8→4. Applied identically at every position — where most parameters live.' },
-      addnorm1: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x⁰ + Attn)', shape: S, params: '8 (γ,β)', desc: 'Residual add of the attention output back into the stream, then LayerNorm to stabilize activations. (γ=1, β=0 in this toy — counted, but not free.)' },
+      addnorm2: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x + FFN(x))', shape: S, params: '8 (γ,β)', desc: 'Residual add of the FFN output, then LayerNorm. This is the block output. (γ=1, β=0 in this toy, counted but not free.)' },
+      ffn: { tag: '3', name: 'Feed Forward', formula: 'GELU(x·W₁+b₁)·W₂+b₂', shape: S, params: '76', desc: 'Position-wise MLP: expand 4→8, non-linearity, project 8→4. Applied identically at every position, where most parameters live.' },
+      addnorm1: { tag: '⊕', name: 'Add & Norm', formula: 'LN(x⁰ + Attn)', shape: S, params: '8 (γ,β)', desc: 'Residual add of the attention output back into the stream, then LayerNorm to stabilize activations. (γ=1, β=0 in this toy, counted but not free.)' },
       attn: { tag: '2', name: 'Masked Multi-Head Attention', formula: 'softmax(QKᵀ/√dₖ)·V', shape: S, params: '64', desc: 'Each of 2 heads scores every query against every key (future masked), softmaxes, and mixes values. Heads concat then mix through W_O.' },
       posenc: { tag: '⊕', name: 'Positional Encoding', formula: 'x⁰ = e + PE(pos)', shape: S, params: '0', desc: 'Add fixed sinusoidal vectors so the otherwise permutation-invariant model can distinguish token positions.' },
       embed: { tag: '1', name: 'Token Embedding', formula: 'e = E[token_id]', shape: S, params: '32', desc: 'Look up a learned d-dimensional vector for each token id from the embedding table E (8×4).' },
@@ -1451,7 +1451,7 @@ class Component extends DCLogic {
       barStyle: `width:${Math.max(2, (d.p / gmax) * 100)}%;height:100%;background:${i === 0 ? 'var(--accent)' : (dark ? '#3a527e' : '#a9c0e6')};border-radius:0;transition:width .3s`,
       ghostStyle: `position:absolute;left:calc(${Math.min(100, (d.bp / gmax) * 100).toFixed(1)}% - 1px);top:1px;bottom:1px;width:2px;background:var(--ink2);opacity:.55;border-radius:1px`
     }));
-    const distSub = st.genGreedy ? 'argmax — deterministic, nothing is sampled' : (showGhost ? 'reshaped by temperature · ▎ marker = weight at T 1.00' : 'what the next sample draws from');
+    const distSub = st.genGreedy ? 'argmax · deterministic, nothing is sampled' : (showGhost ? 'reshaped by temperature · ▎ marker = weight at T 1.00' : 'what the next sample draws from');
     const genChips = gseq.map((t, i) => {
       const isP = i < promptLen, isNew = i === gseq.length - 1 && gseq.length > promptLen;
       return { word: VOCAB[t], chipStyle: `font-family:var(--mono);font-size:15px;font-weight:600;padding:8px 12px;border-radius:0;border:1px solid ${isP ? 'var(--line)' : 'var(--accent)'};background:${isP ? 'var(--panel3)' : 'var(--accent-soft)'};color:${isP ? 'var(--ink2)' : 'var(--accent)'};${isNew ? 'box-shadow:0 0 0 3px var(--accent-glow);' : ''}transition:all .2s` };
@@ -1475,8 +1475,8 @@ class Component extends DCLogic {
     const onStep = () => { if (canGen) this.genStep(); };
     const onReset = () => this.resetGen();
     const genHint = genGreedy
-      ? 'Greedy always takes the top token — notice how it quickly falls into a loop. That degeneration is exactly why sampling exists.'
-      : (st.genTemp <= 0.4 ? 'Low temperature → sharp, near-greedy, repetitive.' : st.genTemp >= 1.1 ? 'High temperature → flatter distribution, more surprising (and more chaotic) picks.' : 'Balanced temperature — some variety while still favoring likely tokens.');
+      ? 'Greedy always takes the top token. Notice how it quickly falls into a loop. That degeneration is exactly why sampling exists.'
+      : (st.genTemp <= 0.4 ? 'Low temperature → sharp, near-greedy, repetitive.' : st.genTemp >= 1.1 ? 'High temperature → flatter distribution, more surprising (and more chaotic) picks.' : 'Balanced temperature · some variety while still favoring likely tokens.');
 
     // ================= TRAINING =================
     // Live teacher-forcing loss on the current sentence (each position predicts the next).
@@ -1529,7 +1529,7 @@ class Component extends DCLogic {
     const onLr = e => this.setState({ lr: parseFloat(e.target.value) });
     const trainingBusy = !!st.training;
     const stepCount = String(trainSteps);
-    const trainedNote = trainSteps ? trainSteps + ' steps applied — saved in this browser; ↺ Reset to clear' : 'weights at their hand-set starting point';
+    const trainedNote = trainSteps ? trainSteps + ' steps applied · saved in this browser; ↺ Reset to clear' : 'weights at their hand-set starting point';
     const overfit = trainSteps > 0 && !st.training && f.avgLoss < 0.08;
     const rollFrom = wgt => { let s = tokens.slice(); const out = []; for (let k = 0; k < 6; k++) { const lg = LLM.forward(s, wgt).logits; const p = lg.indexOf(Math.max(...lg)); out.push(VOCAB[p]); s = [...s, p]; } return out; };
     const rollB = LLM.ORIG ? rollFrom(LLM.ORIG) : [], rollA = LLM.ORIG ? rollFrom(null) : [];
@@ -1573,13 +1573,13 @@ class Component extends DCLogic {
     // -- compute panels --
     const SCALES = [
       { label: 'GPT-2 · 1.5B', cells: [['PARAMS N', '1.5 B', '≈9,000× this toy'], ['TOKENS D', '~10 B', 'web text'], ['TRAIN FLOPS', '9×10¹⁹', '6·N·D'], ['CLUSTER', '8 GPUs', 'one node'], ['WALL-CLOCK', '~8 hours', 'a working day'], ['POWER', '~11 kW', 'a house']],
-        note: 'In 2019 this took weeks on hundreds of GPUs. The same run fits on one modern 8-GPU node overnight — compute per dollar is the quiet driver of the whole field.' },
+        note: 'In 2019 this took weeks on hundreds of GPUs. The same run fits on one modern 8-GPU node overnight. Compute per dollar is the quiet driver of the whole field.' },
       { label: 'Llama-class · 8B', cells: [['PARAMS N', '8 B', 'd=4096 · 32 heads · 32 blocks'], ['TOKENS D', '~15 T', '≈4×10¹² of your 4-example datasets'], ['TRAIN FLOPS', '7×10²³', '6·N·D'], ['CLUSTER', '1,024 GPUs', 'H100-class'], ['WALL-CLOCK', '~3 weeks', 'around the clock'], ['POWER', '~1.4 MW', 'a small factory']],
         note: 'Architecturally this is the toy above with bigger rectangles: same E → Q/K/V/O → W₁/W₂ picture, just 4096 dims instead of 4, 32 heads instead of 2, 32 blocks instead of 1.' },
       { label: '70B', cells: [['PARAMS N', '70 B', 'd=8192 · 64 heads · 80 blocks'], ['TOKENS D', '~15 T', 'same data, bigger model'], ['TRAIN FLOPS', '6×10²⁴', '6·N·D'], ['CLUSTER', '16,384 GPUs', 'a purpose-built hall'], ['WALL-CLOCK', '~2 weeks', 'more GPUs than FLOPs'], ['POWER', '~23 MW', 'a small town']],
         note: 'Past ~10k GPUs the hard problems stop being math: keeping the gradient synchronized across the cluster, and surviving hardware failures mid-run (at this scale, several per day).' },
       { label: 'frontier', cells: [['PARAMS N', '~2 T', 'mixture-of-experts'], ['TOKENS D', 'tens of T', 'near the usable-text limit'], ['TRAIN FLOPS', '~10²⁶', 'rumored class'], ['CLUSTER', '~100,000 GPUs', 'a dedicated campus'], ['WALL-CLOCK', '~1–2 months', 'plus months of prep'], ['POWER', '~140 MW', 'a small city']],
-        note: 'Frontier runs are industrial projects: dedicated power contracts, custom cooling, teams babysitting the loss curve. And the loop inside is still exactly the one on this page — forward, loss, gradient, nudge.' }
+        note: 'Frontier runs are industrial projects: dedicated power contracts, custom cooling, teams babysitting the loss curve. And the loop inside is still exactly the one on this page: forward, loss, gradient, nudge.' }
     ];
     const scaleSel = Math.min(st.scaleSel == null ? 1 : st.scaleSel, SCALES.length - 1);
     const scaleBtns = SCALES.map((s, i) => ({ label: s.label, onClick: () => this.setState({ scaleSel: i }), btnStyle: mToggle(i === scaleSel) }));
@@ -1587,7 +1587,7 @@ class Component extends DCLogic {
     const scaleNote = SCALES[scaleSel].note;
     const srvCells = [
       { k: 'FLOPS / TOKEN', v: '≈2·N = 16 GFLOP', sub: 'every weight used once' },
-      { k: 'MEMORY READ / TOKEN', v: '16 GB', sub: 'all weights, fp16 — the bottleneck' },
+      { k: 'MEMORY READ / TOKEN', v: '16 GB', sub: 'all weights, fp16 · the bottleneck' },
       { k: 'SINGLE-STREAM CEILING', v: '~200 tok/s', sub: '3.4 TB/s ÷ 16 GB' },
       { k: 'KV-CACHE / TOKEN', v: '~0.5 MB', sub: '2 · 32 layers · 4096 · fp16' },
       { k: 'KV AT 32K CONTEXT', v: '~16 GB', sub: 'why long context costs' }
@@ -1609,7 +1609,7 @@ class Component extends DCLogic {
     const wB2 = wLive ? dV(wLive.b2, O.b2) : [[0]];
     const wViewBtns = [['vals', 'values'], ['delta', 'Δ vs untrained']].map(([id, l]) => ({ label: l, onClick: () => this.setState({ wView: id }), btnStyle: mToggle((st.wView || 'vals') === id) }));
     const wMapDesc = wDelta
-      ? 'Every cell shows how far training has moved that weight from its starting value — blank means untouched. Run some steps above and see the changes spread through the whole stack; the query/key columns of the head doing the work usually move most.'
+      ? 'Every cell shows how far training has moved that weight from its starting value. Blank means untouched. Run some steps above and see the changes spread through the whole stack; the query/key columns of the head doing the work usually move most.'
       : 'This is the entire model, laid out where each matrix sits in the architecture: embeddings feed attention (Q, K, V in, O out), attention feeds the FFN sandwich. Gradient descent may move every one of these numbers at every step.';
     const wGroupCap = `font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--mute2);border-bottom:1px solid var(--line2);padding-bottom:5px;margin-bottom:10px`;
     const vocabLabels = VOCAB;
@@ -1642,10 +1642,10 @@ class Component extends DCLogic {
     });
 
     const trainCompareRows = [
-      ['Objective', 'next-token cross-entropy', 'next-token cross-entropy — identical'],
-      ['Training data', 'none — weights hand-set', '~15T tokens · web, code, books, math'],
+      ['Objective', 'next-token cross-entropy', 'next-token cross-entropy · identical'],
+      ['Training data', 'none · weights hand-set', '~15T tokens · web, code, books, math'],
       ['Tokens seen', '0', '10¹³ +'],
-      ['Optimizer', '— (not trained)', 'AdamW · cosine decay · warmup'],
+      ['Optimizer', 'none (not trained)', 'AdamW · cosine decay · warmup'],
       ['Batch size', '1 sequence', '1M – 4M tokens per step'],
       ['Precision', 'fp64 (JS)', 'bf16 / fp8 mixed precision'],
       ['Hardware', 'your browser tab', '1000s of GPUs · weeks of wall-clock'],
@@ -1667,10 +1667,10 @@ class Component extends DCLogic {
 
     // ================= ABOUT =================
     const usage = [
-      { n: '1', t: 'Edit the input', d: 'Click any token chip in the top bar and pick a different word. The whole forward pass — every matrix, heatmap, and the next-token distribution — recomputes instantly.' },
+      { n: '1', t: 'Edit the input', d: 'Click any token chip in the top bar and pick a different word. The whole forward pass (every matrix, heatmap, and the next-token distribution) recomputes instantly.' },
       { n: '2', t: 'Switch lenses', d: 'Architecture, Pipeline and Residual Stream are three views of the same computation. Your input and its prediction carry across all of them.' },
       { n: '3', t: 'Inspect the math', d: 'Hover a block in Architecture for its formula, shape and parameter count. In Pipeline, click a stage, switch attention heads, and pick a query row to see exactly what it attends to.' },
-      { n: '4', t: 'Toggle theme', d: '☀ / ☾ lives top-right — heatmaps re-base onto the active surface instead of washing out.' },
+      { n: '4', t: 'Toggle theme', d: '☀ / ☾ lives top-right. Heatmaps re-base onto the active surface instead of washing out.' },
       { n: '5', t: 'Tour & shortcuts', d: 'Hit ✦ Tour in the top bar for a 6-step guided walk. In attention views, ←/→ moves the query row and H switches heads. The URL tracks your view, so any exact state is shareable.' }
     ];
     const coverage = [

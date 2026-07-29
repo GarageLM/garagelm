@@ -47,7 +47,7 @@ epoch, from the Stage-1 checkpoint):**
   base (< 3.0).
 - P2: MLX generation throughput for 1–2 modern teachers → tokens/day of
   synthetic generation on this machine. Output: a go/no-go note for a
-  milestone-13 distillation program.
+  distillation program.
 
 ## Results
 
@@ -113,9 +113,10 @@ that paper tested. **chat-v2 does not ship** (G2 fail action); the
 Stage-1b replay-mix remedy was considered and **shelved by decision**
 (2026-07-27): milestone 12 stands as pure science, v1 chat remains the
 public model, and the tax curve stays at two measured points.
-The distillation probes return a GO signal for milestone 13: a viable
-same-tokenizer logit teacher with 0.3 nats of headroom, and a priced
-synthetic-generation alternative.
+The distillation probes return a GO signal: a viable same-tokenizer logit
+teacher with 0.3 nats of headroom, and a priced synthetic-generation
+alternative. Milestone 13 went to MoE instead, so this lever is still
+unspent.
 
 **Ship decision (2026-07-27, later the same day — partial reversal,
 recorded)**: once the chat-benchmark table below existed, the **DPO

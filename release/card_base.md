@@ -133,6 +133,17 @@ print(tok.decode(out[0]))
 No KV cache in this wrapper (research release; generation re-runs the
 prefix each step).
 
+### Apple Silicon (MLX)
+
+The MLX conversions are the runtime the throughput numbers above were measured
+under, and unlike this wrapper they carry real per-layer KV caches (bounded on
+the 12 sliding-window layers):
+
+- [`hybrid-gpt-232m-mlx`](https://huggingface.co/garagelm/hybrid-gpt-232m-mlx) — float16, 464MB
+- [`hybrid-gpt-232m-mlx-4bit`](https://huggingface.co/garagelm/hybrid-gpt-232m-mlx-4bit) — 4-bit, 130MB, at +0.018 nats validation loss
+
+Both are logit-parity-gated against this PyTorch implementation.
+
 ## Limitations
 
 - **A 232M-parameter research artifact, not an assistant.** Fluent text,

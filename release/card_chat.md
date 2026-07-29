@@ -4,6 +4,8 @@ language: [en]
 datasets: [HuggingFaceFW/fineweb-edu, HuggingFaceTB/smollm-corpus, HuggingFaceTB/smoltalk, HuggingFaceH4/ultrafeedback_binarized]
 pipeline_tag: text-generation
 library_name: transformers
+base_model: garagelm/hybrid-gpt-232m
+base_model_relation: finetune
 tags: [hybrid-attention, sliding-window, small-model, research, chat, dpo]
 model-index:
 - name: hybrid-gpt-232m-chat
@@ -113,6 +115,17 @@ out = model.generate(**tok(prompt, return_tensors="pt"), max_new_tokens=200,
                      eos_token_id=50256, do_sample=True, temperature=0.7, top_k=50)
 print(tok.decode(out[0]))
 ```
+
+### Apple Silicon (MLX)
+
+MLX conversions with real per-layer KV caches (bounded on the 12
+sliding-window layers), decoding ~310 tok/s at float16 and ~530 tok/s at
+4-bit on an M4 Pro:
+
+- [`hybrid-gpt-232m-chat-mlx`](https://huggingface.co/garagelm/hybrid-gpt-232m-chat-mlx) — float16, 464MB
+- [`hybrid-gpt-232m-chat-mlx-4bit`](https://huggingface.co/garagelm/hybrid-gpt-232m-chat-mlx-4bit) — 4-bit, 130MB, at +0.018 nats validation loss
+
+Both are logit-parity-gated against this PyTorch implementation.
 
 ## Limitations
 

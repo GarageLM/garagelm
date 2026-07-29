@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="logo.png">
-<title>garagelm.org — the garage intelligence lab</title>
+<title>garagelm.org · the garage intelligence lab</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -55,14 +55,14 @@
     <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
 
     <h2 class="sec-head"><span style="color:var(--warm)">$</span> about</h2>
-    <p style="margin:0 0 18px"><b style="font-family:var(--mono);font-size:.9em">garagelm</b> is an independent, open-source artificial intelligence research lab started in 2026, built on the hardware you'd find in a garage rather than a datacenter. The work is open source first: code, training recipes, write-ups, and weights are published wherever possible — and negative results ship alongside the wins.</p>
+    <p style="margin:0 0 18px"><b style="font-family:var(--mono);font-size:.9em">garagelm</b> is an independent, open-source artificial intelligence research lab started in 2026, built on the hardware you'd find in a garage rather than a datacenter. The work is open source first: code, training recipes, write-ups, and weights are published wherever possible, and negative results ship alongside the wins.</p>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin:0 0 18px">
       <div style="flex:1;min-width:260px;border:1px solid var(--line);border-top:3px solid var(--warm);padding:14px 16px;background:var(--code)">
         <div style="display:flex;align-items:center;gap:9px;margin-bottom:2px">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"></path><path d="M10 3v6.3L4.7 18.6A2 2 0 0 0 6.5 21.5h11a2 2 0 0 0 1.8-2.9L14 9.3V3"></path><path d="M7.5 15h9"></path></svg>
           <div style="font-family:var(--mono);font-size:13px;font-weight:700">lab objective 1: research</div>
         </div>
-        <div style="font-family:var(--mono);font-size:13px;color:var(--ink2);margin-bottom:8px">the metal — one apple m4 pro</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--ink2);margin-bottom:8px">the metal · one apple m4 pro</div>
         <div style="font-size:15px;color:var(--ink2);line-height:1.6">Capability-per-dollar and per-watt: real models trained end-to-end on one consumer Mac, measured against published baselines under a fair-comparison rule, weights released. Written up win or lose.</div>
         <div style="font-family:var(--mono);font-size:13px;margin-top:10px"><a href="models.html">models »</a> · <a href="notes.html#roadmap">roadmap »</a></div>
       </div>
@@ -71,7 +71,7 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>
           <div style="font-family:var(--mono);font-size:13px;font-weight:700">lab objective 2: learning</div>
         </div>
-        <div style="font-family:var(--mono);font-size:13px;color:var(--ink2);margin-bottom:8px">the browser — your tab</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--ink2);margin-bottom:8px">the browser · your tab</div>
         <div style="font-size:15px;color:var(--ink2);line-height:1.6">The same ideas at readable scale: working models shrunk until every matrix fits on screen, probes on every number, permission to break things. Nothing canned; it all recomputes live.</div>
         <div style="font-family:var(--mono);font-size:13px;margin-top:10px"><a href="learn.html">learn »</a> · <a href="notes.html">notes »</a></div>
       </div>
@@ -83,7 +83,7 @@
     <h2 id="research" class="sec-head"><span style="color:var(--warm)">$</span> research</h2>
     <p style="margin:0 0 18px">The core of the lab chases one question: how much intelligence can you train per dollar, per watt, per hour? Every experiment in attention variants, data quality, and training-cycle efficiency runs on a single Apple M4 Pro (48GB, no CUDA) under a strict fair-comparison rule, and gets written up win or lose.</p>
     <div style="border:1px solid var(--line);background:var(--code);padding:15px 18px;font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:18px">
-      <div style="font-weight:700;margin-bottom:8px">headline result — hybrid-gpt-232m</div>
+      <div style="font-weight:700;margin-bottom:8px">headline result · hybrid-gpt-232m</div>
       <div class="colspec">
         <span>vs pythia-160m</span><span>at-or-above on all four tasks, at 300&#215; fewer tokens</span>
         <span>vs gpt2</span><span>clearly ahead on arc-easy; even elsewhere</span>
@@ -93,16 +93,17 @@
       <div style="margin-top:10px"><a href="https://huggingface.co/garagelm/hybrid-gpt-232m" target="_blank">weights on hugging face &#8599;</a> &nbsp;·&nbsp; <a href="models.html">model cards &#187;</a> &nbsp;·&nbsp; <a href="note-600x-tokens.html">the write-up &#187;</a></div>
     </div>
     <div class="colspec" style="font-family:var(--mono);font-size:13px;line-height:1.55">
-      <span>02</span><span>baseline — 114M GQA/RoPE/SwiGLU control <span style="color:var(--mute)">[control]</span></span>
-      <span>03–04</span><span>attention shootout — sliding-window "wins" twice <span style="color:var(--warm)">[artifact]</span></span>
-      <span>05</span><span>data frontier — refined corpus flips it: hybrid beats full attention <span style="color:var(--ok)">[win]</span></span>
-      <span>07</span><span>flagship — matches pythia-160m at 600&#215; fewer tokens <span style="color:var(--ok)">[600&#215;]</span></span>
-      <span>08</span><span>solidify — hybrid &gt; full attention in 3/3 seeds <span style="color:var(--ok)">[3/3]</span></span>
-      <span>09</span><span>flagship-2 — 1B tokens; the token axis saturates <span style="color:var(--warm)">[saturating]</span></span>
-      <span>10</span><span>sft + release — chat tuning, zero regression, weights published <span style="color:var(--ok)">[shipped]</span></span>
-      <span>11</span><span>efficiency — four levers, four gated negatives; the recipe stands <span style="color:var(--warm)">[0-for-4]</span></span>
-      <span>12</span><span>post-training — alignment tax measured; dpo passes at zero tax; chat v2 ships <span style="color:var(--ok)">[v2]</span></span>
-      <span>12b</span><span>budget ablation — hybrid ahead at every budget; the edge decays as training grows <span style="color:var(--ok)">[curve]</span></span>
+      <span>02</span><span>baseline: 114M GQA/RoPE/SwiGLU control <span style="color:var(--mute)">[control]</span></span>
+      <span>03–04</span><span>attention shootout: sliding-window "wins" twice <span style="color:var(--warm)">[artifact]</span></span>
+      <span>05</span><span>data frontier: refined corpus flips it: hybrid beats full attention <span style="color:var(--ok)">[win]</span></span>
+      <span>07</span><span>flagship: matches pythia-160m at 600&#215; fewer tokens <span style="color:var(--ok)">[600&#215;]</span></span>
+      <span>08</span><span>solidify: hybrid &gt; full attention in 3/3 seeds <span style="color:var(--ok)">[3/3]</span></span>
+      <span>09</span><span>flagship-2: 1B tokens; the token axis saturates <span style="color:var(--warm)">[saturating]</span></span>
+      <span>10</span><span>sft + release: chat tuning, zero regression, weights published <span style="color:var(--ok)">[shipped]</span></span>
+      <span>11</span><span>efficiency: four levers, four gated negatives; the recipe stands <span style="color:var(--warm)">[0-for-4]</span></span>
+      <span>12</span><span>post-training: alignment tax measured; dpo passes at zero tax; chat v2 ships <span style="color:var(--ok)">[v2]</span></span>
+      <span>12b</span><span>budget ablation: hybrid ahead at every budget; the edge decays as training grows <span style="color:var(--ok)">[curve]</span></span>
+      <span>13</span><span>moe: 2.5&#215; the params bought loss, not capability; both big arms decode slower <span style="color:var(--warm)">[flat]</span></span>
     </div>
     <div style="font-family:var(--mono);font-size:13px;margin-top:14px"><a href="notes.html#roadmap">full experiment roadmap »</a></div>
 

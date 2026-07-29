@@ -1,0 +1,9 @@
+{
+  "experiment": "13-moe-moe",
+  "full_pass_val_loss": 3.8094,
+  "masked": false,
+  "block_size": 1024,
+  "val_bin": "/Users/anthonytrevino/Desktop/llm-arch-explore/experiments/05-data-frontier/data/val.bin",
+  "val_tokens": 2000000,
+  "protocol": "non-overlapping windows, stride=block, fp32, tail dropped"
+}

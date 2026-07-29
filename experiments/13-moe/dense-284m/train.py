@@ -21,7 +21,12 @@ OUT_DIR = os.path.join(ROOT, "out")
 # process restart): --resume continues from the last saved state instead of
 # losing hours. Loss curves across a resume are seamless because CPU+MPS RNG
 # states are restored.
-STATE_EVERY = 1000
+# 250 (not the usual 1000) for this arm only: the first launch was killed by a
+# machine reboot 89 min in -- before iter 1000, so nothing was resumable and the
+# whole 12.6h had to restart. Checkpoint frequency consumes no RNG and touches no
+# training math, so the trajectory is unchanged and the fair-comparison rule holds;
+# it only caps the cost of an interruption at ~30 min.
+STATE_EVERY = 250
 
 
 def save_state(model, optimizer, next_iter, elapsed, model_cfg):
