@@ -27,12 +27,30 @@ Milestones 00–13 are complete (see `experiments/README.md` for results).
 Shipped: the hybrid local+global attention win (validated n=3 seeds, with
 its decay curve measured in 12b), a ~1B-token 232M flagship, the MLX
 inference stack, SFT+DPO post-training with the alignment tax measured,
-and 13's MoE verdict. The decisions below are locked in; do not
-re-litigate them without a reason grounded in something that changed.
+13's MoE verdict (its sparse arm released as
+`garagelm/hybrid-gpt-moe-284m-a114m`). 14 (BabyLM) is pre-registered,
+untrained, and **on hold** as of 2026-08-21. The decisions below are locked
+in; do not re-litigate them without a reason grounded in something that
+changed.
 
-**Next lever**: distillation is the priced, unspent one — 12's probes
-returned a GO (GPT-2-XL leads our base by 0.296 nats as a same-tokenizer
-logit teacher; local synthetic generation prices at ~13.9M tokens/day).
+**Active: milestone 15, `experiments/15-harness/`** — the inference-time
+lever: the strongest open small model that fits the machine (Qwen3.5-9B,
+4-bit, MLX; 35B-A3B as a conditional stretch arm) inside a harness
+(consensus, execution-verified best-of-N, ARC-AGI program synthesis with
+train-pair verification), measured against dated, sourced frontier scores.
+Substrate in `benchmarks/harness/` (runner against `mlx_lm.server`,
+graders imported from lm-eval, sandboxed code execution). Rules that are
+specific to it: the control is the same model at k=1; every k is derived
+from one k=8 run by subsampling; frontier rows are quoted with model, date,
+source URL and `local_rerun: false` (the one stated exception to re-running
+references locally: closed models cannot run here and there is no API
+budget); the lab's own 232M models are floor rows, never contenders.
+
+**Next lever after 15**: distillation, still priced and unspent — 12's
+probes returned a GO (GPT-2-XL leads our base by 0.296 nats as a
+same-tokenizer logit teacher; local synthetic generation prices at ~13.9M
+tokens/day). 15's verifier-filtered traces are that synthetic corpus, so
+the two compose rather than compete.
 
 **Open blocker on every future comparison**: the standing quality suite
 runs at `--limit 300`, where the standard error on a proportion is ~2.9

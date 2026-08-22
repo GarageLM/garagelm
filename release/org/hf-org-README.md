@@ -30,6 +30,7 @@ consumer machine produce?
 |---|---|
 | [hybrid-gpt-232m](https://huggingface.co/garagelm/hybrid-gpt-232m) | 232M base · hybrid local+global attention · 1B refined tokens |
 | [hybrid-gpt-232m-chat](https://huggingface.co/garagelm/hybrid-gpt-232m-chat) | SmolTalk SFT of the base — zero benchmark regression |
+| [hybrid-gpt-moe-284m-a114m](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m) | 8-expert top-2 MoE, 284M total / 114M active · research artifact: the memory-matched MoE-vs-dense comparison, with its controls, on the card |
 
 **Headline result**: at matched, locally re-run evaluation the base model
 is at-or-above Pythia-160M (trained on 300× more tokens) across

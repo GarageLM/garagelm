@@ -136,3 +136,8 @@ tokens, English only. Preference tuning is UltraFeedback DPO only —
 **no dedicated safety/alignment tuning**. Do not deploy for anything
 where correctness matters. The measured capability cost of the chat
 tuning is stated above, not hidden.
+
+Related: the base model is `garagelm/hybrid-gpt-232m`; milestone 13's
+sparse arm, [`garagelm/hybrid-gpt-moe-284m-a114m`](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m)
+(8 experts, top-2, 284M total / 114M active), is a reproducibility artifact
+with its controls on its card, not a stronger model.

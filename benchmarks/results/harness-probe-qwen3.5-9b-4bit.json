@@ -1,0 +1,202 @@
+{
+  "concurrency": {
+    "1": {
+      "wall_s": 50.111351013183594,
+      "completion_tokens": [
+        2048
+      ],
+      "aggregate_tok_s": 40.8689839445997,
+      "per_stream_tok_s_mean": 40.86926297575081,
+      "prompt_tokens": [
+        66
+      ],
+      "finish": [
+        "length"
+      ],
+      "errors": [],
+      "peak_rss_gb": 5.870010368
+    },
+    "4": {
+      "wall_s": 87.24458599090576,
+      "completion_tokens": [
+        2048,
+        2048,
+        2048,
+        2048
+      ],
+      "aggregate_tok_s": 93.8969439416438,
+      "per_stream_tok_s_mean": 23.48162140274349,
+      "prompt_tokens": [
+        66,
+        58,
+        55,
+        54
+      ],
+      "finish": [
+        "length",
+        "length",
+        "length",
+        "length"
+      ],
+      "errors": [],
+      "peak_rss_gb": 5.933826048
+    },
+    "8": {
+      "wall_s": 319.0146927833557,
+      "completion_tokens": [
+        2048,
+        2048,
+        2048,
+        2048,
+        2048,
+        2048,
+        2048,
+        2048
+      ],
+      "aggregate_tok_s": 51.358136069069545,
+      "per_stream_tok_s_mean": 6.42464943325168,
+      "prompt_tokens": [
+        66,
+        58,
+        55,
+        54,
+        54,
+        51,
+        53,
+        58
+      ],
+      "finish": [
+        "length",
+        "length",
+        "length",
+        "length",
+        "length",
+        "length",
+        "length",
+        "length"
+      ],
+      "errors": [],
+      "peak_rss_gb": 6.127321088
+    },
+    "16": {
+      "wall_s": 942.2301523685455,
+      "completion_tokens": [
+        0,
+        2048,
+        2048,
+        2048,
+        2048,
+        2048,
+        2048,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2048,
+        0,
+        2048
+      ],
+      "aggregate_tok_s": 17.388532895932556,
+      "per_stream_tok_s_mean": 6.292513617007472,
+      "prompt_tokens": [
+        null,
+        58,
+        55,
+        54,
+        54,
+        51,
+        53,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        58,
+        null,
+        54
+      ],
+      "finish": [
+        null,
+        "length",
+        "length",
+        "length",
+        "length",
+        "length",
+        "length",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "length",
+        null,
+        "length"
+      ],
+      "errors": [
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: ",
+        "ReadTimeout: "
+      ],
+      "peak_rss_gb": 6.438060032
+    }
+  },
+  "served": [
+    "mlx-community/Qwen3.5-9B-4bit",
+    "mlx-community/SmolLM2-1.7B-Instruct",
+    "mlx-community/Qwen3-1.7B-4bit"
+  ],
+  "ttft_s_stream_c1": 0.9317920207977295,
+  "model": "mlx-community/Qwen3.5-9B-4bit",
+  "quant": "q4",
+  "date": "2026-08-21",
+  "probe_max_tokens": 2048,
+  "sampler": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0.0,
+    "max_tokens": 2048,
+    "enable_thinking": true
+  },
+  "kv": {
+    "layers": 32,
+    "full_attention_layers": 8,
+    "kv_heads": 4,
+    "head_dim": 256,
+    "kv_bytes_per_token_bf16": 32768
+  },
+  "weights_gb": 5.950221072,
+  "planned_peak_gb_at_32k": {
+    "1": 13.040740112,
+    "4": 16.312297232,
+    "8": 20.674373392,
+    "16": 29.398525712
+  },
+  "contention_at_probe": [
+    "65.3 /Applications/League",
+    "60.0 /Applications/League"
+  ],
+  "elapsed_s": 1412.4362087249756,
+  "g0": {
+    "aggregate_tok_s_at_c8": 51.358136069069545,
+    "gate_tok_s": 150,
+    "pass_tok_s": false,
+    "measured_peak_rss_gb": 6.438060032,
+    "gate_rss_gb": 42,
+    "pass_rss": true,
+    "planned_peak_gb_c8_32k": 20.674373392,
+    "gate_planned_gb": 40,
+    "pass_planned": true,
+    "valid_for_g0": false,
+    "note": "contended probe (League of Legends at 60-65% CPU and using the GPU during the run): C>=8 collapse is not interpretable; C=16 errors were client timeouts from queueing 16 requests against decode-concurrency 8 (probe bug, fixed). Re-run on an idle machine before pinning G0."
+  }
+}

@@ -7,7 +7,7 @@ scale or at the small model sizes this repo actually trains (see
 `CLAUDE.md`).
 
 Write-ups so far: topic 7 → `data-quality-frontier.md`; topic 8 →
-`kimi-k3.md`.
+`kimi-k3.md`; topic 9 → `test-time-compute.md`.
 
 1. **Attention foundations: MHA → MQA → GQA.** Why multi-query and
    grouped-query attention exist (KV-cache size at inference), and what
@@ -72,3 +72,13 @@ Write-ups so far: topic 7 → `data-quality-frontier.md`; topic 8 →
    - [Kimi Linear / KDA](https://arxiv.org/abs/2510.26692)
    - [Gated DeltaNet](https://openreview.net/forum?id=r8H7xhYPwz)
    - [flash-linear-attention](https://github.com/fla-org/flash-linear-attention)
+
+9. **Test-time compute and inference harnesses.** What inference-time
+   compute buys a small open model (consensus, verifier search, program
+   synthesis with refinement loops), what it costs in tokens and wall-clock,
+   and where it stops working. Write-up: `test-time-compute.md`, the
+   foundation for `experiments/15-harness/`.
+   - [HF search-and-learn](https://huggingface.co/learn/cookbook/en/search_and_learn)
+   - [Cost-Effective Agent Harnesses for ARC-AGI-1](https://arxiv.org/abs/2607.06764)
+   - [ARC Prize 2025 technical report](https://arxiv.org/abs/2601.10904)
+   - [Compute-optimal test-time scaling](https://arxiv.org/abs/2502.06703)

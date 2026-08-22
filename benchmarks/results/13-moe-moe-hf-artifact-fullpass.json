@@ -1,0 +1,15 @@
+{
+  "experiment": "13-moe-moe (HF artifact garagelm/hybrid-gpt-moe-284m-a114m, bf16 weights, fp32 compute)",
+  "research_fp32_capacity_full_pass_val_loss": 3.8094,
+  "artifact_dropless_full_pass_val_loss": 3.8086,
+  "artifact_capacity_full_pass_val_loss": 3.8094,
+  "block_size": 1024,
+  "val_bin": "experiments/05-data-frontier/data/val.bin",
+  "val_tokens": 2000000,
+  "protocol": "non-overlapping windows, stride=block, fp32 compute on bf16 weights, tail dropped; benchmarks/full_pass_val.full_pass_loss via the HF wrapper, micro=4",
+  "seconds": {
+    "dropless": 367.7,
+    "capacity": 239.3
+  },
+  "date": "2026-08-21"
+}

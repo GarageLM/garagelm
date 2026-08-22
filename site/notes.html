@@ -106,7 +106,7 @@
         </div>
       </sc-for>
     </div>
-    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut: 1.01×] · muon [fail: −0.22 nats at default LR] · epoch4 [fail: −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail: −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. post-training has since been run (exp 12); distillation is the remaining priced lever.</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:10px">milestone 11 final: bf16 [cut: 1.01×] · muon [fail: −0.22 nats at default LR] · epoch4 [fail: −0.32 nats, 0.90-nat overfit gap] · edu-score4 [fail: −0.045 nats on decontaminated val]. four gated negatives; the recipe stands. post-training has since been run (exp 12) and moe measured (exp 13); the inference harness is the active lever (exp 15), distillation the priced one after it.</div>
 
     <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
     <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
@@ -130,6 +130,15 @@ class Component extends DCLogic {
 
   posts() {
     return [
+      { date: '2026-08-21', tag: 'LAB', exp: 'exp 13\u201315', title: 'MoE shipped as an artifact; the lever moves to inference',
+        excerpt: 'Milestone 13\u2019s sparse arm is on Hugging Face with its controls on the card. BabyLM is parked. The next milestone wraps an open 9B model in a harness and measures it against the frontier.',
+        body: [
+          'The sparse arm from milestone 13 is public: garagelm/hybrid-gpt-moe-284m-a114m, 8 experts \u00d7 top-2, 284M total / 114M active, 100M tokens. It is a reproducibility artifact, not a model to use: the card carries the three-way table (it beat its active-matched control by 0.0004 nats and lost to the memory-matched dense arm on every axis). Two things were measured on the shipped weights: bf16 costs nothing at four decimals, and the wrapper\u2019s dropless routing (the training-time capacity rule never bound) lands at 3.8086 against the research 3.8094.',
+          'Milestone 14, BabyLM, is pre-registered with its prediction pinned from 12b\u2019s decay curve, then parked untrained, by choice.',
+          'Milestone 15 changes the lever. Pretraining scale is not something this lab can push past ~250M parameters; inference-time compute is the other axis, and the 2026 record says harness design moves small models more than anything else available at this scale (+52 points on ARC-AGI-1 at fixed weights in one July paper). So: the strongest open small model that fits the machine (Qwen3.5-9B, 4-bit, MLX) inside a harness (consensus, execution-verified best-of-N, ARC-AGI program synthesis verified on the train pairs), measured against dated, sourced frontier scores. The control is the same model at k=1; every k is derived from one k=8 run; every number ships with tokens, wall-clock and memory.',
+          'First readings: the model loads under the lab\u2019s pinned stack, thinks long (AIME traces run well past 8k tokens), and the throughput probe has to be redone on an idle machine before any lane launches. Distillation, the lever 12 priced, becomes 16: the harness\u2019s verifier-filtered traces are its corpus.'
+        ],
+        linkLabel: 'the pre-registration \u00bb', linkHref: 'https://github.com/GarageLM/garagelm/blob/main/experiments/15-harness/README.md' },
       { date: '2026-07-23', tag: 'RESEARCH', exp: 'exp 11', title: 'Four negatives and a caught contamination',
         excerpt: 'Milestone 11 tested four efficiency levers under pre-registered gates. All four failed, and an adversarial review caught 11.5% of the validation set hiding in a training pool before it could fake a win.',
         body: [
@@ -216,7 +225,9 @@ class Component extends DCLogic {
       { id: '12', date: '2026-07', name: 'post-training', dir: '12-post-training', what: 'SmolTalk SFT then DPO on UltraFeedback. The alignment tax measured for the first time here (\u22122.2 ARC-Easy points at 310M SFT tokens, ~0 at 60M); DPO passes both gates at zero further cost. Chat v2 shipped; distillation probes return a GO.', stamp: 'v2', k: 'done' },
       { id: '12b', date: '2026-07', name: 'budget ablation', dir: '12-budget-ablation', what: 'does the hybrid-vs-full gap move with training budget? Hybrid ahead at 50M/100M/200M tokens, but the edge decays as training grows: a measured decay curve, not a fixed gap', stamp: 'curve', k: 'done' },
       { id: '13', date: '2026-07', name: 'moe', dir: '13-moe', what: 'at a hard memory budget, is a sparse model worth its bytes? 8 experts \u00d7 top-2 against both an active-matched and a memory-matched dense control. 2.5\u00d7 the parameters bought validation loss and nothing else measurable: neither large arm gained a downstream point, and both decode slower. loss and capability came apart', stamp: 'flat', k: 'done' },
-      { id: '\u2014', date: '2026-q4', name: 'beyond tokens', what: 'the lever 12\u2019s probes priced: distillation from a same-tokenizer teacher with 0.3 nats of headroom, plus longer context', stamp: 'planned', k: 'planned' },
+      { id: '14', date: '2026-07', name: 'babylm', dir: '14-babylm', what: 'does the hybrid prior pay more when data is scarce? strict and strict-small tracks, n=3 seeds, the prediction pinned from 12b\u2019s decay curve before any run. pre-registered, then parked untrained', stamp: 'on hold', k: 'cut' },
+      { id: '15', date: '2026-08', name: 'harness', dir: '15-harness', what: 'the inference-time lever: the strongest open small model that fits the machine (qwen3.5-9b, 4-bit, mlx) inside a harness (consensus, execution-verified best-of-n, arc-agi program synthesis verified on the train pairs), against dated frontier scores. control: the same model at k=1. every number with tokens, wall-clock and memory', stamp: 'active', k: 'active' },
+      { id: '16', date: '2026-q4', name: 'distillation', what: 'the lever 12\u2019s probes priced: a same-tokenizer teacher with 0.3 nats of headroom. 15\u2019s verifier-filtered traces are the synthetic corpus', stamp: 'planned', k: 'planned' },
     ].map(r => ({
       ...r, stampStyle: stamp(r.k),
       repo: r.dir ? REPO + '/' + r.dir : REPO,

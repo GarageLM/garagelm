@@ -3,7 +3,10 @@
 Milestone-based training/eval harness for prototyping new attention variants,
 run entirely locally (see `CLAUDE.md` for hardware/framework decisions).
 Milestones 00-13 are complete — each directory's README has its results and
-the pre-registered gates they were adjudicated against.
+the pre-registered gates they were adjudicated against. `14-babylm/` is
+pre-registered and on hold (no arm trained). `15-harness/` is active: the
+inference-time lever (open small model + harness vs dated frontier scores),
+substrate in `benchmarks/harness/`.
 
 Two findings from `13-moe/` constrain how later milestones can be read.
 **Validation loss and downstream capability came apart**: the memory-matched
@@ -106,7 +109,9 @@ below run newest-first after the corpus upgrade.
   amortized it and T=1 decode does not — design-review F4 called this in
   advance, so it is not an architectural verdict on MoE. Deferred lanes
   (LatentMoE, shared experts, router z-loss, MLX expert paging) stay
-  deferred. Gates and full tables: `13-moe/README.md`.
+  deferred. Gates and full tables: `13-moe/README.md`. The moe arm is
+  released as a reproducibility artifact:
+  [`garagelm/hybrid-gpt-moe-284m-a114m`](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m).
 
 - **`12-budget-ablation/`** — the external review's decisive experiment for
   the paper's central architecture claim: **does the hybrid-vs-full gap move

@@ -152,6 +152,10 @@ Both are logit-parity-gated against this PyTorch implementation.
 - Trained on FineWeb-Edu and Cosmopedia-v2 (both ODC-BY); inherits their
   biases and educational-web distribution.
 - MMLU-class benchmarks are at chance, as for all models this size.
+- Milestone 13's sparse arm, [`garagelm/hybrid-gpt-moe-284m-a114m`](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m)
+  (8 experts, top-2, 284M total / 114M active, 100M tokens), is released as a
+  reproducibility artifact with its active-matched and memory-matched controls
+  on its card; it is not a stronger model than this one.
 - The chat-tuned variant is `garagelm/hybrid-gpt-232m-chat` (v2: 310M-token
   SmolTalk SFT + UltraFeedback DPO; IFEval 13.9% prompt-strict, at a
   disclosed ~2-point full-set ARC-Easy cost vs this base — details on its

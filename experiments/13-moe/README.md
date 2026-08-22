@@ -6,6 +6,15 @@ comparisons match **active** parameters (equal FLOPs, memory treated as
 free). At this lab's floor, memory *is* the budget — so we run both
 controls.
 
+**Released** (2026-08-21): the moe arm is on the Hub as
+[`garagelm/hybrid-gpt-moe-284m-a114m`](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m),
+bf16, `trust_remote_code` wrapper `release/modeling_moe_gpt.py`, card
+`release/card_moe.md` carrying the three-way tables below. The wrapper
+defaults to dropless routing (the training-time fixed capacity never
+bound: drop rate 0.0004) and keeps capacity mode switchable; its card
+reports the shipped artifact's own full-pass val in both modes. Not an
+MLX build: that port stays deferred per the verdict.
+
 ## Pre-registered gates (written before any run)
 
 - **Arms** (05 pool, block 1024, 100M tokens, seed 1337, hybrid

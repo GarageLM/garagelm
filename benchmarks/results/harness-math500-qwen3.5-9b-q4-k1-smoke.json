@@ -1,0 +1,76 @@
+{
+  "experiment": "harness-math500-qwen3.5-9b-q4-k1",
+  "smoke": true,
+  "run_id": "smoke-aime-9b-q4-cons8",
+  "task": "math500",
+  "task_args": {
+    "limit": 5,
+    "levels": [
+      1,
+      2
+    ]
+  },
+  "model": "mlx-community/Qwen3.5-9B-4bit",
+  "model_short": "qwen3.5-9b",
+  "quant": "q4",
+  "strategy": "cons",
+  "k": 1,
+  "sampler": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0.0,
+    "max_tokens": 32768,
+    "enable_thinking": true
+  },
+  "config_sha": "6380a95ebb7e",
+  "git_hash": "3f4de47",
+  "date": "2026-08-21",
+  "n_items": 5,
+  "n_samples": 5,
+  "n_errors": 0,
+  "accuracy": 0.2,
+  "accuracy_metric": "acc@1",
+  "accuracy_ci": [
+    0.0,
+    0.6
+  ],
+  "accuracy_wilson": [
+    0.03622316096978745,
+    0.6244717358814613
+  ],
+  "avg_at_1": 0.2,
+  "cons_at_k": {
+    "1": 0.2
+  },
+  "pass_at_k_diagnostic": {
+    "1": 0.2
+  },
+  "truncation_rate": 0.8,
+  "completion_tokens_total": 39420,
+  "completion_tokens_per_sample_mean": 7884.0,
+  "completion_tokens_per_sample_p95": 8192,
+  "completion_tokens_per_item_mean": 7884.0,
+  "completion_tokens_per_item_p95": 8192,
+  "tokens_per_correct": 39420.0,
+  "wall_s_per_sample_mean": 1542.700809764862,
+  "elapsed_s": 3334.9592339992523,
+  "wall_s_per_item": 666.9918467998505,
+  "aggregate_tok_s": 11.820234441884887,
+  "peak_rss_gb": 6.440861696,
+  "per_item_cons_correct": {
+    "math500-test_prealgebra_1622.json": true,
+    "math500-test_geometry_248.json": false,
+    "math500-test_algebra_1349.json": false,
+    "math500-test_precalculus_807.json": false,
+    "math500-test_precalculus_1303.json": false
+  },
+  "per_item_avg1": {
+    "math500-test_prealgebra_1622.json": 1.0,
+    "math500-test_geometry_248.json": 0.0,
+    "math500-test_algebra_1349.json": 0.0,
+    "math500-test_precalculus_807.json": 0.0,
+    "math500-test_precalculus_1303.json": 0.0
+  },
+  "samples_this_session": 5
+}

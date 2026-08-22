@@ -45,6 +45,11 @@ def main():
     parser.add_argument("--micro-batch", type=int, default=4)
     parser.add_argument("--bucket", type=int, default=64)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--tag", default=None,
+                        help="suffix for the result filename, e.g. --tag babylm gives "
+                             "'<exp>-babylm-per-position.json'. Required when probing a "
+                             "model against a val bin other than its own, so the run does "
+                             "not overwrite that model's canonical per-position record.")
     args = parser.parse_args()
 
     exp_dir = os.path.abspath(args.experiment_dir)
@@ -95,11 +100,13 @@ def main():
         "windows": n_windows,
         "seed": args.seed,
         "bucket_size": args.bucket,
+        "data_bin": os.path.abspath(data_bin),
         "mean_loss": float(per_position.mean()),
         "bucket_mean_loss": buckets,
     }
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, f"{name}-per-position.json")
+    stem = f"{name}-{args.tag}" if args.tag else name
+    out_path = os.path.join(RESULTS_DIR, f"{stem}-per-position.json")
     with open(out_path, "w") as f:
         json.dump(summary, f, indent=2)
 

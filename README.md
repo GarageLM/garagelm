@@ -25,6 +25,10 @@ pushes the frontier itself.
 [`garagelm/hybrid-gpt-232m-chat`](https://huggingface.co/garagelm/hybrid-gpt-232m-chat)
 (chat v2: SmolTalk SFT + UltraFeedback DPO; v1 stays fetchable at HF
 revision `v1`) — both load via `transformers` with `trust_remote_code=True`.
+Also released, as a reproducibility artifact rather than a model to use:
+[`garagelm/hybrid-gpt-moe-284m-a114m`](https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m),
+milestone 13's sparse arm (8 experts, top-2, 284M total / 114M active, 100M
+tokens), with the three-way comparison on its card.
 
 **Headline result so far** (full synthesis:
 [`docs/writeup-hybrid-attention.md`](docs/writeup-hybrid-attention.md)):
@@ -91,7 +95,8 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     return a **GO** for a future program: GPT-2-XL leads our base
     by 0.296 nats on the shared val as a same-tokenizer logit teacher,
     and local synthetic generation prices at ~13.9M tokens/day. (That
-    lever is still unspent — 13 went to MoE instead.)
+    lever is still unspent: 13 went to MoE, 15 goes to the inference
+    harness, and distillation is 16.)
 12. **12b: budget ablation** — the review-requested decisive experiment
     for the paper's central architecture claim: hybrid vs full attention
     at 50M / 100M / 200M tokens, byte-identical code, pre-registered
@@ -117,7 +122,29 @@ PyTorch/MPS; inference latency is measured in MLX (parity-gated port in
     as the design review predicted — not an architectural verdict). Two
     lessons outrank the verdict: validation loss and downstream
     capability came apart, and the standing eval suite cannot separate
-    models at this scale.
+    models at this scale. The sparse arm is on the Hub as a
+    reproducibility artifact (`garagelm/hybrid-gpt-moe-284m-a114m`).
+14. **14: BabyLM (pre-registered, on hold)** — the data-scarcity test of
+    the hybrid prior: 12b's decay curve predicts the hybrid-vs-full gap
+    should grow as data shrinks, so BabyLM strict (100M words) and
+    strict-small (10M words) are the two points, n=3 seeds, the prediction
+    pinned (−0.046 / −0.098 nats) before any run. Parked, untrained.
+
+## Active: the inference-time lever (milestone 15)
+
+Pretraining scale is not a lever this lab can pull past ~250M params.
+Inference-time compute is the other axis, and the 2026 record says harness
+design moves small models more than anything else available at this scale
+(+52 points on ARC-AGI-1 at fixed weights, arXiv 2607.06764). So
+`experiments/15-harness/`: the strongest open small model that fits the
+machine (Qwen3.5-9B, 4-bit, MLX) inside a harness (consensus,
+execution-verified best-of-N, ARC-AGI program synthesis verified on the
+train pairs), measured against dated, sourced frontier scores. The control
+is the same model at k=1; every k is derived from one k=8 run; every number
+ships with tokens, wall-clock and memory. Substrate: `benchmarks/harness/`
+(runner against `mlx_lm.server`, graders imported from lm-eval, sandboxed
+execution). Distillation, the lever 12's probes priced, follows as 16: the
+harness's verifier-filtered traces are its synthetic corpus.
 
 See `experiments/README.md` for per-milestone results and
 `benchmarks/README.md` for the evaluation methodology.

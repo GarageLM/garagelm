@@ -14,3 +14,9 @@ experiments/10-sft/data/
 # MLX release build outputs (weights + tokenizer copies); regenerate with
 # release/mlx/export.py, which is deterministic and re-gates parity.
 release/mlx/repos/
+
+# milestone 15 harness: server state, per-run traces (gzipped copies land in
+# benchmarks/results/harness-traces/, shipped to HF when large)
+benchmarks/harness/.server/
+experiments/15-harness/runs/
+benchmarks/results/harness-traces/

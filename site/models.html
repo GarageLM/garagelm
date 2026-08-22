@@ -150,6 +150,26 @@ class Component extends DCLogic {
         links: [
           { label: 'weights on hugging face \u2197', href: 'https://huggingface.co/garagelm/hybrid-gpt-232m-chat', target: '_blank' }
         ] },
+      { name: 'hybrid-gpt-moe-284m-a114m', tag: '[artifact]', meta: 'hf: garagelm/hybrid-gpt-moe-284m-a114m · released 2026-08 · research artifact',
+        excerpt: 'Milestone 13\u2019s sparse arm: 8 experts \u00d7 top-2 on the hybrid stack, released so the MoE-vs-dense comparison can be re-run, not to be used.',
+        specs: [
+          'params ....... 284M total \u00b7 114M active',
+          'ffn .......... 8 SwiGLU experts (hidden 1024), linear router, top-2',
+          'attention .... hybrid, identical to the 114M control',
+          'data ......... 100M tokens of the milestone-05 pool',
+          'val loss ..... 3.8094 (control 3.8398 \u00b7 dense-284m 3.7711)',
+          'verdict ...... 2.5\u00d7 the params bought loss, not capability'
+        ],
+        paras: [
+          'Frontier MoE comparisons match active parameters and treat memory as free. At this lab\u2019s floor memory is the budget, so both controls ran: the 114M dense model it shares active parameters with, and a 284M dense model it shares memory with. The sparse arm cleared its pre-registered loss gate against the first by 0.0004 nats, lost to the second by 0.038 nats, separated from neither on downstream tasks, and decoded slowest under the research implementation.',
+          'The wrapper defaults to dropless routing: the training-time fixed capacity (an MPS static-shape hack) never bound, drop rate 0.0004, and at inference it would starve short prompts. Measured on the shipped bf16 weights: capacity mode reproduces the research number to four decimals, dropless lands at 3.8086.',
+          'Limitations: 100M training tokens, 1024 context, English only, no alignment. Its purpose is to let milestone 13 be re-run.',
+          'AutoModelForCausalLM.from_pretrained("garagelm/hybrid-gpt-moe-284m-a114m", trust_remote_code=True)'
+        ],
+        links: [
+          { label: 'weights on hugging face \u2197', href: 'https://huggingface.co/garagelm/hybrid-gpt-moe-284m-a114m', target: '_blank' },
+          { label: 'milestone 13 on github \u00bb', href: 'https://github.com/GarageLM/garagelm/tree/main/experiments/13-moe', target: '_blank' }
+        ] },
       { name: 'toy-188', tag: '[instrument]', meta: 'runs locally · not on hugging face', instrument: true,
         excerpt: 'The 188-parameter transformer inside Learn. It lives in your browser, and you can watch it train.',
         specs: [
