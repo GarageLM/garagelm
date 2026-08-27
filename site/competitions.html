@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="logo.png">
+<title>garagelm.org · competitions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  [data-theme="light"], :root {
+    --bg:#fffff8; --ink:#1a1a1a; --ink2:#3d3d38; --mute:#6f6f66; --line:#c9c9bd;
+    --accent:#0000cc; --visited:#551a8b; --hover:#cc4400; --warm:#1e3a8a; --ok:#0a7a2f; --code:#f4f4ea;
+  }
+  [data-theme="dark"] {
+    --bg:#111110; --ink:#d9d9cf; --ink2:#b9b9ac; --mute:#84847a; --line:#3c3c34;
+    --accent:#8fb0ff; --visited:#c39bf0; --hover:#ffab70; --warm:#8fa8ee; --ok:#7fbf7a; --code:#1c1c18;
+  }
+  :root {
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --t-body:18px; --t-sec:15px; --t-meta:13px; --t-micro:11px; --t-h2:21px;
+  }
+  h1, h2 { margin:0; font-weight:700; }
+  a { text-underline-offset:2px; }
+  h2.sec-head { font-family:var(--mono); font-size:var(--t-h2); font-weight:700; letter-spacing:-.3px; line-height:1.3; margin:0 0 12px; }
+  hr.rule { border:0; border-top:1px dashed var(--line); margin:40px 0; }
+  .colspec { display:grid; grid-template-columns:max-content 1fr; gap:3px 16px; }
+  .colspec > :nth-child(odd) { color:var(--mute); white-space:nowrap; }
+  ::selection { background: #3355bb; color:#fff; }
+  a:link { color: var(--accent); }
+  a:visited { color: var(--visited); }
+  a:hover { color: var(--hover); }
+  [data-theme="dark"] .site-logo { filter: invert(.93) hue-rotate(180deg); }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.7">
+  <div style="max-width:720px;margin:0 auto;padding:36px 20px 60px">
+
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <a href="index.html" style="font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);text-decoration:none" style-hover="color:var(--ink)"><img src="logo.png" alt="" class="site-logo" style="height:33px;vertical-align:-7px;margin-right:9px">garagelm<span style="color:var(--warm)">.org</span></a>
+      <div style="flex:1"></div>
+      <button onClick="{{ onTheme }}" title="toggle light/dark" style="cursor:pointer;background:none;border:1px solid var(--line);padding:1px 7px;font-family:var(--mono);font-size:13px;color:var(--ink)">{{ themeIcon }}</button>
+      <a href="https://huggingface.co/garagelm" target="_blank" title="garagelm on hugging face" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px;transform:translateY(-1px)">hf</a>
+      <a href="https://github.com/garagelm" target="_blank" title="garagelm on github" style="color:var(--ink)"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:block;transform:translateY(2px)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+    </div>
+    <div style="color:var(--mute);margin-top:2px;font-size:15px">the garage intelligence lab · real models, cheap hardware, honest numbers</div>
+    <div style="font-family:var(--mono);font-size:15px;margin-top:12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px"><span><a href="index.html">home</a> &nbsp;·&nbsp; <a href="models.html">models</a> &nbsp;·&nbsp; <a href="notes.html">notes</a> &nbsp;·&nbsp; <b>competitions</b> &nbsp;·&nbsp; <a href="learn.html">learn</a> &nbsp;·&nbsp; <a href="team.html">team</a></span></div>
+
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
+
+    <h2 class="sec-head"><span style="color:var(--warm)">$</span> competitions</h2>
+    <p style="margin:0 0 12px">The milestones run on pre-registered gates against controls the lab owns. A competition inverts that: a live ladder, an adversarial field, and a scoreboard nobody can argue with. The lab enters one when the methodology needs a stress test it cannot give itself. Each campaign gets a full account here, win or lose, in the same format as the research notes.</p>
+    <div style="overflow-x:auto;margin-bottom:8px">
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:13px;width:100%">
+        <tr style="border-bottom:1px solid var(--line);text-align:left"><th style="padding:4px 8px 4px 0">when</th><th style="padding:4px 8px">arena</th><th style="padding:4px 8px">agent</th><th style="padding:4px 8px">live rating</th><th style="padding:4px 8px">status</th></tr>
+        <tr><td style="padding:4px 8px 4px 0;white-space:nowrap">2026-06 → 08</td><td style="padding:4px 8px">pokémon tcg ai battle · kaggle, simulation track</td><td style="padding:4px 8px">mlp behavior cloning + meta decks</td><td style="padding:4px 8px;white-space:nowrap">600 → 1022.9</td><td style="padding:4px 8px;white-space:nowrap;color:var(--warm)">final scoring</td></tr>
+      </table>
+    </div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);margin-bottom:22px">1 campaign · the leaderboard freezes ~2026-08-31; the write-up below is the post-deadline account</div>
+
+    <div style="border-top:1px dashed var(--line);margin:28px 0"></div>
+
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute)">2026-08-27 · <span style="color:var(--warm);font-weight:700">[campaign]</span> · kaggle simulation track, off the milestone path</div>
+    <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.6px;line-height:1.25;margin:10px 0 8px;font-family:Georgia,'Times New Roman',serif">A deck swap and two data bugs: 600 → 1023 on the Pokémon ladder</h1>
+    <div style="font-size:15px;color:var(--ink2);font-style:italic;margin-bottom:18px">Three months on Kaggle's Pokémon TCG AI Battle ladder (June to August 2026): the lab's side campaign in decision-making under imperfect information. The agent that held is a plain MLP behavior-cloned on a million corrected replay decisions, flying the meta's best decks. The three largest gains of the whole effort were a deck swap and two data-pipeline bug fixes, and nearly every modeling lever gated null with a mechanism attached. This is the summary: the solution, the arc, what paid, what didn't, and what transfers.</div>
+
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin-bottom:22px">
+      <div style="font-weight:700;margin-bottom:4px">campaign box</div>
+      <div>arena ........ Kaggle "Pokémon TCG AI Battle" · simulation track · deadline 2026-08-16</div>
+      <div>game ......... full Pokémon TCG: hidden hands, decks, prizes · coin flips · ~2,100 cards</div>
+      <div>contract ..... agent(obs) -> list[int] over engine-legal options · plus the 60-card deck</div>
+      <div>ladder ....... gaussian skill rating · every submission enters at μ=600 · W/L only</div>
+      <div>final agent .. drgfx pair: MLP behavior cloning on ~1M corrected replay decisions</div>
+      <div>result ....... 600 start → 1022.9 live team best</div>
+      <div>effort ....... ~90 experiment dirs · 40+ levers closed with mechanism · 2 data bugs</div>
+    </div>
+
+    <h2 class="sec-head" style="margin:0 0 12px"><span style="color:var(--warm)">1.</span> the problem, and why it counts here</h2>
+    <p style="margin:0 0 13px;color:var(--ink2)">The Pokémon TCG is an imperfect-information game: the opponent's hand is hidden, both players' deck order and prizes are hidden, and coin flips decide real outcomes. The engine calls your agent at every decision point with the board state and a list of legal options; you return indices. The ladder updates a gaussian skill rating on wins and losses only, never game score, and every submission enters at μ=600. Everything you can run locally (a Docker sim, seat-alternated A/Bs, a gauntlet of field decks mined from replays) is a proxy. The ladder is the only instrument that measures the thing being ranked.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">For this lab the appeal was exactly that: the same discipline the milestones run under (controls, pre-registered gates, honest numbers) pointed at an adversarial scoreboard that cannot be argued with. The campaign ran off the milestone path, but it stress-tested the lab's methodology harder than any milestone has.</p>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">2.</span> the arc, in six phases</h2>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>June · heuristics and search.</b> A greedy heuristic (evolve, attach, develop the board, highest-damage attack) beat random ~92%. On top of it, determinized search: sample the hidden zones, roll each world forward through the engine's own forward model, average. Cross-turn lookahead (horizon ≥ 2) was the whole edge: within one turn, greedy was already near-optimal. Live: ~602 on an off-meta combo deck.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>June · the deck lesson.</b> The same agent on the field's #1 deck moved 540 → ~912. The largest single gain of the campaign, and one self-play is structurally blind to: mirrors cancel the deck.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>June to July · learned components hit their ceilings.</b> PUCT with a self-play-trained value flopped live at 538, recovered to ~820 with a value grounded in field replays, and plateaued at the heuristic's level. The value ceiling (~0.75 val-acc) held across five representations: informational, not architectural. RL on top of the imitation policy: seven configurations, all flat.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>July · meta-chasing and the harvest.</b> Archetype pilots (Alakazam 819, Garchomp ~803, Archaludon, Grimmsnarl), a C++ rollout search, and a 22.5k-episode harvest of top-band ladder replays. Live archetype pilots kept beating every local proxy's prediction.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>July 28 · the alignment bug.</b> Replay actions answer the <i>previous</i> step's observation: every imitation label was shifted by one. The fix took the corrected pilot's game gate from 13–34% to 95.4% and spawned the il2 family, whose arch pair peaked at 904.6.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)"><b>August · frozen weights and the second bug.</b> A dozen refinement levers gated null and the weights froze. Deck censuses steered submissions through the Dragapult wave. Then the second structural bug, found in the final week: fetch decisions were featurized card-blind (a zeroed source-card id). The fix was worth ~+19 points on four independent gates, and the fixed build (drgfx) hit 1022.9 live. The field's #1 finished on a structural counter-deck: a basics-toolbox Kangaskhan going 15–4 into Dragapult.</p>
+    <div style="margin:0 0 13px">{{ ratingFigure }}</div>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">3.</span> the solution that held</h2>
+    <p style="margin:0 0 13px;color:var(--ink2)">Strip the story to its ending and the shipped agent is almost embarrassingly plain: no search at play time, no RL, no transformer. A feed-forward network, behavior-cloned on roughly a million decisions mined from top-band ladder replays, playing the meta's best decks. Everything that made it strong happened in the data: the harvest was large, the labels correctly paired, the features actually populated.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Those last two clauses carried the campaign, because both were false for most of it. The label-alignment bug (actions off by one observation) silently poisoned every offline imitation metric for a month. The fetch-featurization bug made the whole model family card-blind on the most common decision type until the final week. Both hid the same way: the model was trained <i>and validated</i> on the same wrong data, so offline top-1 improved (0.51 → 0.57) while the live game gate collapsed (34% → 13%). A better fit to the wrong target is a worse policy. Only numbers measured by playing games survived the audit.</p>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">4.</span> what paid, ranked</h2>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">1 · deck-vs-field fit.</b> +~370 live from one swap. Deck strength against the field is invisible to every local proxy: only the ladder measures it.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">2 · fixing the label-alignment bug.</b> One index shift in replay extraction. The fix was worth more than all architecture work combined.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">3 · fixing the fetch-blind featurization.</b> One zeroed feature on the most common decision type. ~+19 points across four independent gates.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">4 · high-volume corrected behavior cloning.</b> A plain MLP on ~1M correctly-paired decisions beat every hand-built agent. Volume beat curation: leader-only subsets added nothing.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">5 · cross-turn search on an honest forward model.</b> +~10 points over greedy in the heuristic era, fading as pilots got stronger.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 13px"><b style="color:var(--ink)">6 · live replay mining as diagnosis.</b> Never directly rating-positive, but it produced every precise finding: the anti-aggro hole, the Ogerpon weakness mechanism, the deck censuses that steered the final submissions.</div>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">5.</span> what didn't: closed, with mechanism</h2>
+    <p style="margin:0 0 13px;color:var(--ink2)">Each of these was closed by a fair, seat-alternated game gate, and each closure came with a reason. That is what makes the list safe to trust.</p>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">Better value functions.</b> Capped at ~0.75 val-acc across five representations (scalar MLP, attention, sequence GRU, card-embedding transformer, heuristic). The limit is informational: the game is near-Markovian and the residual is unseen future draws. No architecture breaks it.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">Distilling search into the policy.</b> Flat even re-run correctly. 46% of searched decisions have flat Q-values: the policy learns the value's shape, not a better ranking. The search edge is play-time only.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">RL past the imitation cap.</b> REINFORCE, PPO (with and without critic warm-up and reward shaping), SIL, self-play curriculum: seven configurations, all flat. The opponent was too weak to carry signal, and small-scale self-play degraded rather than compounded.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">Deeper or wider search.</b> The agent used 3–7% of its 420 s time bank, yet paired 32-vs-256-world tests showed extra depth makes candidate moves converge. Never size a search knob from an unpaired sweep.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">Specialist fine-tunes and deck cloning.</b> Three separate failures with one shape: pass the mirror, fail the field. Specialists overfit the self-play opponent, and cloned decks lose without their original pilots.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 10px"><b style="color:var(--ink)">More heuristic guards.</b> One guard fixed one of five losses in its target matchup. The chronic holes were damage math and matchup structure, not piloting.</div>
+    <div style="font-size:15px;color:var(--ink2);line-height:1.65;margin:0 0 13px"><b style="color:var(--ink)">Rules exploits.</b> Stall-to-draw, timeout attrition, mill, deck-stacking: draws were 6 of 14,821 games, timeouts 5. The engine and ladder leave nothing there.</div>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">6.</span> twelve laws, ordered by what they cost to learn</h2>
+    <div class="colspec" style="font-family:var(--mono);font-size:13px;line-height:1.6;margin:0 0 13px">
+      <span>1</span><span>the ground truth is the game, not the metric: offline top-1 rose .51 → .57 while live play fell 34% → 13%</span>
+      <span>2</span><span>audit labels and features before touching architecture: two data bugs out-earned months of modeling</span>
+      <span>3</span><span>know what each proxy cannot see: self-play cancels the deck · saturated gauntlets cannot rank the top</span>
+      <span>4</span><span>measure the ceiling before you scale: one maximally-advantaged iteration killed a multi-day run, correctly</span>
+      <span>5</span><span>engineer the variance before trusting any delta: byte-identical submissions diverged σ≈48 live</span>
+      <span>6</span><span>distribution shift is the default read on better-offline-worse-live (agent vs expert states: auc .83)</span>
+      <span>7</span><span>score the decision, not the index: a policy at .34 agreement beat one at .49 · the game gate decides</span>
+      <span>8</span><span>record negatives with mechanism, not mood: 40+ closed levers stayed navigable, re-litigation stayed cheap</span>
+      <span>9</span><span>search pays only where the value is honest: a bc value head lost rating to search, an on-policy head gained</span>
+      <span>10</span><span>strategy beats sophistication: the winner ran a counter-deck · a full bc → ppo → mcts pipeline placed 552nd</span>
+      <span>11</span><span>hard operational gates prevent unforced errors: zero validation failures across dozens of submissions</span>
+      <span>12</span><span>volume beats curation for imitation: everything correctly labeled beat every curated subset</span>
+    </div>
+
+    <h2 class="sec-head" style="margin:36px 0 12px"><span style="color:var(--warm)">7.</span> what transfers</h2>
+    <p style="margin:0 0 13px;color:var(--ink2)">The toolkit that survived every methodological audit: a process-isolated, seat-alternated A/B harness. A field gauntlet of real opponent decks mined from replays, the first offline proxy for strength-against-the-field. A divergence check that asks whether a change alters any decision at all before gating it. The make-or-break test: one maximally-advantaged iteration before any long training commitment. And the research log plus memory index, negatives recorded with mechanism, which is the reason three months of results stayed composable instead of becoming folklore.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">Unfired ammunition, if the arena reopens: an on-policy value head for search (the field's post-mortems say a behavior-cloned head loses 20–30 rating points to test-time search and an on-policy head gains 50–70). A DAgger-style on-policy correction for the distribution shift we diagnosed and never treated. And a native-speed harness from day one: the engine compiled natively ~50× faster than under emulation, discovered months in, after every sweep had been noise-limited by throughput.</p>
+    <p style="margin:0 0 13px;color:var(--ink2)">None of this is Pokémon-specific. Law 1 is the lesson milestone 13 taught at home (loss and downstream capability coming apart), and law 5 is the lab's standing eval-resolution blocker wearing tournament clothes. The rating was the score. The map of what pays, what doesn't, and how to tell the difference cheaply is the deliverable.</p>
+
+    <div style="border:1px solid var(--line);background:var(--code);padding:12px 16px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:18px 0">
+      <div style="font-weight:700;margin-bottom:4px">the record</div>
+      <div>arena ........ <a href="https://www.kaggle.com/competitions/pokemon-tcg-ai-battle" target="_blank">kaggle.com/competitions/pokemon-tcg-ai-battle ↗</a></div>
+      <div>final two .... the drgfx pair: fetch-fixed il2 behavior cloning</div>
+      <div>field's #1 ... a structural counter-deck (basics-toolbox kangaskhan, 15–4 into dragapult)</div>
+      <div>the log ...... ~90 experiment dirs · 40-entry memory index · research log, kept off-repo</div>
+    </div>
+
+    <div style="border-top:1px dashed var(--line);margin:44px 0 16px"></div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.75;text-align:center">
+      <div><a href="index.html">home</a> · <a href="models.html">models</a> · <a href="notes.html">notes</a> · <b>competitions</b> · <a href="learn.html">learn</a> · <a href="team.html">team</a></div>
+      <div>real models · cheap hardware · honest numbers</div>
+      <div style="margin-top:2px"><a href="https://huggingface.co/garagelm" target="_blank" style="text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid var(--line);padding:1px 5px">hf</a> &nbsp;<a href="https://github.com/garagelm" target="_blank" style="color:var(--ink)"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:-2px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></div>
+      <div>© 2026 garagelm.org</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;,&quot;section&quot;:&quot;Site&quot;}}">
+class Component extends DCLogic {
+  state = { dark: null };
+
+  figure(title, children, w, h) {
+    return React.createElement('div', { style: { border: '1px solid var(--line)', padding: '12px 14px 8px' } },
+      React.createElement('svg', { viewBox: `0 0 ${w} ${h}`, style: { width: '100%', display: 'block' } }, ...children),
+      React.createElement('div', { style: { fontFamily: "var(--mono)", fontSize: '11px', color: 'var(--mute)', marginTop: '6px' } }, title));
+  }
+
+  ratingFig() {
+    const el = React.createElement;
+    // live rating of each era's best build, jun 16 -> aug 16
+    // [timeline fraction, rating, label, dx, dy, anchor]
+    const pts = [
+      [0.10, 602, '602 · pimc, off-meta deck', 0, 16, 'middle'],
+      [0.21, 912, '912 · deck swap', 0, -8, 'middle'],
+      [0.31, 538, '538 · self-play value', 8, 4, 'start'],
+      [0.43, 820, '820 · field value', 0, -8, 'middle'],
+      [0.59, 819, '819 · archetype pilots', 0, 16, 'middle'],
+      [0.79, 905, '905 · alignment fix', -8, -6, 'end'],
+      [0.97, 1023, '1022.9 · fetch fix', 0, -8, 'end'],
+    ];
+    const X = f => 60 + f * 610, Y = v => 20 + (1050 - v) / 550 * 140;
+    const path = pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1)).join(' ');
+    const els = [
+      el('line', { key: 'ax1', x1: 60, y1: 14, x2: 60, y2: 160, stroke: 'var(--line)' }),
+      el('line', { key: 'ax2', x1: 60, y1: 160, x2: 670, y2: 160, stroke: 'var(--line)' }),
+      el('line', { key: 'g6', x1: 60, y1: Y(600), x2: 670, y2: Y(600), stroke: 'var(--line)', 'stroke-dasharray': '3,4' }),
+      el('text', { key: 'y6', x: 54, y: Y(600) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '600'),
+      el('text', { key: 'y8', x: 54, y: Y(800) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '800'),
+      el('text', { key: 'y10', x: 54, y: Y(1000) + 4, 'text-anchor': 'end', fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, '1000'),
+      el('path', { key: 'p', d: path, fill: 'none', stroke: 'var(--warm)', 'stroke-width': 2 }),
+      el('text', { key: 'm1', x: 70, y: 174, fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, 'jun'),
+      el('text', { key: 'm2', x: 210, y: 174, fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, 'jul'),
+      el('text', { key: 'm3', x: 520, y: 174, fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--mute)' }, 'aug'),
+    ];
+    pts.forEach((p, i) => {
+      const x = X(p[0]), y = Y(p[1]);
+      els.push(el('circle', { key: 'c' + i, cx: x, cy: y, r: 3, fill: 'var(--warm)' }));
+      els.push(el('text', { key: 'l' + i, x: x + p[3], y: y + p[4], 'text-anchor': p[5], fontSize: 10.5, fontFamily: "var(--mono)", fill: 'var(--ink2)' }, p[2]));
+    });
+    return this.figure('fig 1 · live rating of each era’s best build (every submission re-enters at μ=600; the line tracks the frontier of the effort)', els, 700, 182);
+  }
+
+  renderVals() {
+    let dark = this.state.dark;
+    if (dark == null) { try { const s = localStorage.getItem('garagelm-theme'); if (s) dark = s === 'dark'; } catch (e) {} }
+    if (dark == null) dark = (this.props.defaultTheme ?? 'light') === 'dark';
+    return {
+      theme: dark ? 'dark' : 'light',
+      ratingFigure: this.ratingFig(),
+      themeIcon: dark ? '☀' : '☾',
+      onTheme: () => { const d = !dark; try { localStorage.setItem('garagelm-theme', d ? 'dark' : 'light'); } catch (e) {} this.setState({ dark: d }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
